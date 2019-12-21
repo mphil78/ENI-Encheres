@@ -60,7 +60,7 @@
 	
 	<br>
 	<div>
-		<a href="./MonProfile">
+		<a href="./TraitementProfile">
 			<input type="button" value="Créer un compte"/>
 		</a>
 	</div>

@@ -48,8 +48,34 @@ public class ServletTestDAL extends HttpServlet {
 					"motdepasse", 
 					600, 
 					false);
+			Utilisateur u2 = new Utilisateur(
+					"toto", 
+					"DELAFONTAINE", 
+					"Robert", 
+					"tito@gmail.com", 
+					"0606060606", 
+					"12 rue du Corbeau et du Renard", 
+					"44444",
+					"TDCDM",
+					"motdepasse", 
+					600, 
+					false);
+			Utilisateur u3 = new Utilisateur(
+					"tutu", 
+					"DELAFONTAINE", 
+					"Robert", 
+					"tito@gmail.com", 
+					"0606060606", 
+					"12 rue du Corbeau et du Renard", 
+					"44444",
+					"TDCDM",
+					"motdepasse", 
+					600, 
+					false);
 			try {
 				utilisateurDAO.insert(u1);
+				utilisateurDAO.insert(u2);
+				utilisateurDAO.insert(u3);
 			} catch (DALException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

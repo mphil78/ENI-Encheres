@@ -39,6 +39,8 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 		rd.forward(request, response);
 	}

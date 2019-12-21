@@ -10,63 +10,40 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	
-    <title>Connexion</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+    <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Eni-Enchère</h1><br><br>
+    <h1>Eni-Enchères</h1>
     
-    <%
-    if (request.getAttribute("erreurConnexion") != null) {
-    %>
-    	
-    <%=request.getAttribute("erreurConnexion") %>
-    
-    <%
-    }
-    %>
-        
-	<div class="col">
-  		<form name="formulaire" action="./TraitementConnexion" method="post">
-		  <div class="form-group row">
-    		<label for="identifiant" class="col-sm-2 col-form-label">Identifiant</label>
-    		<div class="col-sm-4">
-      			<input type="text" class="form-control" id="identifiant" name="identifiant">
-    		</div>
-  		  </div>
-  		  <div class="form-group row">
-    		<label for="password" class="col-sm-2 col-form-label">Mot de passe</label>
-    		<div class="col-sm-4">
-     			<input type="password" class="form-control" id="password" name="motDePasse">
-			</div>
-  		  </div>
-		  <div >
-		 	
-				<input type="submit" value="Connexion"/>
-			
-		  </div>
-		  <div class="form-check">
-	  			<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-	  			<label class="form-check-label" for="defaultCheck1">Se souvenir de moi</label>
-		  </div>
-		</form>
-
-		<div>
-				<a href="">Mot de passe oublié</a>
-			</div>
-
-		
+	<div class="">
+		<a href="./MonProfile">S'inscrire</a>
+		<a href="./Connexion">Se connecter</a>
+	</div>
+	  
+	<h2>Liste des enchères</h2>  
+	<h3>Filtres :</h3>
+	
+	<div class="input-group input-focus col-sm-8" >
+  		<div class="input-group-prepend">
+   		 	<span class="input-group-text bg-white"><i class="fa fa-search"></i></span>
+  		</div>
+  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0">
 	</div>
 	
-	<br>
-	<div>
-		<a href="./MonProfile">
-			<input type="button" value="Créer un compte"/>
-		</a>
+	<div class="col-auto my-1">
+		<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
+		<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
+	        <option selected>Toutes</option>
+	        <option value="1">Informatique</option>
+	        <option value="2">Ameublement</option>
+	        <option value="3">Vêtement</option>
+	        <option value="4">Sport&Loisir</option>
+	     </select>
 	</div>
 	  
-	  
-	  
+	<button type="button" class="btn btn-primary btn-lg">Recherche</button>  
 	  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -75,4 +52,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
-

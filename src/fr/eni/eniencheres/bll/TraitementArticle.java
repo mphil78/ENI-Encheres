@@ -8,6 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.eni.eniencheres.bo.ArticleVendu;
+import fr.eni.eniencheres.bo.Categorie;
+import fr.eni.eniencheres.bo.Retrait;
+import fr.eni.eniencheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class TraitementArticle
@@ -36,7 +42,14 @@ public class TraitementArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO A terminer		
+		//TODO A terminer
+		//Récupération de la session
+		HttpSession session = request.getSession();
+		//instanciation des managers
+		CategorieManager categorieManager = new CategorieManager();
+		RetraitManager retraitManager = new RetraitManager();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		//récupération des données
 		String nom = request.getParameter("nom");
 		String description = request.getParameter("description");
 		LocalDate debutEncheres = LocalDate.parse(request.getParameter("debutEnchere"));
@@ -45,7 +58,30 @@ public class TraitementArticle extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
+		//TODO récupération de l'objet catégorie
+		String categorie = request.getParameter("categorie");
+		Categorie cat = categorieManager.getByNom(categorie);
+		//récupération de l'objet vendeur
+		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		//Création du lieu de retrait
+		Retrait lieuRetrait = null;
+		//création de l'objet article
+		ArticleVendu article = new ArticleVendu(
+								nom,
+								description,
+								debutEncheres,
+								finEncheres,
+								miseAPrix,
+								0,
+								0,
+								cat,
+								vendeur,
+								lieuRetrait
+								);
+		lieuRetrait = new Retrait(rue, codePostal, ville, article);
 		
+		// TODO : inserer Retrait dans BDD, rechercher categorie dans BDD, inserer categorie dans BDD 
+
 	}
 
 }

@@ -41,4 +41,15 @@ public class UtilisateurManager {
 			e.printStackTrace();
 		}
 	}
+
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		try {
+			utilisateurDAO.update(utilisateur);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
+

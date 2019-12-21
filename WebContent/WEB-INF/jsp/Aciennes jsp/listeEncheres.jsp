@@ -21,25 +21,17 @@
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
 	            <h5>Eni-Enchères</h5>
-	            <%
-				if (session.getAttribute("pseudo") != null) {
-				%>               
-	            		            	            
-	                 <a class="nav-link" href="./NouvelleVente">Enchères </a>
 	            
-	                 <a class="nav-link" href="./NouvelleVente">Vendre un article</a>
-	             	                
-	                 <a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>
-	           	               
-	                 <a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
-	              <%
-					}else{
-	              %> 
-	              <a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
-	              <%
-					}
-	              %>
-	                  
+                 <a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+            		            	            
+                 <a class="nav-link" href="./NouvelleVente">Enchères </a>
+            
+                 <a class="nav-link" href="./NouvelleVente">Vendre un article</a>
+             	                
+                 <a class="nav-link" href="./TraitementProfile"><%=session.getAttribute("pseudo") %></a>
+           	               
+                 <a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	                   
 	        </div>
     	</nav>
 	    
@@ -66,14 +58,10 @@
 		
 		
 		<div>
-			<%
-			if (session.getAttribute("pseudo") != null) {
-			%>   
 			<div class="form-check">
-			
 	  			<div class="row">
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="achats" checked >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="achats" >
 			  			<label class="form-check-label" for="achats">Achats</label>
 			  			<br>
 			  			<input class="form-check-input" type="checkbox" value="encheresOuvertes" id="encheresOuvertes">
@@ -87,10 +75,10 @@
 			  		</div>
 			  		
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="mesVentes" >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="mesVentes" checked>
 			  			<label class="form-check-label" for="exampleRadios1">Mes ventes</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesEncours" id="ventesEncours" >
+			  			<input class="form-check-input" type="checkbox" value="ventesEncours" id="ventesEncours">
 			  			<label class="form-check-label" for="ventesEncours">mes ventes en cours</label>
 			  			<br>
 			  			<input class="form-check-input" type="checkbox" value="ventesNondebutees" id="ventesNondebutees">
@@ -101,16 +89,12 @@
 	  				</div>
 			  		
 			  	</div>
-			  	
 			</div>
-			
+		
 			<div>  
-				
+				<button type="button" class="btn btn-primary btn-lg">Rechercher</button>
 			</div>  
-		<%
-		}
-		%>
-		<button type="button" class="btn btn-primary btn-lg">Rechercher</button>
+	
 		</div>
 		
 		<div>
@@ -123,7 +107,7 @@
 						<%=request.getAttribute("nomArticle") %><br>
 						Prix : <%=request.getAttribute("prixVente") %><br>
 						Fin de l'enchère : <%=request.getAttribute("dateFinEncheres")%><br>
-						Vendeur : <a href="./TraitementProfile?pseudoAAfficher=tutu"><%=request.getAttribute("vendeur")%></a><br>
+						Vendeur : <a href="./Profile"><%=request.getAttribute("vendeur")%></a><br>
 					</div>
 				</div>
 			</fieldset>

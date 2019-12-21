@@ -37,11 +37,23 @@ public class TraitementProfile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-
-		RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
+		Utilisateur utilisateur;
+		boolean modifier=false;
+		if(request.getParameter("modifier")!=null) {
+			modifier=true;
+		}
+		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
+		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);
+		if(!modifier) {
+		request.setAttribute("utilisateurAAfficher", utilisateur);
+		RequestDispatcher rd = request.getRequestDispatcher("/Profile");
 		rd.forward(request, response);
+		}else {
+			request.setAttribute("utilisateurAAfficher", utilisateur);
+			RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -50,11 +62,11 @@ public class TraitementProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		String pseudo = request.getParameter("pseudo");
+		String pseudo = (String) session.getAttribute("pseudo");
 		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
 		boolean pseudoOk = true;
 		
-		//teste si pseudo correrspond à une entrée dans la bdd
+		//teste si pseudo correspond à une entrée dans la bdd
 		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
 			String pseudoBdd = user.getKey();
 		    if (pseudoBdd.equals(pseudo)) {
@@ -86,17 +98,25 @@ public class TraitementProfile extends HttpServlet {
 		
 		
 		if (!pseudoOk) {
-			//on envoie l'erreur sur le pseudo et l'objet utilisateur
-			request.setAttribute("erreurPseudo", "Veuillez choisir un autre pseudo.");
-			request.setAttribute("utilisateur", newUtilisateur);
-			RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
-			rd.forward(request, response);
+			if (request.getParameter("update")!=null) {
+				utilisateurManager.updateUtilisateur(newUtilisateur);
+				RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+				rd.forward(request, response);
+			} else {
+				//on envoie l'erreur sur le pseudo et l'objet utilisateur
+				request.setAttribute("erreurPseudo", "Veuillez choisir un autre pseudo.");
+				request.setAttribute("utilisateur", newUtilisateur);
+				RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
+				rd.forward(request, response);
+			}
 		}else {
 			utilisateurManager.addUtilisateur(newUtilisateur);
 			session.setAttribute("pseudo", newUtilisateur.getPseudo());
 			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 			rd.forward(request, response);
 		}
+		
+		
 		
 		
 	}
