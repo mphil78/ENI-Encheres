@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
+    <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
     
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,9 @@
 <title>Détail Vente</title>
 </head>
 <body>
-<% ArticleVendu articleAAfficher = (ArticleVendu)session.getAttribute("articleAAfficher"); %>
+<% ArticleVendu articleAAfficher = (ArticleVendu)session.getAttribute("articleAAfficher");
+   Utilisateur utilisateur = (Utilisateur)request.getAttribute("utilisateur");
+%>
 
 
 <p>
