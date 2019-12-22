@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
     <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
+
     
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,7 @@
 %>
 
 
+
 <p>
 			<label for="description">Description : </label>
 			<input type="text" name="description" id="description" value="<%= articleAAfficher.getDescription()%>"><br>
@@ -26,7 +28,6 @@
 	</p>
 	<p>
 			<label for="meilleureOffre">Meilleure Offre : </label>
-
 			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%= String.valueOf(articleAAfficher.getPrixVente()) %>"><br>
 
 	</p>
