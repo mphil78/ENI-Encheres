@@ -23,7 +23,9 @@
 	</p>
 	<p>
 			<label for="meilleureOffre">Meilleure Offre : </label>
-			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%= String.valueOf(articleAAfficher.getPrixVente()) %>"></br>
+
+			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%= String.valueOf(articleAAfficher.getPrixVente()) %>"><br>
+
 	</p>
 	<p>
 			<label for="miseAPrix">Mise à prix : </label>
@@ -34,7 +36,9 @@
 	<input type="date" id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>">
 	<p>
 			<label for="lieuRetrait">Retrait : </label>
-			<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait()%>" ></br>
+
+			<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait()%>" ><br>
+
 			</p>
 			<p>
 			<label for="vendeur">Vendeur : </label>
