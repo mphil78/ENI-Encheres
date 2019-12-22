@@ -1,0 +1,12 @@
+##JAVA
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.rar
+
+## TODO ajouter les fichiers des IDE ( Eclipse ) dès que le processus de build serra indépendant.

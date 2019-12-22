@@ -228,7 +228,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("L'update de l'utilisateur a Ã©chouÃ© - " + utilisateur.getNom(), e);
+			throw new DALException("L'update de l'utilisateur a échoué - " + utilisateur.getNom(), e);
 		} finally {
 			try {
 				if (rqt != null){
