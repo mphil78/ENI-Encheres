@@ -65,53 +65,64 @@ public class TraitementProfile extends HttpServlet {
 		String pseudo = (String) session.getAttribute("pseudo");
 		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
 		boolean pseudoOk = true;
+		Utilisateur utilisateurModifie=null;
 		
-		//teste si pseudo correspond Ã  une entrÃ©e dans la bdd
+		//teste si pseudo correspond à  une entrée dans la bdd
 		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
 			String pseudoBdd = user.getKey();
 		    if (pseudoBdd.equals(pseudo)) {
-				pseudoOk = false;	
+				pseudoOk = false;
+				utilisateurModifie = utilisateurManager.getByPseudo(pseudo);
 		    }
 		}
 		
-		//crÃ©e une instance pojo utilisateur avec les donnÃ©es
-		Utilisateur newUtilisateur = new Utilisateur();
-		newUtilisateur.setPseudo(request.getParameter("pseudo"));
-		newUtilisateur.setNom(request.getParameter("nom"));
-		newUtilisateur.setPrenom(request.getParameter("prenom"));
-		newUtilisateur.setEmail(request.getParameter("email"));
-		newUtilisateur.setTelephone(request.getParameter("telephone"));
-		newUtilisateur.setRue(request.getParameter("rue"));
-		newUtilisateur.setCodePostal(request.getParameter("codePostal"));
-		newUtilisateur.setVille(request.getParameter("ville"));
-		newUtilisateur.setMotDePasse(request.getParameter("password"));
+		
+		//crée une instance pojo utilisateur avec les données
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setNom(request.getParameter("nom"));
+		utilisateur.setPrenom(request.getParameter("prenom"));
+		utilisateur.setEmail(request.getParameter("email"));
+		utilisateur.setTelephone(request.getParameter("telephone"));
+		utilisateur.setRue(request.getParameter("rue"));
+		utilisateur.setCodePostal(request.getParameter("codePostal"));
+		utilisateur.setVille(request.getParameter("ville"));
+		utilisateur.setMotDePasse(request.getParameter("password"));
 		int credit = 0;
 		boolean administrateur = false;
 		List<ArticleVendu> vente = new ArrayList<>();
 		List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
 		List<Enchere> listeEncheres = new ArrayList<>();
-		newUtilisateur.setCredit(credit);
-		newUtilisateur.setAdministrateur(administrateur);
-		newUtilisateur.setVente(vente);
-		newUtilisateur.setListeArticlesAchete(listeArticlesAchete);
-		newUtilisateur.setListeEncheres(listeEncheres);
+		utilisateur.setCredit(credit);
+		utilisateur.setAdministrateur(administrateur);
+		utilisateur.setVente(vente);
+		utilisateur.setListeArticlesAchete(listeArticlesAchete);
+		utilisateur.setListeEncheres(listeEncheres);
 		
 		
 		if (!pseudoOk) {
 			if (request.getParameter("update")!=null) {
-				utilisateurManager.updateUtilisateur(newUtilisateur);
+				utilisateurModifie.setEmail(utilisateur.getEmail());
+				utilisateurModifie.setNom(utilisateur.getNom());
+				utilisateurModifie.setPrenom(utilisateur.getPrenom());
+				utilisateurModifie.setTelephone(utilisateur.getTelephone());
+				utilisateurModifie.setRue(utilisateur.getRue());
+				utilisateurModifie.setCodePostal(utilisateur.getCodePostal());
+				utilisateurModifie.setVille(utilisateur.getVille());
+				utilisateurManager.updateUtilisateur(utilisateurModifie);
 				RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 				rd.forward(request, response);
 			} else {
 				//on envoie l'erreur sur le pseudo et l'objet utilisateur
 				request.setAttribute("erreurPseudo", "Veuillez choisir un autre pseudo.");
-				request.setAttribute("utilisateur", newUtilisateur);
+				request.setAttribute("utilisateur", utilisateur);
 				RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
 				rd.forward(request, response);
 			}
 		}else {
-			utilisateurManager.addUtilisateur(newUtilisateur);
-			session.setAttribute("pseudo", newUtilisateur.getPseudo());
+			
+			utilisateur.setPseudo(request.getParameter("pseudo"));
+			utilisateurManager.addUtilisateur(utilisateur);
+			session.setAttribute("pseudo", utilisateur.getPseudo());
 			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 			rd.forward(request, response);
 		}

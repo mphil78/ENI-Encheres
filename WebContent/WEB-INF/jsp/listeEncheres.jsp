@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="java.util.List"%>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -15,6 +17,7 @@
     <title>Liste Enchères</title>
   </head>
   <body>
+  	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
     
     <div class="container">
 	    
@@ -57,10 +60,9 @@
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
 			<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
 		        <option selected>Toutes</option>
-		        <option value="1">Informatique</option>
-		        <option value="2">Ameublement</option>
-		        <option value="3">Vêtement</option>
-		        <option value="4">Sport&Loisir</option>
+		        <% for (String lib : libelles) { %>
+		        <option value="<%=lib%>"><%=lib%></option>
+		        <%}%>
 		     </select>
 		</div>
 		

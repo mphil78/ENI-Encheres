@@ -41,7 +41,7 @@ public class TraitementConnexion extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+		RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 		rd.forward(request, response);
 	}
 

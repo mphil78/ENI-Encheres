@@ -26,7 +26,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+" from UTILISATEURS"
 			+ " where no_utilisateur = ?";
 	private static final String sqlSelectByPseudo =
-			"select pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit" 
+			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit" 
 			+" from UTILISATEURS"
 			+ " where pseudo = ?";
 	private static final String sqlSelectAll =
@@ -244,7 +244,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}		
 	}
 	
-	//OK
+	//TODO A terminer
 	@Override
 	public Utilisateur selectByIdArticle(int id) throws DALException {
 		Connection cnx = null;
@@ -342,7 +342,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		return identifiants;
 	}
-
+	
+	//TODO A Terminer
 	@Override
 	public Utilisateur selectByPseudo(String pseudo) {
 		Connection cnx = null;
@@ -356,6 +357,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rs = rqt.executeQuery();
 			if (rs.next()){
 				utilisateur = new Utilisateur(
+						rs.getInt("no_utilisateur"),
 						rs.getString("pseudo"),
 						rs.getString("nom"),
 						rs.getString("prenom"),

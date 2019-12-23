@@ -55,14 +55,12 @@
 			int minOffre = meilleureOffre + EncheresManager.PADDING;
 			%>
 						
-			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %> value = "<%= utilisateur.getCredit()%>" step = "10"><br>
+			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %> value = "<%=utilisateur.getCredit() %>" step = "EncheresManager.PADDING"><br>
 	</p>
 		
 			
 	<p>
 		<button type="submit" name="encherir" id="encherir">Enchérir</button>
 	</p>
-			
-</p>
 </body>
 </html>

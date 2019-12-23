@@ -43,13 +43,13 @@ public class TraitementArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//TODO A terminer
-		//R√©cup√©ration de la session
+		//RÈcupÈration de la session
 		HttpSession session = request.getSession();
 		//instanciation des managers
 		CategorieManager categorieManager = new CategorieManager();
 		RetraitManager retraitManager = new RetraitManager();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		//r√©cup√©ration des donn√©es
+		//RÈcupÈration des donnÈes
 		String nom = request.getParameter("nom");
 		String description = request.getParameter("description");
 		LocalDate debutEncheres = LocalDate.parse(request.getParameter("debutEnchere"));
@@ -58,14 +58,14 @@ public class TraitementArticle extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
-		//TODO r√©cup√©ration de l'objet cat√©gorie
+		//TODO RÈcupÈration de l'objet catÈgorie
 		String categorie = request.getParameter("categorie");
 		Categorie cat = categorieManager.getByNom(categorie);
-		//r√©cup√©ration de l'objet vendeur
+		//RÈcupÈration de l'objet vendeur
 		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
-		//Cr√©ation du lieu de retrait
+		//CrÈation du lieu de retrait
 		Retrait lieuRetrait = null;
-		//cr√©ation de l'objet article
+		//CrÈation de l'objet article
 		ArticleVendu article = new ArticleVendu(
 								nom,
 								description,

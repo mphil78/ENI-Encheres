@@ -137,7 +137,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			}
 		}catch(SQLException e){
 			System.out.println(e);
-			throw new DALException("La crÃ©ation de la catÃ©gorie a Ã©chouÃ© - " + categorie.getLibelle(), e);
+			throw new DALException("La Création de la catégorie a échoué - " + categorie.getLibelle(), e);
 		}
 		finally {
 			try {
@@ -148,7 +148,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a Ã©chouÃ© - ", e);
+				throw new DALException("La fermeture de la connexion a échoué - ", e);
 			}
 
 		}		

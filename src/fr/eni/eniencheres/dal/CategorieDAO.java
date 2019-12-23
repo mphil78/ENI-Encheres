@@ -15,7 +15,7 @@ public interface CategorieDAO {
 	//Sélectionner une categorie par son id pour article
 	public void insert(Categorie categorie) throws DALException;
 	
-	//Sélectionner toutes les catégories
+	//Sélectionner toutes les categories
 	public List<Categorie> selectAll() throws DALException;
 	
 }

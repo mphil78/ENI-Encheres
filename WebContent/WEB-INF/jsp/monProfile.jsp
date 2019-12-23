@@ -68,7 +68,7 @@
 					</p>
 					<p>
 						<label for="email">Email : </label>
-						<input type="email" name="email" id="email" value="<%= utilisateur.getEmail()%>" disabled><br>
+						<input type="email" name="email" id="email" value="<%= utilisateur.getEmail()%>"><br>
 					</p>
 					<p>
 						<label for="telephone">Téléphone : </label>
@@ -141,7 +141,8 @@
 					<input type="password" name="password5" id="password5" required><br>
 				</p>    
 				<p>
-					Crédit <%= utilisateur.getCredit()%>
+					<label for="credit">Crédit : </label>
+					<input type="text" name="credit" value="<%= utilisateur.getCredit()%>" disabled>
 					
 				</p>
 			<%
