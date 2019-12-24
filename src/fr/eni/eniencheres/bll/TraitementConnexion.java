@@ -77,7 +77,7 @@ public class TraitementConnexion extends HttpServlet {
 		//redirection adaptée
 		if (pseudoOk && passOk) {
 			session.setAttribute("pseudo", pseudoUtilisateur);
-			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
 		} else {
 			request.setAttribute("erreurConnexion", "La connexion a échoué. Veuillez réessayer.");

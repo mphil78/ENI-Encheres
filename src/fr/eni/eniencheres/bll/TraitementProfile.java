@@ -40,20 +40,36 @@ public class TraitementProfile extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Utilisateur utilisateur;
 		boolean modifier=false;
+		boolean supprimer=false;
 		if(request.getParameter("modifier")!=null) {
 			modifier=true;
 		}
-		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
-		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);
-		if(!modifier) {
-		request.setAttribute("utilisateurAAfficher", utilisateur);
-		RequestDispatcher rd = request.getRequestDispatcher("/Profile");
-		rd.forward(request, response);
-		}else {
+		if(request.getParameter("supprimer")!=null) {
+			supprimer=true;
+		}
+		
+		if (modifier) {
+			String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
+			utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);
 			request.setAttribute("utilisateurAAfficher", utilisateur);
 			RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
 			rd.forward(request, response);
 		}
+		
+		if (supprimer) {
+			String pseudoASupprimer = (String) request.getParameter("pseudoASupprimer");
+			utilisateur = utilisateurManager.getByPseudo(pseudoASupprimer);
+			System.out.println("effacer utilisateur : " + utilisateur.getNom());
+			utilisateurManager.delete(utilisateur);
+			RequestDispatcher rd = request.getRequestDispatcher("/TraitementConnexion");
+			rd.forward(request, response);
+		}
+		
+		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
+		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);		
+		request.setAttribute("utilisateurAAfficher", utilisateur);
+		RequestDispatcher rd = request.getRequestDispatcher("/Profile");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -100,6 +116,7 @@ public class TraitementProfile extends HttpServlet {
 		
 		
 		if (!pseudoOk) {
+			//si le pseudo existe déjà
 			if (request.getParameter("update")!=null) {
 				utilisateurModifie.setEmail(utilisateur.getEmail());
 				utilisateurModifie.setNom(utilisateur.getNom());
@@ -119,11 +136,11 @@ public class TraitementProfile extends HttpServlet {
 				rd.forward(request, response);
 			}
 		}else {
-			
+			//sinon on inclut l'utilisateur
 			utilisateur.setPseudo(request.getParameter("pseudo"));
 			utilisateurManager.addUtilisateur(utilisateur);
 			session.setAttribute("pseudo", utilisateur.getPseudo());
-			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
 		}
 		

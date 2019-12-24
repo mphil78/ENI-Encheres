@@ -167,22 +167,23 @@
 			if (session.getAttribute("pseudo") != null) {
 			%>
 			<!-- Connecté -->
-				<p>
+				
 					<button type="submit" name="enregistrer" id="enregistrer">Enregistrer</button>
-					<a href="./Accueil" ><button type="reset" name="supprimer" id="supprimer">Supprimer mon compte</button></a>
-				</p>
+				</form>
+					<a href="./TraitementProfile?pseudoASupprimer=<%=session.getAttribute("pseudo")%>&supprimer=true" ><button type="button" name="supprimer" id="supprimer">Supprimer mon compte</button></a>
+				
 			<%
 			}else{
 			%>
 			<!-- Non connecté -->
 				<p>
 					<button type="submit" name="creer" id="creer">Créer</button>
+				</form>
 					<a href="./Accueil" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>
 				</p>
 			<%
 			} 
 			%>
-		</form>
 		
 	</div>
 </body>

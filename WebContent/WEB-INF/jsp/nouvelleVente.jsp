@@ -55,15 +55,15 @@
 	<legend>Retrait</legend>
 
 	<label for="rue">Rue : </label>
-	<input type="text" name="rue" id="rue" placeholder="<%=request.getParameter("rue")%>" required><br>
+	<input type="text" name="rue" id="rue" value="<%=request.getParameter("rue")%>" required><br>
 	
 	
 	<label for="codePostal">Code Postal : </label>
-	<input type="text" name="codePostal" id="codePostal" placeholder="<%=request.getParameter("codePostal")%>" required><br>
+	<input type="text" name="codePostal" id="codePostal" value="<%=request.getParameter("codePostal")%>" required><br>
 	
 	
 	<label for="ville">Ville : </label>
-	<input type="text" name="ville" id="ville" placeholder="<%=request.getParameter("ville")%>" required><br>
+	<input type="text" name="ville" id="ville" value="<%=request.getParameter("ville")%>" required><br>
 </fieldset>
 <button type="submit" name="enregistrer" id="enregistrer">Enregistrer</button>
 <a href="WebContent/WEB-INF/jsp/listeEncheres.jsp" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>

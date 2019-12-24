@@ -51,5 +51,14 @@ public class UtilisateurManager {
 		}
 	}
 
+	public void delete(Utilisateur utilisateur) {
+		try {
+			utilisateurDAO.delete(utilisateur);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
 

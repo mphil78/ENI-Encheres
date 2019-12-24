@@ -204,6 +204,30 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	//NON IMPLEMENTER CAR UTILISATEUR SEULEMENT DESACTIVER
 	@Override
 	public void delete(Utilisateur utilisateur) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlDelete);
+			rqt.setInt(1, utilisateur.getNoUtilisateur());
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DALException("La suppression de l'utilisateur a échoué - " + utilisateur.getNom(), e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx !=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}		
+
 	}
 
 	//OK
