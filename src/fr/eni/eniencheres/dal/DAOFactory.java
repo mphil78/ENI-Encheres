@@ -1,6 +1,7 @@
 package fr.eni.eniencheres.dal;
 
-@SuppressWarnings("deprecation")
+import fr.eni.eniencheres.dal.jdbc.RetraitDAOJdbcImp;
+
 public class DAOFactory {
 	public static UtilisateurDAO getUtilisateurDAO ()  {
 		UtilisateurDAO utilisateurDAO=null;
@@ -38,18 +39,20 @@ public class DAOFactory {
 
 	public static RetraitDAO getRetraitDAO() {
 		RetraitDAO retraitDAO=null;
-		try {
-			retraitDAO=(RetraitDAO) Class.forName("fr.eni.eniencheres.dal.jdbc.RetraitDAODAOJdbcImpl").newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+			//retraitDAO=(RetraitDAO) Class.forName("fr.eni.eniencheres.dal.jdbc.RetraitDAODAOJdbcImpl").newInstance();
+			retraitDAO=new RetraitDAOJdbcImp();
+
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return retraitDAO; 
 	}
 	
