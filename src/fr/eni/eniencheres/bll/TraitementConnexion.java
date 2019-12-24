@@ -1,7 +1,6 @@
 package fr.eni.eniencheres.bll;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -12,11 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import fr.eni.eniencheres.bo.Utilisateur;
-import fr.eni.eniencheres.dal.DALException;
-import fr.eni.eniencheres.dal.DAOFactory;
-import fr.eni.eniencheres.dal.UtilisateurDAO;
 
 /**
  * Servlet implementation class TraitementUtilisateur

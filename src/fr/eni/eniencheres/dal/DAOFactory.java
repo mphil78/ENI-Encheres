@@ -1,5 +1,6 @@
 package fr.eni.eniencheres.dal;
 
+@SuppressWarnings("deprecation")
 public class DAOFactory {
 	public static UtilisateurDAO getUtilisateurDAO ()  {
 		UtilisateurDAO utilisateurDAO=null;

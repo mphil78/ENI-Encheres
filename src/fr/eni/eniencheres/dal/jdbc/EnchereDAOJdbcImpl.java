@@ -6,10 +6,10 @@ import fr.eni.eniencheres.dal.EnchereDAO;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	//TODO FixMe
-	private static final String sqlInsert =
-			"insert "
-			+ "into ENCHERES(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)"
-			+ " values(?,?,?,?,?,?,?,?,?,?,?)";
+//	private static final String sqlInsert =
+//			"insert "
+//			+ "into ENCHERES(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)"
+//			+ " values(?,?,?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	public void insert(Enchere enchere) throws DALException {

@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import fr.eni.eniencheres.bo.Categorie;
-import fr.eni.eniencheres.dal.CategorieDAO;
-
 /**
  * Servlet implementation class TraitementAccueil
  */

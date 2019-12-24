@@ -4,13 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import fr.eni.eniencheres.bo.ArticleVendu;
-import fr.eni.eniencheres.bo.Enchere;
 import fr.eni.eniencheres.bo.Retrait;
-import fr.eni.eniencheres.bo.Utilisateur;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.RetraitDAO;
 

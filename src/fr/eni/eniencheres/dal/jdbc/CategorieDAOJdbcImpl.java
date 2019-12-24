@@ -10,8 +10,6 @@ import java.util.List;
 
 import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Categorie;
-import fr.eni.eniencheres.bo.Enchere;
-import fr.eni.eniencheres.bo.Utilisateur;
 import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
