@@ -2,7 +2,10 @@ package fr.eni.eniencheres.bll;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +37,16 @@ public class TraitementArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		CategorieManager categorieManager = new CategorieManager();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		List<String> listeLibellesCategories = new ArrayList<>();
+		listeLibellesCategories = categorieManager.getAllLibelles();
+		request.setAttribute("vendeur",vendeur);
+		request.setAttribute("libelles", listeLibellesCategories);
+		RequestDispatcher rd = request.getRequestDispatcher("./NouvelleVente");
+		rd.forward(request, response);
 	}
 
 	/**

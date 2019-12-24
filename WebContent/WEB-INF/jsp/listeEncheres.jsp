@@ -30,7 +30,7 @@
 	            		            	            
 	                 <a class="nav-link" href="./NouvelleVente">Enchères </a>
 	            
-	                 <a class="nav-link" href="./NouvelleVente">Vendre un article</a>
+	                 <a class="nav-link" href="./TraitementArticle">Vendre un article</a>
 	             	                
 	                 <a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>
 	           	               

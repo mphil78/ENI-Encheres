@@ -8,6 +8,7 @@
 <title>Profile</title>
 </head>
 <body>
+<!--  MODE CONNECTE UNIQUEMENT -->
 <% Utilisateur utilisateurAAfficher = (Utilisateur)request.getAttribute("utilisateurAAfficher"); %>
 
 	<p>

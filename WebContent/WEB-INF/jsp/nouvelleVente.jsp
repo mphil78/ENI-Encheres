@@ -1,6 +1,10 @@
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
+
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +12,11 @@
 <title>Nouvelle Vente</title>
 </head>
 <body>
+
+<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
+<% Utilisateur vendeur = (Utilisateur)request.getAttribute("vendeur");	%>
+
+
 <form action="./TraitementArticle" method="post">
 <h2>ENI-Enchères</h2>
 <h2>Nouvelle vente</h2><br>
@@ -23,11 +32,9 @@
 <p>
 	<label for="categorie">Catégorie</label>
 	<select id="categorie">
-		<option value="defaut"></option>
-		<option value="informatique">Informatique</option>
-		<option value="ameublement">Ameublement</option>
-		<option value="vetement">Vêtement</option>
-		<option value="sportLoisirs">Sport & Loisirs</option>
+		        <% for (String lib : libelles) { %>
+		        <option value="<%=lib%>"><%=lib%></option>
+		        <%}%>
 </select>
 </p>
 <p>
@@ -55,15 +62,15 @@
 	<legend>Retrait</legend>
 
 	<label for="rue">Rue : </label>
-	<input type="text" name="rue" id="rue" value="<%=request.getParameter("rue")%>" required><br>
+	<input type="text" name="rue" id="rue" value="<%=vendeur.getRue()%>" required><br>
 	
 	
 	<label for="codePostal">Code Postal : </label>
-	<input type="text" name="codePostal" id="codePostal" value="<%=request.getParameter("codePostal")%>" required><br>
+	<input type="text" name="codePostal" id="codePostal" value="<%=vendeur.getCodePostal()%>" required><br>
 	
 	
 	<label for="ville">Ville : </label>
-	<input type="text" name="ville" id="ville" value="<%=request.getParameter("ville")%>" required><br>
+	<input type="text" name="ville" id="ville" value="<%=vendeur.getVille()%>" required><br>
 </fieldset>
 <button type="submit" name="enregistrer" id="enregistrer">Enregistrer</button>
 <a href="WebContent/WEB-INF/jsp/listeEncheres.jsp" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>
