@@ -57,6 +57,7 @@ public class TraitementArticle extends HttpServlet {
 		//Récupération de la session
 		HttpSession session = request.getSession();
 		//instanciation des managers
+		ArticleManager arcticleManager = new ArticleManager();
 		CategorieManager categorieManager = new CategorieManager();
 		RetraitManager retraitManager = new RetraitManager();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
@@ -69,13 +70,11 @@ public class TraitementArticle extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
-		//TODO Récupération de l'objet catégorie
+		//Récupération de l'objet catégorie
 		String categorie = request.getParameter("categorie");
 		Categorie cat = categorieManager.getByNom(categorie);
 		//Récupération de l'objet vendeur
 		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
-		//Création du lieu de retrait
-		Retrait lieuRetrait = null;
 		//Création de l'objet article
 		ArticleVendu article = new ArticleVendu(
 								nom,
@@ -83,15 +82,20 @@ public class TraitementArticle extends HttpServlet {
 								debutEncheres,
 								finEncheres,
 								miseAPrix,
+								//prix vente initial mettre un magic number
 								0,
+								//etat vente mettre un magic number
 								0,
 								cat,
 								vendeur,
-								lieuRetrait
+								vendeur
 								);
-		lieuRetrait = new Retrait(rue, codePostal, ville, article);
 		
-		// TODO : inserer Retrait dans BDD, rechercher categorie dans BDD, inserer categorie dans BDD 
+		arcticleManager.addArticle(article);
+		//Création du lieu de retrait
+		Retrait lieuRetrait = new Retrait(rue, codePostal, ville);
+		lieuRetrait.setArticleVendu(article);
+		retraitManager.addRetraitWIdArticle(lieuRetrait,article.getNoArticle());
 
 	}
 

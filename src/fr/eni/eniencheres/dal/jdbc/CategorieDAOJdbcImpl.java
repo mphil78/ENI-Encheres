@@ -36,7 +36,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			+ " values(?)";
 	
 	@Override
-	public Categorie selectByIdArticle(int id) throws DALException {
+	public Categorie selectById(int id) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -164,14 +164,11 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			rqt = cnx.createStatement();
 			rs = rqt.executeQuery(sqlSelectAll);
 			while (rs.next()){
-				List<ArticleVendu> listeArticles=null;
 				Categorie categorie = new Categorie(
 												rs.getInt("no_categorie"),
-												rs.getString("libelle"),
-												listeArticles
-										       );
-				ArticleVenduDAO articleDAO = DAOFactory.getArticleDAO();
-				listeArticles = articleDAO.selectByCategorie(categorie.getNoCategorie());
+												rs.getString("libelle")
+												);
+
 				categories.add(categorie);
 			}
 		} catch (SQLException e) {

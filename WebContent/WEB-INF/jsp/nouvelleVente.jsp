@@ -31,9 +31,9 @@
 </p>
 <p>
 	<label for="categorie">Catégorie</label>
-	<select id="categorie">
+	<select name="categorie" id="categorie">
 		        <% for (String lib : libelles) { %>
-		        <option value="<%=lib%>"><%=lib%></option>
+		        <option  value="<%=lib%>"><%=lib%></option>
 		        <%}%>
 </select>
 </p>
@@ -55,6 +55,7 @@
 	<input type="date" id="finEnchere" name="finEnchere" >
 </p>
 <p>
+	<!--  ATTENTION : UTILISER UN MAGIC NUMBER -->
 	<label for="defPrix">Mise à prix :</label>
 	<input type="number" id="defPrix" name="defPrix" min="1" step="1" required>
 </p>

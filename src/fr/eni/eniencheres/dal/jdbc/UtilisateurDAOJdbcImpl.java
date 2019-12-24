@@ -74,10 +74,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						rs.getString("ville"),
 						rs.getString("mot_de_passe"),
 						rs.getInt("credit"),
-						rs.getByte("administrateur")==0?false:true,
-						vente,
-						listeArticlesAchete,
-						listeEncheres);
+						rs.getByte("administrateur")==0?false:true
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,9 +110,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt = cnx.createStatement();
 			rs = rqt.executeQuery(sqlSelectAll);
 			while (rs.next()){
-				List<ArticleVendu> vente = new ArrayList<>();
-				List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
-				List<Enchere> listeEncheres = new ArrayList<>();
 				Utilisateur utilisateur = new Utilisateur(
 												rs.getInt("no_utilisateur"),
 												rs.getString("pseudo"),
@@ -127,10 +122,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 												rs.getString("ville"),
 												rs.getString("mot_de_passe"),
 												rs.getInt("credit"),
-												rs.getByte("administrateur")==0?false:true,
-												vente,
-												listeArticlesAchete,
-												listeEncheres
+												rs.getByte("administrateur")==0?false:true
 										       );
 				utilisateurs.add(utilisateur);
 			}
@@ -274,9 +266,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		Utilisateur utilisateur=null;
-		List<ArticleVendu> vente = new ArrayList<>();
-		List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
-		List<Enchere> listeEncheres = new ArrayList<>();
 		try {
 			cnx = ConnectionProvider.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectById);
@@ -295,10 +284,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						rs.getString("ville"),
 						rs.getString("mot_de_passe"),
 						rs.getInt("credit"),
-						rs.getByte("administrateur")==0?false:true,
-						vente,
-						listeArticlesAchete,
-						listeEncheres);
+						rs.getByte("administrateur")==0?false:true
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

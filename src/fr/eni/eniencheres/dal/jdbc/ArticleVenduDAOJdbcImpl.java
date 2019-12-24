@@ -57,20 +57,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			}
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
-				articleVendu.setVendeur(utilistateurDAO.selectByIdArticle(rs.getInt("no_vendeur")));
-				articleVendu.setCategorie(categorieDAO.selectByIdArticle(rs.getInt("no_categorie")));
-				if(retraitDAO.selectByIdArticle(id)!=null) {
-					articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(id));
-				} else {
-					Retrait lieuRetrait = new Retrait(
-											articleVendu.getVendeur().getRue(),
-											articleVendu.getVendeur().getCodePostal(),
-											articleVendu.getVendeur().getVille(),
-											articleVendu);
-					articleVendu.setLieuRetrait(lieuRetrait);
-				}
-				articleVendu.setVendeur(utilistateurDAO.selectByIdArticle(rs.getInt("no_acheteur")));		
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -187,11 +176,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						);
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+//				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 				articleVendu.setVendeur(utilistateurDAO.selectByIdArticle(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectByIdArticle(rs.getInt("no_acheteur")));
-				articleVendu.setCategorie(categorieDAO.selectByIdArticle(noCategorie));
-				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_retrait")));
+				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
+//				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
