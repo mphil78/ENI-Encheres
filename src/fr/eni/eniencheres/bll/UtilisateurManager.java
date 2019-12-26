@@ -1,5 +1,8 @@
 package fr.eni.eniencheres.bll;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +61,32 @@ public class UtilisateurManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Copy past from https://www.mkyong.com/java/java-sha-hashing-example/
+	 * @param motDePasse
+	 * @return
+	 */
+	static String hash(String motDePasse) {
+		String encoded = null;
+		try {
+	        MessageDigest md = MessageDigest.getInstance("SHA-256");
+	        byte[] hashInBytes = md.digest(motDePasse.getBytes(StandardCharsets.UTF_8));
+
+			// bytes to hex
+	        StringBuilder sb = new StringBuilder();
+	        for (byte b : hashInBytes) {
+	            sb.append(String.format("%02x", b));
+	        }
+	        encoded = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return encoded;
+
+		
 	}
 
 }

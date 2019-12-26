@@ -51,7 +51,7 @@ public class TraitementConnexion extends HttpServlet {
 		
 		String pseudoConnexion = request.getParameter("identifiant");
 		//TODO Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
-		String mdpConnexion = request.getParameter("motDePasse");
+		String mdpConnexion = UtilisateurManager.hash(request.getParameter("motDePasse"));
 
 		//TODO Lire le Cookie remember me dans le cooKie
 		

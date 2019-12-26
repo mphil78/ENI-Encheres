@@ -1,4 +1,5 @@
--- Script de crÃ©ation de la base de donnÃ©es ENCHERES
+@@ -1,98 +0,0 @@
+-- Script de création de la base de données ENCHERES
 --   type :      SQL Server 2012
 --
 
@@ -42,7 +43,7 @@ CREATE TABLE UTILISATEURS (
     rue              VARCHAR(30) NOT NULL,
     code_postal      VARCHAR(10) NOT NULL,
     ville            VARCHAR(30) NOT NULL,
-    mot_de_passe     VARCHAR(30) NOT NULL,
+    mot_de_passe     VARCHAR(256) NOT NULL,
     credit           INTEGER NOT NULL,
     administrateur   bit NOT NULL
 )
@@ -95,4 +96,3 @@ ALTER TABLE ARTICLES_VENDUS
         REFERENCES utilisateurs ( no_utilisateur )
 ON DELETE NO ACTION 
     ON UPDATE no action 
-

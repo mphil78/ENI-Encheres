@@ -102,7 +102,7 @@ public class TraitementProfile extends HttpServlet {
 		utilisateur.setRue(request.getParameter("rue"));
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
-		utilisateur.setMotDePasse(request.getParameter("password"));
+		utilisateur.setMotDePasse(UtilisateurManager.hash(request.getParameter("password")));
 		int credit = 0;
 		boolean administrateur = false;
 		List<ArticleVendu> vente = new ArrayList<>();
