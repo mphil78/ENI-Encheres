@@ -32,6 +32,6 @@ public interface UtilisateurDAO {
 	public Map<String, String> selectAllIdentifiants() throws DALException;
 
 	//Retourne un objet utilisateur en fonction du pseudo
-	public Utilisateur selectByPseudo(String pseudo);
+	public Utilisateur selectByPseudo(String pseudo) throws DALException;
 	
 }
