@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.eniencheres.bll.managers.ArticleManager;
+import fr.eni.eniencheres.bll.managers.CategorieManager;
 import fr.eni.eniencheres.bll.managers.RetraitManager;
 import fr.eni.eniencheres.bll.managers.UtilisateurManager;
 import fr.eni.eniencheres.bo.ArticleVendu;
