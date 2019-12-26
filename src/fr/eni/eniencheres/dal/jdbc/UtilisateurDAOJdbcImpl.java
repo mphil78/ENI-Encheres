@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.eni.eniencheres.bo.ArticleVendu;
-import fr.eni.eniencheres.bo.Enchere;
 import fr.eni.eniencheres.bo.Utilisateur;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
@@ -53,9 +51,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		Utilisateur utilisateur=null;
-		List<ArticleVendu> vente = new ArrayList<>();
-		List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
-		List<Enchere> listeEncheres = new ArrayList<>();
+
 		try {
 			cnx = ConnectionProvider.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectById);

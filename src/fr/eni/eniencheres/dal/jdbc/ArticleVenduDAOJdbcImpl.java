@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.eniencheres.bo.ArticleVendu;
-import fr.eni.eniencheres.bo.Retrait;
 import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
-import fr.eni.eniencheres.dal.RetraitDAO;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {

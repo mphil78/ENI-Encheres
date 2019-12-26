@@ -8,12 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Categorie;
-import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
-import fr.eni.eniencheres.dal.DAOFactory;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
