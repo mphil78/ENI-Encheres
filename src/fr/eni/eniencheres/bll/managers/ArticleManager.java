@@ -8,11 +8,18 @@ import fr.eni.eniencheres.dal.DAOFactory;
 public class ArticleManager {
 
 	private ArticleVenduDAO articleDAO;
-	
+
+	/**
+	 * Constructeur de ArticleManager
+	 */
 	public ArticleManager() {
 		this.articleDAO=DAOFactory.getArticleDAO();
 	}
 	
+	/**
+	 * Ajoute un article dans la BDD
+	 * @param article
+	 */	 
 	public void addArticle(ArticleVendu article) {
 		try {
 			articleDAO.insert(article);

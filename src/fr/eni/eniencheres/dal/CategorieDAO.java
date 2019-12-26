@@ -6,16 +6,34 @@ import fr.eni.eniencheres.bo.Categorie;
 
 public interface CategorieDAO {
 
-	//SÃ©lectionner une categorie par son id pour article
+	/**
+	 * Sélectionner une categorie par son id pour article
+	 * @param id
+	 * @return Categorie
+	 * @throws DALException
+	 */
 	public Categorie selectById(int id) throws DALException;
 	
-	//SÃ©lectionner une categorie par son id pour article
+	/**
+	 * Sélectionner une categorie par son id pour article
+	 * @param nom
+	 * @return Categorie
+	 * @throws DALException
+	 */
 	public Categorie selectByNom(String nom) throws DALException;
 	
-	//SÃ©lectionner une categorie par son id pour article
+	/**
+	 * Sélectionner une categorie par son id pour article
+	 * @param categorie
+	 * @throws DALException
+	 */
 	public void insert(Categorie categorie) throws DALException;
 	
-	//SÃ©lectionner toutes les categories
+	/**
+	 * Sélectionner toutes les categories
+	 * @return List<Categorie>
+	 * @throws DALException
+	 */
 	public List<Categorie> selectAll() throws DALException;
 	
 }

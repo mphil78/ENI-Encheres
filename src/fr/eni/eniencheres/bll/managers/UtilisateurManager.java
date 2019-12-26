@@ -15,12 +15,20 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
 
-	//constructeur
+	/**
+	 * constructeur de UtilisateurManager
+	 */
+	 
 	public UtilisateurManager() {
 		this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 	}
 	
-	//retourne l'objet utilisateur par son pseudo
+	/**
+	 * retourne l'objet utilisateur par son pseudo
+	 * @param pseudo
+	 * @return Utilisateur
+	 */
+	 
 	public Utilisateur getByPseudo(String pseudo) {
 		Utilisateur utilisateur=null;
 		try {
@@ -32,7 +40,10 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	//retourne un dictionnaire des pseudos/motdepasse
+	/**
+	 * retourne un dictionnaire des pseudos/motdepasse
+	 * @return Map<String, String>
+	 */
 	public Map<String, String> getAllIdentifiants(){
 		Map<String, String> allIdentifiants = new HashMap<String, String>();
 		try {
@@ -44,7 +55,11 @@ public class UtilisateurManager {
 		return allIdentifiants;
 	}
 	
-	//ajoute l'utilisateur dans la base de donnees
+	/**
+	 * ajoute l'utilisateur dans la base de donnees
+	 * @param utilisateur
+	 */
+
 	public void addUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.insert(utilisateur);
@@ -54,7 +69,11 @@ public class UtilisateurManager {
 		}
 	}
 
-	//met à jour l'utilisateur dans la base de donnees
+	/**
+	 * met à jour l'utilisateur dans la base de donnees
+	 * @param utilisateur
+	 */
+	 
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.update(utilisateur);
@@ -64,7 +83,10 @@ public class UtilisateurManager {
 		}
 	}
 
-	//supprime l'utilisateur de la base de donnees.
+	/**
+	 * supprime l'utilisateur de la base de donnees
+	 * @param utilisateur
+	 */
 	public void delete(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.delete(utilisateur);
@@ -78,7 +100,7 @@ public class UtilisateurManager {
 	 * encode le mot de passe avant manipulation.
 	 * Copy past from https://www.mkyong.com/java/java-sha-hashing-example/
 	 * @param motDePasse
-	 * @return
+	 * @return String
 	 */
 	public static String hash(String motDePasse) {
 		String encoded = null;

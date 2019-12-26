@@ -12,12 +12,20 @@ public class CategorieManager {
 
 	private CategorieDAO categorieDAO;
 
-	//constructeur
+	/**
+	 * constructeur de CategorieManager
+	 */
+	 
 	public CategorieManager() {
 		this.categorieDAO=DAOFactory.getCategorieDAO();
 	}
 	
-	// renvoie l'objet Catégorie par son libelle
+	/**
+	 * renvoie l'objet Catégorie par son libelle
+	 * @param libelle
+	 * @return Categorie
+	 */
+	 
 	public Categorie getByNom(String libelle) {
 		Categorie categorie=null;
 		try {
@@ -29,7 +37,10 @@ public class CategorieManager {
 		return categorie;
 	}
 
-	// renvoie une list de tous les libellés
+	/**
+	 * renvoie une liste de tous les libellés
+	 * @return List<String>
+	 */
 	public List<String> getAllLibelles() {
 		List<Categorie> listCategories = new ArrayList<>();
 		List<String> listeLibelles = new ArrayList<>();

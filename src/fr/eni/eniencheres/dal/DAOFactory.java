@@ -1,6 +1,7 @@
 package fr.eni.eniencheres.dal;
 
 public class DAOFactory {
+	
 	public static UtilisateurDAO getUtilisateurDAO() {
 		return new fr.eni.eniencheres.dal.jdbc.UtilisateurDAOJdbcImpl();
 	}

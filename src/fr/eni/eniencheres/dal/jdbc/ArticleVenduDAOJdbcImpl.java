@@ -29,7 +29,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"insert "
 			+ "into ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_vendeur, no_acheteur, no_categorie, etat_vente  )"
 			+ " values(?,?,?,?,?,?,?,?,?,?)";
-	//ATERMINER notamment categorie, vendeur et acheteur non compl√®tement renseign√©
+	
 	@Override
 	public ArticleVendu selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -78,6 +78,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return null;
 	}
 
+	//TODO A faire
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
 		// TODO Auto-generated method stub
@@ -113,7 +114,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			}
 		}catch(SQLException e){
 			System.out.println(e);
-			throw new DALException("La cr√©ation de l'utilisateur a √©chou√© - " + article.getNomArticle(), e);
+			throw new DALException("La crÈation de l'utilisateur a ÈchouÈ - " + article.getNomArticle(), e);
 		}
 		finally {
 			try {
@@ -124,25 +125,28 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a √©chou√© - ", e);
+				throw new DALException("La fermeture de la connexion a ÈchouÈ - ", e);
 			}
 
 		}
 		
 	}
 
+	//TODO A FAIRE
 	@Override
 	public void delete(ArticleVendu articleVendu) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	//TODO A FAIRE
 	@Override
 	public void update(ArticleVendu articleVendu) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	//TODO A FAIRE
 	@Override
 	public List<ArticleVendu> selectByMotCle(String motCle) throws DALException {
 		// TODO Auto-generated method stub
@@ -174,11 +178,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						);
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-//				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
-				articleVendu.setVendeur(utilistateurDAO.selectByIdArticle(rs.getInt("no_vendeur")));
-				articleVendu.setAcheteur(utilistateurDAO.selectByIdArticle(rs.getInt("no_acheteur")));
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
-//				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
@@ -201,6 +202,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return articles;
 	}
 
+	//TODO A FAIRE
 	@Override
 	public List<ArticleVendu> selectByFiltres(String motCle, int noCategorie) throws DALException {
 		// TODO Auto-generated method stub
