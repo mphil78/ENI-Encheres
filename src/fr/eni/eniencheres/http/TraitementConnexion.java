@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.bll;
+package fr.eni.eniencheres.http;
 
 import java.io.IOException;
 import java.util.Map;
