@@ -1,8 +1,7 @@
 package fr.eni.eniencheres.http;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.eniencheres.bll.managers.UtilisateurManager;
-import fr.eni.eniencheres.bo.ArticleVendu;
-import fr.eni.eniencheres.bo.Enchere;
 import fr.eni.eniencheres.bo.Utilisateur;
 
 /**
