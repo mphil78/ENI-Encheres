@@ -34,7 +34,6 @@ public class TraitementArticle extends HttpServlet {
      */
     public TraitementArticle() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -106,7 +105,7 @@ public class TraitementArticle extends HttpServlet {
 								0,
 								cat,
 								vendeur,
-								//l'acheteur est le vendeur tant qu'il n'y a pas d'enchères
+								//l'acheteur est le vendeur tant qu'il n'y a pas d'enchère
 								vendeur
 								);
 
@@ -117,6 +116,7 @@ public class TraitementArticle extends HttpServlet {
 		Retrait lieuRetrait = new Retrait(rue, codePostal, ville,article);
 		
 		//ajoute le lieu de retrait dans la bdd
+		//TODO A placer dans article manager
 		retraitManager.addRetrait(lieuRetrait);
 		
 		//TODO faire le forward

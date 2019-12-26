@@ -28,13 +28,12 @@ public class TraitementProfile extends HttpServlet {
      */
     public TraitementProfile() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * Redirige vers :
-	 * -/MonProfile en cas de modificationdu profile avec l'objet utilisateur en attribut de requete
-	 * -/TraitementConnexion en casde suppression après avoir supprimer l'utilisateur de la BDD
+	 * Redirige vers : <br>
+	 * -/MonProfile en cas de modificationdu profile avec l'objet utilisateur en attribut de requete <br>
+	 * -/TraitementConnexion en casde suppression après avoir supprimer l'utilisateur de la BDD <br>
 	 * -/Profile en cas de simple affichage avec en parametre l'objet utilisateur 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -80,12 +79,12 @@ public class TraitementProfile extends HttpServlet {
 	}
 
 	/**
-	 * En cas de création de compte : Contrôle l'unicité de l'email et du pseudo avant d'ajouter l'utilisateur dans la BDD ou de retourner une erreur le cas échéant
+	 * En cas de création de compte : Contrôle l'unicité de l'email et du pseudo avant d'ajouter l'utilisateur dans la BDD ou de retourner une erreur le cas échéant <br>
 	 * En cas de modification du profile : contrôle l'unicité de l'email et la concordance des passwords avant de modifier la BDD
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO Contrôler l'unicité de l'email
+		//TODO Contrôler l'unicité de l'email et la concordance des passwords
 		HttpSession session = request.getSession();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String pseudo = (String) session.getAttribute("pseudo");

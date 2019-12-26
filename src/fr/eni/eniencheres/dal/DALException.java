@@ -6,7 +6,9 @@ public class DALException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//Constructeurs
+	/**
+	 * Constructeurs
+	 */
 	public DALException() {
 		super();
 	}
@@ -19,7 +21,9 @@ public class DALException extends Exception {
 		super(message, exception);
 	}
 
-	//Méthodes
+	/**
+	 * Méthodes getter de Message
+	 */
 	@Override
 	public String getMessage() {
 		StringBuffer sb = new StringBuffer("Couche DAL - ");

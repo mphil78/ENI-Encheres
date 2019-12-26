@@ -14,8 +14,7 @@ public class CategorieManager {
 
 	/**
 	 * constructeur de CategorieManager
-	 */
-	 
+	 */ 
 	public CategorieManager() {
 		this.categorieDAO=DAOFactory.getCategorieDAO();
 	}
@@ -25,7 +24,6 @@ public class CategorieManager {
 	 * @param libelle
 	 * @return Categorie
 	 */
-	 
 	public Categorie getByNom(String libelle) {
 		Categorie categorie=null;
 		try {

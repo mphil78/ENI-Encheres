@@ -18,7 +18,6 @@ public class UtilisateurManager {
 	/**
 	 * constructeur de UtilisateurManager
 	 */
-	 
 	public UtilisateurManager() {
 		this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 	}
@@ -27,8 +26,7 @@ public class UtilisateurManager {
 	 * retourne l'objet utilisateur par son pseudo
 	 * @param pseudo
 	 * @return Utilisateur
-	 */
-	 
+	 */ 
 	public Utilisateur getByPseudo(String pseudo) {
 		Utilisateur utilisateur=null;
 		try {
@@ -59,7 +57,6 @@ public class UtilisateurManager {
 	 * ajoute l'utilisateur dans la base de donnees
 	 * @param utilisateur
 	 */
-
 	public void addUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.insert(utilisateur);
@@ -73,7 +70,6 @@ public class UtilisateurManager {
 	 * met à jour l'utilisateur dans la base de donnees
 	 * @param utilisateur
 	 */
-	 
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.update(utilisateur);
@@ -119,8 +115,6 @@ public class UtilisateurManager {
 			e.printStackTrace();
 		}
 		return encoded;
-
-		
 	}
 
 }

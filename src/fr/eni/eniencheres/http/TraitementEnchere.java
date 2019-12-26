@@ -19,7 +19,6 @@ public class TraitementEnchere extends HttpServlet {
      */
     public TraitementEnchere() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
