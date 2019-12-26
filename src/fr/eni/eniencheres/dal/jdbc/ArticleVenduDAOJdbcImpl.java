@@ -151,7 +151,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return null;
 	}
 	
-	//TODO Aterminer intégrer liste d'encheres et fixer les selectbyIDArticle
+	//TODO Aterminer integrer liste d'encheres et fixer les selectbyIDArticle
 	@Override
 	public List<ArticleVendu> selectByCategorie(int noCategorie) throws DALException {
 		Connection cnx = null;

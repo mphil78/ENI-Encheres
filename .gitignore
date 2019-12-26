@@ -10,3 +10,4 @@
 *.rar
 
 ## TODO ajouter les fichiers des IDE ( Eclipse ) dès que le processus de build serra indépendant.
+*.~lock.*

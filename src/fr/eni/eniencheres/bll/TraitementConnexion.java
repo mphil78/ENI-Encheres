@@ -45,40 +45,63 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//variables
-		boolean pseudoOk = false;
-		boolean passOk = false;
-		String pseudoUtilisateur = "";
-		HttpSession session = request.getSession();
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
+		log("INFO", "method doPost Servlet : Connexion");
+
+		
 		String pseudoConnexion = request.getParameter("identifiant");
+		//TODO Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
 		String mdpConnexion = request.getParameter("motDePasse");
-		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
+
+		//TODO Lire le Cookie remember me dans le cooKie
 		
-		//teste si pseudo et mdp correrspondent √† une entr√©e dans la bdd
-		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
-			String pseudo = user.getKey();
-			String mdp = user.getValue();
-		    if (pseudo.equals(pseudoConnexion)) {
-				pseudoOk = true;
-				if (mdp.equals(mdpConnexion)) {
-					passOk = true;
-					pseudoUtilisateur=pseudo;
-				}
-		    }
-		}
+
 		
-		//redirection adapt√©e
-		if (pseudoOk && passOk) {
-			session.setAttribute("pseudo", pseudoUtilisateur);
+		boolean connexionOk = isIdentOK(pseudoConnexion, mdpConnexion);
+		
+		//redirection adaptee
+		if (connexionOk) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("pseudo", pseudoConnexion);
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
 		} else {
-			request.setAttribute("erreurConnexion", "La connexion a √©chou√©. Veuillez r√©essayer.");
+			request.setAttribute("erreurConnexion", "La connexion a ÈchouÈ. Veuillez rÈessayer.");
 			RequestDispatcher rd = request.getRequestDispatcher("/Connexion");
 			rd.forward(request, response);
 		}
 
 	}
 
+	/**
+	 * teste si pseudo et mdp correrspondent a† une entree dans la bdd
+	 * TODO reflechir a centraliser les regeles de gestion dans le manager La servlet regroupe tout ce qui est Http
+	 * @param pseudoConnexion
+	 * @param mdpConnexion
+	 * @return boolean connexion
+	 * 
+	 */
+	private boolean isIdentOK(final String pseudoConnexion, final String mdpConnexion) {
+		//Access aux donnees en base
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
+		
+		//
+		boolean connexionOk = false;
+		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
+			String pseudo = user.getKey();
+			String mdp = user.getValue();
+		    if (pseudo.equals(pseudoConnexion)) {
+				if (mdp.equals(mdpConnexion)) {
+					connexionOk = true;
+				}
+		    }
+		}
+		return connexionOk;
+	}
+
+	
+	private static void log(final String level, final String message) {
+		System.out.println(level + message);
+	}
 }
