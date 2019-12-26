@@ -37,12 +37,19 @@ public class TraitementArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//récupère la session
 		HttpSession session = request.getSession();
+		
+		//instanciation des managers
 		CategorieManager categorieManager = new CategorieManager();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		
+		//récupération de la liste des libelles
 		List<String> listeLibellesCategories = new ArrayList<>();
 		listeLibellesCategories = categorieManager.getAllLibelles();
+		
+		//affection des attributs et forward
 		request.setAttribute("vendeur",vendeur);
 		request.setAttribute("libelles", listeLibellesCategories);
 		RequestDispatcher rd = request.getRequestDispatcher("./NouvelleVente");
@@ -54,27 +61,33 @@ public class TraitementArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//TODO A terminer
+		
 		//Récupération de la session
 		HttpSession session = request.getSession();
+		
 		//instanciation des managers
 		ArticleManager arcticleManager = new ArticleManager();
 		CategorieManager categorieManager = new CategorieManager();
 		RetraitManager retraitManager = new RetraitManager();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
 		//Récupération des données
 		String nom = request.getParameter("nom");
 		String description = request.getParameter("description");
 		LocalDate debutEncheres = LocalDate.parse(request.getParameter("debutEnchere"));
 		LocalDate finEncheres = LocalDate.parse(request.getParameter("finEnchere"));
-		int miseAPrix = Integer.valueOf(request.getParameter("defPrix")) ;
+		int miseAPrix = Integer.valueOf(request.getParameter("defPrix"));
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
+		
 		//Récupération de l'objet catégorie
 		String categorie = request.getParameter("categorie");
 		Categorie cat = categorieManager.getByNom(categorie);
+		
 		//Récupération de l'objet vendeur
 		Utilisateur vendeur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		
 		//Création de l'objet article
 		ArticleVendu article = new ArticleVendu(
 								nom,
@@ -82,20 +95,26 @@ public class TraitementArticle extends HttpServlet {
 								debutEncheres,
 								finEncheres,
 								miseAPrix,
-								//prix vente initial mettre un magic number
+								//TODO prix vente initial mettre un magic number
 								0,
-								//etat vente mettre un magic number
+								//TODO etat vente mettre un magic number
 								0,
 								cat,
 								vendeur,
+								//l'acheteur est le vendeur tant qu'il n'y a pas d'enchères
 								vendeur
 								);
-		
+
+		//ajoute l'article dans la bdd
 		arcticleManager.addArticle(article);
+		
 		//Création du lieu de retrait
-		Retrait lieuRetrait = new Retrait(rue, codePostal, ville);
-		lieuRetrait.setArticleVendu(article);
-		retraitManager.addRetraitWIdArticle(lieuRetrait,article.getNoArticle());
+		Retrait lieuRetrait = new Retrait(rue, codePostal, ville,article);
+		
+		//ajoute le lieu de retrait dans la bdd
+		retraitManager.addRetrait(lieuRetrait);
+		
+		//TODO faire le forward
 
 	}
 

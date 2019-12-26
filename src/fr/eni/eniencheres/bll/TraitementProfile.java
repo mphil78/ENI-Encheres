@@ -41,6 +41,8 @@ public class TraitementProfile extends HttpServlet {
 		Utilisateur utilisateur;
 		boolean modifier=false;
 		boolean supprimer=false;
+		
+		//récupère le paramatre modifier ou supprimer
 		if(request.getParameter("modifier")!=null) {
 			modifier=true;
 		}
@@ -48,6 +50,7 @@ public class TraitementProfile extends HttpServlet {
 			supprimer=true;
 		}
 		
+		//cas de mofification
 		if (modifier) {
 			String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
 			utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);
@@ -56,6 +59,7 @@ public class TraitementProfile extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		//cas de suppression
 		if (supprimer) {
 			String pseudoASupprimer = (String) request.getParameter("pseudoASupprimer");
 			utilisateur = utilisateurManager.getByPseudo(pseudoASupprimer);
@@ -65,6 +69,7 @@ public class TraitementProfile extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		//cas d'affichage
 		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
 		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);		
 		request.setAttribute("utilisateurAAfficher", utilisateur);

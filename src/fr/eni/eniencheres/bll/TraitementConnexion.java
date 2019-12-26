@@ -33,8 +33,13 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//récupération de la session
 		HttpSession session = request.getSession();
+		
+		//déconnexion de la session
 		session.invalidate();
+		
+		//forward vers accueil
 		RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 		rd.forward(request, response);
 	}
@@ -48,15 +53,15 @@ public class TraitementConnexion extends HttpServlet {
 		
 		log("INFO", "method doPost Servlet : Connexion");
 
-		
+		//récuperation du pseudo choisi
 		String pseudoConnexion = request.getParameter("identifiant");
-		//TODO Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
+		
+		//Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
 		String mdpConnexion = UtilisateurManager.hash(request.getParameter("motDePasse"));
 
 		//TODO Lire le Cookie remember me dans le cooKie
 		
-
-		
+		//teste si les identifiants sont disponibles
 		boolean connexionOk = isIdentOK(pseudoConnexion, mdpConnexion);
 		
 		//redirection adaptee
@@ -86,7 +91,7 @@ public class TraitementConnexion extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
 		
-		//
+		//teste si le pseudo existe déjà
 		boolean connexionOk = false;
 		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
 			String pseudo = user.getKey();

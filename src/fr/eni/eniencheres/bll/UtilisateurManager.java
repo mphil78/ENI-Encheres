@@ -14,17 +14,20 @@ import fr.eni.eniencheres.dal.UtilisateurDAO;
 public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
-	
+
+	//constructeur
 	public UtilisateurManager() {
 		this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 	}
 	
+	//retourne l'objet utilisateur par son pseudo
 	public Utilisateur getByPseudo(String pseudo) {
 		Utilisateur utilisateur;
 		utilisateur=utilisateurDAO.selectByPseudo(pseudo);
 		return utilisateur;
 	}
 	
+	//retourne un dictionnaire des pseudos/motdepasse
 	public Map<String, String> getAllIdentifiants(){
 		Map<String, String> allIdentifiants = new HashMap<String, String>();
 		try {
@@ -34,8 +37,9 @@ public class UtilisateurManager {
 			e.printStackTrace();
 		}
 		return allIdentifiants;
-		
 	}
+	
+	//ajoute l'utilisateur dans la base de donnees
 	public void addUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.insert(utilisateur);
@@ -45,6 +49,7 @@ public class UtilisateurManager {
 		}
 	}
 
+	//met à jour l'utilisateur dans la base de donnees
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.update(utilisateur);
@@ -54,6 +59,7 @@ public class UtilisateurManager {
 		}
 	}
 
+	//supprime l'utilisateur de la base de donnees.
 	public void delete(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.delete(utilisateur);
@@ -64,6 +70,7 @@ public class UtilisateurManager {
 	}
 	
 	/**
+	 * encode le mot de passe avant manipulation.
 	 * Copy past from https://www.mkyong.com/java/java-sha-hashing-example/
 	 * @param motDePasse
 	 * @return
