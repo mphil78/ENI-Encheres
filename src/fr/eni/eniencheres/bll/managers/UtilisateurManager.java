@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.bll;
+package fr.eni.eniencheres.bll.managers;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -80,7 +80,7 @@ public class UtilisateurManager {
 	 * @param motDePasse
 	 * @return
 	 */
-	static String hash(String motDePasse) {
+	public static String hash(String motDePasse) {
 		String encoded = null;
 		try {
 	        MessageDigest md = MessageDigest.getInstance("SHA-256");

@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.bll;
+package fr.eni.eniencheres.bll.managers;
 
 import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.dal.ArticleVenduDAO;

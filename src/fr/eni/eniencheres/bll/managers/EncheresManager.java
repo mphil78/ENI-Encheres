@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.bll;
+package fr.eni.eniencheres.bll.managers;
 
 public class EncheresManager {
 	
