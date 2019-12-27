@@ -55,7 +55,7 @@
 			int minOffre = meilleureOffre + EncheresManager.PADDING;
 			%>
 						
-			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %>" value = "<%=utilisateur.getCredit() %>" step = "EncheresManager.PADDING"><br>
+			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %> value = "<%=utilisateur.getCredit() %>" step = "EncheresManager.PADDING"><br>
 	</p>
 		
 			
