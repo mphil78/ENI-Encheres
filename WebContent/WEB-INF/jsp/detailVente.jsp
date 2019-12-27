@@ -12,7 +12,7 @@
 <title>Détail Vente</title>
 </head>
 <body>
-<% ArticleVendu articleAAfficher = (ArticleVendu)session.getAttribute("articleAAfficher");
+<% ArticleVendu articleAAfficher = (ArticleVendu)request.getAttribute("articleAAfficher");
    Utilisateur utilisateur = (Utilisateur)request.getAttribute("utilisateur");
 %>
 
@@ -28,7 +28,7 @@
 	</p>
 	<p>
 			<label for="meilleureOffre">Meilleure Offre : </label>
-			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%= String.valueOf(articleAAfficher.getPrixVente()) %>"><br>
+			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%=articleAAfficher.getPrixVente()%>"><br>
 
 	</p>
 	<p>
@@ -41,12 +41,12 @@
 	<p>
 			<label for="lieuRetrait">Retrait : </label>
 
-			<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait()%>" ><br>
+			<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br>
 
 			</p>
 			<p>
 			<label for="vendeur">Vendeur : </label>
-			<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur()%>"><br>
+			<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
 	</p>
 	<p>
 			<label for="maProposition">Ma Proposition : </label>
