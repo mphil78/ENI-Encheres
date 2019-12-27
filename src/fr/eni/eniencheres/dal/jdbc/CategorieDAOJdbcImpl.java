@@ -169,7 +169,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				categories.add(categorie);
 			}
 		} catch (SQLException e) {
-			throw new DALException("selectAll a écouché - " , e);
+			throw new DALException("selectAll failed - " , e);
 		} finally {
 			try {
 				if (rs != null){

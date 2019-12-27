@@ -62,6 +62,7 @@ public class RetraitDAOJdbcImp implements RetraitDAO {
 
 	@Override
 	public void insert(Retrait retrait) throws DALException {
+		// TODO Auto-generated method stub
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
@@ -85,7 +86,7 @@ public class RetraitDAOJdbcImp implements RetraitDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a échoué - ", e);
+				throw new DALException("La fermeture de la connexion a Ã©chouÃ© - ", e);
 			}
 
 		}	
@@ -117,7 +118,7 @@ public class RetraitDAOJdbcImp implements RetraitDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a échoué - ", e);
+				throw new DALException("La fermeture de la connexion a Ã©chouÃ© - ", e);
 			}
 
 		}	

@@ -24,8 +24,8 @@ abstract class ConnectionProvider {
 		}
 	}
 	/**
-	 * Cette méthode retourne une connection opérationnelle issue du pool de connexion
-	 * vers la base de données. 
+	 * Cette mÃ©thode retourne une connection opÃ©rationnelle issue du pool de connexion
+	 * vers la base de donnÃ©es. 
 	 * @return
 	 **/
 

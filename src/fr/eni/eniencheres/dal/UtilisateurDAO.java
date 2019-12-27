@@ -7,62 +7,31 @@ import fr.eni.eniencheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	
-	/**
-	 * Sélectionner tous les pseudos
-	 * @return List<String>
-	 * @throws DALException
-	 */
+	//SÃ©lectionner tous les pseudos
 	public List<String> selectAllPseudos() throws DALException;
 
-	/**
-	 * Sélectionner un utilisateur par son id
-	 * @param id
-	 * @return Utilisateur
-	 * @throws DALException
-	 */
+	//SÃ©lectionner un utilisateur par son id
 	public Utilisateur selectById(int id) throws DALException;
 	
-	/**
-	 * Sélectionner tous les utlisateurs
-	 * @return List<Utilisateur>
-	 * @throws DALException
-	 */
+	//SÃ©lectionner un utlisateur par son id pour article
+	public Utilisateur selectByIdArticle(int id) throws DALException;
+	
+	//SÃ©lectionner tous les utlisateurs
 	public List<Utilisateur> selectAll() throws DALException;
 	
-	/**
-	 * Insérer un nouvel utilisateur
-	 * @param utilisateur
-	 * @throws DALException
-	 */
+	//InsÃ©rer un nouvel utilisateur
 	public void insert(Utilisateur utilisateur) throws DALException;
 	
-	/**
-	 * Supprimer un utilisateur
-	 * @param utilisateur
-	 * @throws DALException
-	 */
+	//Supprimer un utilisateur
 	public void delete(Utilisateur utilisateur) throws DALException;
 	
-	/**
-	 * Modifier un utilisateur
-	 * @param utilisateur
-	 * @throws DALException
-	 */
+	//Modifier un utilisateur
 	public void update(Utilisateur utilisateur) throws DALException;
 	
-	/**
-	 * Retourne une HashMap de tous les <pseudo, mdp>
-	 * @return
-	 * @throws DALException
-	 */
+	//Retourne une HashMap de tous les <pseudo, mdp>
 	public Map<String, String> selectAllIdentifiants() throws DALException;
 
-	/**
-	 * Retourne un objet utilisateur en fonction du pseudo
-	 * @param pseudo
-	 * @return Utilisateur
-	 * @throws DALException
-	 */
+	//Retourne un objet utilisateur en fonction du pseudo
 	public Utilisateur selectByPseudo(String pseudo) throws DALException;
 	
 }

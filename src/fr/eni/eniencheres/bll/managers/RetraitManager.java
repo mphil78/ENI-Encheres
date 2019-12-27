@@ -9,17 +9,12 @@ public class RetraitManager {
 
 	private RetraitDAO retraitDAO;
 
-	/**
-	 * constructeur du RetraitManager
-	 */
+	//constructeur
 	public RetraitManager() {
 		this.retraitDAO=DAOFactory.getRetraitDAO();
 	}
 	
-	/**
-	 * ajoute un retrait dans la base de donnees
-	 * @param retrait
-	 */
+	//ajoute un retrait dans la base de donnees
 	public void addRetrait(Retrait retrait) {
 		
 		try {
@@ -30,12 +25,7 @@ public class RetraitManager {
 		}
 	}
 
-	/**
-	 * ajoute un retrait dans la base de donnees en précisant le numéro de l'article
-	 * @param retrait
-	 * @param noArticle
-	 */
-
+	//ajoute un retrait dans la base de donnees en précisant le numéro de l'article
 	public void addRetraitWIdArticle(Retrait retrait, int noArticle) {
 		try {
 			retraitDAO.insert(retrait, noArticle);

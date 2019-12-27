@@ -30,7 +30,6 @@ public class TraitementAccueil extends HttpServlet {
     }
 
 	/**
-	 * Forward vers /Accueil en envoyant la liste des libellés
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

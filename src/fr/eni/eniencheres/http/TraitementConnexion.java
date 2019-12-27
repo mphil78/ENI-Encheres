@@ -30,7 +30,6 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
-	 * Deconnecte l'utilisateur de sa session et forward vers /TraitementAccueil
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -48,9 +47,6 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
-	 * Contrôle a connection de l'utilisateur en hashant le mot de passe puis redirige en conséquence vers :
-	 * -/TraitementAccueil si la connexion est acceptée
-	 * -/Connexion si la connexion est refusée
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -86,10 +82,10 @@ public class TraitementConnexion extends HttpServlet {
 
 	/**
 	 * teste si pseudo et mdp correrspondent a  une entree dans la bdd
-	 * TODO reflechir a centraliser les regles de gestion dans le manager La servlet regroupe tout ce qui est Http
+	 * TODO reflechir a centraliser les regeles de gestion dans le manager La servlet regroupe tout ce qui est Http
 	 * @param pseudoConnexion
 	 * @param mdpConnexion
-	 * @return boolean connexionOk
+	 * @return boolean connexion
 	 * 
 	 */
 	private boolean isIdentOK(final String pseudoConnexion, final String mdpConnexion) {
@@ -111,11 +107,7 @@ public class TraitementConnexion extends HttpServlet {
 		return connexionOk;
 	}
 
-	/**
-	 * Log sur la console pour debug
-	 * @param level
-	 * @param message
-	 */
+	
 	private static void log(final String level, final String message) {
 		System.out.println(level + message);
 	}

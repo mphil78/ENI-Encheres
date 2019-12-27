@@ -23,7 +23,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+" from UTILISATEURS"
 			+ " where no_utilisateur = ?";
 	private static final String sqlSelectByPseudo =
-			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur" 
+			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit" 
 			+" from UTILISATEURS"
 			+ " where pseudo = ?";
 	private static final String sqlSelectAll =
@@ -44,6 +44,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+ "set nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=? where no_utilisateur=?";
 	
 	
+	//A TERMINER pour vente listeArticlesAchete listeEncheres
 	@Override
 	public Utilisateur selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -93,6 +94,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 	
+	// A TERMINER pour vente listeArticlesAchete listeEncheres
 	@Override
 	public List<Utilisateur> selectAll() throws DALException {
 		Connection cnx = null;
@@ -141,6 +143,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return utilisateurs;
 	}
 	
+	//OK
 	@Override
 	public void insert(Utilisateur utilisateur) throws DALException {
 		Connection cnx = null;
@@ -185,6 +188,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}		
 	}
 	
+	//NON IMPLEMENTER CAR UTILISATEUR SEULEMENT DESACTIVER
 	@Override
 	public void delete(Utilisateur utilisateur) throws DALException {
 		Connection cnx = null;
@@ -213,6 +217,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
+	//OK
 	@Override
 	public void update(Utilisateur utilisateur) throws DALException {
 		Connection cnx = null;
@@ -248,6 +253,56 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			}
 
 		}		
+	}
+	
+	//TODO A terminer
+	@Override
+	public Utilisateur selectByIdArticle(int id) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Utilisateur utilisateur=null;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectById);
+			rqt.setInt(1, id);
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				utilisateur = new Utilisateur(
+						rs.getInt("no_utilisateur"),
+						rs.getString("pseudo"),
+						rs.getString("nom"),
+						rs.getString("prenom"),
+						rs.getString("email"),
+						rs.getString("telephone"),
+						rs.getString("rue"),
+						rs.getString("code_postal"),
+						rs.getString("ville"),
+						rs.getString("mot_de_passe"),
+						rs.getInt("credit"),
+						rs.getByte("administrateur")==0?false:true
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return utilisateur;
+
+
 	}
 
 	@Override
@@ -294,6 +349,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return identifiants;
 	}
 	
+	//TODO A Terminer
 	@Override
 	public Utilisateur selectByPseudo(String pseudo) throws DALException{
 		Connection cnx = null;
@@ -317,8 +373,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						rs.getString("code_postal"),
 						rs.getString("ville"),
 						rs.getString("mot_de_passe"),
-						rs.getInt("credit"),
-						rs.getByte("administrateur")==0?false:true
+						rs.getInt("credit")
 						);
 			}
 		} catch (SQLException e) {

@@ -35,10 +35,6 @@ public class TraitementProfile extends HttpServlet {
     }
 
 	/**
-	 * Redirige vers :
-	 * -/MonProfile en cas de modificationdu profile avec l'objet utilisateur en attribut de requete
-	 * -/TraitementConnexion en casde suppression après avoir supprimer l'utilisateur de la BDD
-	 * -/Profile en cas de simple affichage avec en parametre l'objet utilisateur 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +43,7 @@ public class TraitementProfile extends HttpServlet {
 		boolean modifier=false;
 		boolean supprimer=false;
 		
-		//récupère le parametre modifier ou supprimer
+		//récupère le paramatre modifier ou supprimer
 		if(request.getParameter("modifier")!=null) {
 			modifier=true;
 		}
@@ -74,7 +70,7 @@ public class TraitementProfile extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		//cas de simple affichage
+		//cas d'affichage
 		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
 		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);		
 		request.setAttribute("utilisateurAAfficher", utilisateur);
@@ -83,12 +79,9 @@ public class TraitementProfile extends HttpServlet {
 	}
 
 	/**
-	 * En cas de création de compte : Contrôle l'unicité de l'email et du pseudo avant d'ajouter l'utilisateur dans la BDD ou de retourner une erreur le cas échéant
-	 * En cas de modification du profile : contrôle l'unicité de l'email et la concordance des passwords avant de modifier la BDD
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO Contrôler l'unicité de l'email
 		HttpSession session = request.getSession();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String pseudo = (String) session.getAttribute("pseudo");
@@ -105,6 +98,7 @@ public class TraitementProfile extends HttpServlet {
 		    }
 		}
 		
+		
 		//crée une instance pojo utilisateur avec les données
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setNom(request.getParameter("nom"));
@@ -115,10 +109,18 @@ public class TraitementProfile extends HttpServlet {
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
 		utilisateur.setMotDePasse(UtilisateurManager.hash(request.getParameter("password")));
-		//TODO Magic number pour crédit initial
-		utilisateur.setCredit(0);
-		utilisateur.setAdministrateur(false);
-
+		int credit = 0;
+		boolean administrateur = false;
+		List<ArticleVendu> vente = new ArrayList<>();
+		List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
+		List<Enchere> listeEncheres = new ArrayList<>();
+		utilisateur.setCredit(credit);
+		utilisateur.setAdministrateur(administrateur);
+		utilisateur.setVente(vente);
+		utilisateur.setListeArticlesAchete(listeArticlesAchete);
+		utilisateur.setListeEncheres(listeEncheres);
+		
+		
 		if (!pseudoOk) {
 			//si le pseudo existe déjà
 			if (request.getParameter("update")!=null) {
@@ -147,6 +149,10 @@ public class TraitementProfile extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
 		}
+		
+		
+		
+		
 	}
 
 }
