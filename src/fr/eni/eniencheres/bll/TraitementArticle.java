@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.http;
+package fr.eni.eniencheres.bll;
 
 import java.io.IOException;
 import java.time.LocalDate;
