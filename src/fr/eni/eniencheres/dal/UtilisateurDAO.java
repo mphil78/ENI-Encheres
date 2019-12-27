@@ -64,5 +64,6 @@ public interface UtilisateurDAO {
 	 * @throws DALException
 	 */
 	public Utilisateur selectByPseudo(String pseudo) throws DALException;
+
 	
 }
