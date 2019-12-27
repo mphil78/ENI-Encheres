@@ -12,6 +12,8 @@ public class ArticleVendu {
 	public static final int TERMINEE=2;
 	public static final int RETIREE=3;
 	public static final int ANNULEE=4;
+	public static final int PIXINITIAL=0;
+	
 	
 	//Atrributs d'instance
 	private int noArticle;

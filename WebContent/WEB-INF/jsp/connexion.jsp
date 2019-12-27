@@ -16,16 +16,19 @@
   <body>
     <h1>Eni-Enchère</h1><br><br>
     
+    <div style="color: red">
     <%
     if (request.getAttribute("erreurConnexion") != null) {
     %>
     	
     <%=request.getAttribute("erreurConnexion") %>
     
+    
     <%
     }
     %>
-        
+    </div>
+    
 	<div class="col">
   		<form name="formulaire" action="./TraitementConnexion" method="post">
 		  <div class="form-group row">

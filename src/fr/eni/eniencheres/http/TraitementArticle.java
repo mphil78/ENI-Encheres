@@ -99,10 +99,8 @@ public class TraitementArticle extends HttpServlet {
 								debutEncheres,
 								finEncheres,
 								miseAPrix,
-								//TODO prix vente initial mettre un magic number
-								0,
-								//TODO etat vente mettre un magic number
-								0,
+								ArticleVendu.PIXINITIAL,
+								ArticleVendu.CREEE,
 								cat,
 								vendeur,
 								//l'acheteur est le vendeur tant qu'il n'y a pas d'enchère

@@ -75,13 +75,12 @@ public class TraitementConnexion extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("pseudo", pseudoConnexion);
 			rd = request.getRequestDispatcher("/TraitementAccueil");
-			//rd.forward(request, response);
+			rd.forward(request, response);
 		} else {
 			request.setAttribute("erreurConnexion", "La connexion a échoué. Veuillez réessayer.");
 			rd = request.getRequestDispatcher("/Connexion");
-			//rd.forward(request, response);
+			rd.forward(request, response);
 		}
-		rd.forward(request, response);
 	}
 
 	/**
