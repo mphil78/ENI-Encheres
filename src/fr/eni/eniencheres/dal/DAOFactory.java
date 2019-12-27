@@ -3,7 +3,6 @@ package fr.eni.eniencheres.dal;
 import fr.eni.eniencheres.dal.jdbc.RetraitDAOJdbcImp;
 
 public class DAOFactory {
-	
 
 	public static UtilisateurDAO getUtilisateurDAO ()  {
 		UtilisateurDAO utilisateurDAO=null;
