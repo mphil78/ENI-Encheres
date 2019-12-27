@@ -28,8 +28,13 @@ public class UtilisateurManager {
 	 * @return Utilisateur
 	 */ 
 	public Utilisateur getByPseudo(String pseudo) {
-		Utilisateur utilisateur;
-		utilisateur=utilisateurDAO.selectByPseudo(pseudo);
+		Utilisateur utilisateur=null;
+		try {
+			utilisateur=utilisateurDAO.selectByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return utilisateur;
 	}
 	

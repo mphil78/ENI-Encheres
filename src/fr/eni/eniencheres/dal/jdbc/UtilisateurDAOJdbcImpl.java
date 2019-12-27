@@ -295,7 +295,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 	
 	@Override
-	public Utilisateur selectByPseudo(String pseudo) {
+	public Utilisateur selectByPseudo(String pseudo) throws DALException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;

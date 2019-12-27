@@ -57,8 +57,7 @@ public class TraitementConnexion extends HttpServlet {
 			throws ServletException, IOException {
 		
 		log("INFO", "method doPost Servlet : Connexion");
-		RequestDispatcher rd=null;
-		
+
 		//récuperation du pseudo choisi
 		String pseudoConnexion = request.getParameter("identifiant");
 		
@@ -74,14 +73,14 @@ public class TraitementConnexion extends HttpServlet {
 		if (connexionOk) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("pseudo", pseudoConnexion);
-			rd = request.getRequestDispatcher("/TraitementAccueil");
-			//rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
+			rd.forward(request, response);
 		} else {
 			request.setAttribute("erreurConnexion", "La connexion a échoué. Veuillez réessayer.");
-			rd = request.getRequestDispatcher("/Connexion");
-			//rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/Connexion");
+			rd.forward(request, response);
 		}
-		rd.forward(request, response);
+
 	}
 
 	/**
@@ -105,7 +104,6 @@ public class TraitementConnexion extends HttpServlet {
 		    if (pseudo.equals(pseudoConnexion)) {
 				if (mdp.equals(mdpConnexion)) {
 					connexionOk = true;
-					log("INFO : ", "identifiants OK");
 				}
 		    }
 		}
