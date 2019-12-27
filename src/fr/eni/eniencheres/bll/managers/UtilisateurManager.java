@@ -26,8 +26,9 @@ public class UtilisateurManager {
 	 * retourne l'objet utilisateur par son pseudo
 	 * @param pseudo
 	 * @return Utilisateur
+	 * @throws DALException 
 	 */ 
-	public Utilisateur getByPseudo(String pseudo) {
+	public Utilisateur getByPseudo(String pseudo) throws DALException {
 		Utilisateur utilisateur;
 		utilisateur=utilisateurDAO.selectByPseudo(pseudo);
 		return utilisateur;
