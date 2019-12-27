@@ -120,7 +120,8 @@ public class TraitementArticle extends HttpServlet {
 		retraitManager.addRetrait(lieuRetrait);
 		
 		//TODO faire le forward
-
+		RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
+		rd.forward(request, response);
 	}
 
 }
