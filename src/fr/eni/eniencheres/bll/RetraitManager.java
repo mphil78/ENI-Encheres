@@ -1,4 +1,4 @@
-package fr.eni.eniencheres.bll.managers;
+package fr.eni.eniencheres.bll;
 
 import fr.eni.eniencheres.bo.Retrait;
 import fr.eni.eniencheres.dal.DALException;

@@ -1,4 +1,4 @@
-<%@page import="fr.eni.eniencheres.bll.managers.EncheresManager"%>
+<%@page import="fr.eni.eniencheres.bll.EncheresManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
