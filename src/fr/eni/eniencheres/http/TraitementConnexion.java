@@ -26,6 +26,7 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	public TraitementConnexion() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -47,8 +48,8 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
-	 * Contrôle la connexion de l'utilisateur en hashant le mot de passe puis redirige en conséquence vers :<br>
-	 * -/TraitementAccueil si la connexion est acceptée<br>
+	 * Contrôle a connection de l'utilisateur en hashant le mot de passe puis redirige en conséquence vers :
+	 * -/TraitementAccueil si la connexion est acceptée
 	 * -/Connexion si la connexion est refusée
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
