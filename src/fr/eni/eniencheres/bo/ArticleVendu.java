@@ -124,9 +124,9 @@ public class ArticleVendu {
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
-				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorie=" + categorie
-				+ ", listeEncheres=" + listeEncheres + ", acheteur=" + acheteur + ", vendeur=" + vendeur
-				+ ", lieuRetrait=" + lieuRetrait + "]";
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", categorie=" + categorie.getLibelle()
+				 +  "vendeur=" + vendeur
+				+ ", lieuRetrait=" + lieuRetrait.toString() + "]";
 	}
 	
 	//constructeurs
