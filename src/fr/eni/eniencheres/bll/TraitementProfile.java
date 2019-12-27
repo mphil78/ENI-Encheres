@@ -34,6 +34,10 @@ public class TraitementProfile extends HttpServlet {
     }
 
 	/**
+	 * Redirige vers :
+	 * -/MonProfile en cas de modificationdu profile avec l'objet utilisateur en attribut de requete
+	 * -/TraitementConnexion en casde suppression apres avoir supprimer l'utilisateur de la BDD
+	 * -/Profile en cas de simple affichage avec en parametre l'objet utilisateur 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,7 +46,7 @@ public class TraitementProfile extends HttpServlet {
 		boolean modifier=false;
 		boolean supprimer=false;
 		
-		//récupère le paramatre modifier ou supprimer
+		//rÃ©cupÃ¨re le parametre modifier ou supprimer
 		if(request.getParameter("modifier")!=null) {
 			modifier=true;
 		}
@@ -69,7 +73,7 @@ public class TraitementProfile extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		//cas d'affichage
+		//cas de simple affichage
 		String pseudoAAfficher = (String) request.getParameter("pseudoAAfficher");
 		utilisateur = utilisateurManager.getByPseudo(pseudoAAfficher);		
 		request.setAttribute("utilisateurAAfficher", utilisateur);
@@ -78,9 +82,12 @@ public class TraitementProfile extends HttpServlet {
 	}
 
 	/**
+	 * En cas de creation de compte : Controle l'unicite de l'email et du pseudo avant d'ajouter l'utilisateur dans la BDD ou de retourner une erreur le cas ï¿½chï¿½ant
+	 * En cas de modification du profile : controle l'unicite de l'email et la concordance des passwords avant de modifier la BDD
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//TODO Controler l'unicite de l'email
 		HttpSession session = request.getSession();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String pseudo = (String) session.getAttribute("pseudo");
@@ -88,7 +95,7 @@ public class TraitementProfile extends HttpServlet {
 		boolean pseudoOk = true;
 		Utilisateur utilisateurModifie=null;
 		
-		//teste si pseudo correspond à  une entrée dans la bdd
+		//teste si pseudo correspond Ã Â  une entrÃ©e dans la bdd
 		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
 			String pseudoBdd = user.getKey();
 		    if (pseudoBdd.equals(pseudo)) {
@@ -98,7 +105,7 @@ public class TraitementProfile extends HttpServlet {
 		}
 		
 		
-		//crée une instance pojo utilisateur avec les données
+		//crÃ©e une instance pojo utilisateur avec les donnÃ©es
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setNom(request.getParameter("nom"));
 		utilisateur.setPrenom(request.getParameter("prenom"));
@@ -108,20 +115,12 @@ public class TraitementProfile extends HttpServlet {
 		utilisateur.setCodePostal(request.getParameter("codePostal"));
 		utilisateur.setVille(request.getParameter("ville"));
 		utilisateur.setMotDePasse(UtilisateurManager.hash(request.getParameter("password")));
-		int credit = 0;
-		boolean administrateur = false;
-		List<ArticleVendu> vente = new ArrayList<>();
-		List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
-		List<Enchere> listeEncheres = new ArrayList<>();
-		utilisateur.setCredit(credit);
-		utilisateur.setAdministrateur(administrateur);
-		utilisateur.setVente(vente);
-		utilisateur.setListeArticlesAchete(listeArticlesAchete);
-		utilisateur.setListeEncheres(listeEncheres);
+		utilisateur.setCredit(0);
+		utilisateur.setAdministrateur(false);
 		
 		
 		if (!pseudoOk) {
-			//si le pseudo existe déjà
+			//si le pseudo existe dÃ©jÃ 
 			if (request.getParameter("update")!=null) {
 				utilisateurModifie.setEmail(utilisateur.getEmail());
 				utilisateurModifie.setNom(utilisateur.getNom());

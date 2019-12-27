@@ -28,6 +28,7 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
+	 * Deconnecte l'utilisateur de sa session et forward vers /TraitementAccueil
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -45,6 +46,9 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
+	 * Controle a connection de l'utilisateur en hashant le mot de passe puis redirige en consequence vers :
+	 * -/TraitementAccueil si la connexion est acceptee
+	 * -/Connexion si la connexion est refusee
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */

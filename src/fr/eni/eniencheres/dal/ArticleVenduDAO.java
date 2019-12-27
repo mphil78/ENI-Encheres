@@ -7,29 +7,66 @@ import fr.eni.eniencheres.bo.ArticleVendu;
 
 
 public interface ArticleVenduDAO {
-		//Sélectionner un article par son id
-		public ArticleVendu selectById(int id) throws DALException;
+	/**
+	 * Selectionner un article par son id
+	 * @param id
+	 * @return ArticleVendu
+	 * @throws DALException
+	 */		
+	public ArticleVendu selectById(int id) throws DALException;
 		
-		//Sélectionner tous les articles
-		public List<ArticleVendu> selectAll() throws DALException;
+	/**
+	 * Selectionner tous les articles
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */		
+	public List<ArticleVendu> selectAll() throws DALException;
 		
-		//Insérer un nouvel article
-		public void insert(ArticleVendu article) throws DALException;
+	/**
+	 * Inserer un nouvel article
+	 * @param article
+	 * @throws DALException
+	 */		
+	public void insert(ArticleVendu article) throws DALException;
 		
-		//Supprimer un article
-		public void delete(ArticleVendu articleVendu) throws DALException;
+	/**
+	 * Supprimer un article
+	 * @param articleVendu
+	 * @throws DALException
+	 */		
+	public void delete(ArticleVendu articleVendu) throws DALException;
 		
-		//Modifier un article
-		public void update(ArticleVendu articleVendu) throws DALException;
+	/**
+	 * Modifier un article
+	 * @param articleVendu
+	 * @throws DALException
+	 */
+	public void update(ArticleVendu articleVendu) throws DALException;
 		
-		//Sélectionner les articles par mot clé
-		//On recherche le mot clé dans le nom et la description
-		public List<ArticleVendu> selectByMotCle(String motCle) throws DALException;
+	/**
+	 * Selectionner les articles par mot cle
+	 * On recherche le mot cle dans le nom et la description
+	 * @param motCle
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectByMotCle(String motCle) throws DALException;
 		
-		//Sélectionner les articles par catégorie
-		public List<ArticleVendu> selectByCategorie(int noCategorie) throws DALException;
+	/**
+	 * Selectionner les articles par categorie
+	 * @param noCategorie
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */		
+	public List<ArticleVendu> selectByCategorie(int noCategorie) throws DALException;
 		
-		//Selectionner les articles par mot clé(nom et description) ET catégorie
-		public List<ArticleVendu> selectByFiltres(String motCle, int noCategorie) throws DALException;
+	/**
+	 * Selectionner les articles par mot cle (nom et description) ET categorie
+	 * @param motCle
+	 * @param noCategorie
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectByFiltres(String motCle, int noCategorie) throws DALException;
 }
 

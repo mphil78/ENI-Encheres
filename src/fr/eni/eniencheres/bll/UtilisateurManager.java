@@ -15,13 +15,19 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
 
-	//constructeur
-	public UtilisateurManager() {
+	/**
+	 * constructeur de UtilisateurManager
+	 */
+	 public UtilisateurManager() {
 		this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 	}
 	
-	//retourne l'objet utilisateur par son pseudo
-	public Utilisateur getByPseudo(String pseudo) {
+	/**
+	 * retourne l'objet utilisateur par son pseudo
+	 * @param pseudo
+	 * @return Utilisateur
+	 */
+	 public Utilisateur getByPseudo(String pseudo) {
 		Utilisateur utilisateur=null;
 		try {
 			utilisateur=utilisateurDAO.selectByPseudo(pseudo);
@@ -32,8 +38,11 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	//retourne un dictionnaire des pseudos/motdepasse
-	public Map<String, String> getAllIdentifiants(){
+	/**
+	 * retourne un dictionnaire des pseudos/motdepasse
+	 * @return Map<String, String>
+	 */
+	 public Map<String, String> getAllIdentifiants(){
 		Map<String, String> allIdentifiants = new HashMap<String, String>();
 		try {
 			allIdentifiants = utilisateurDAO.selectAllIdentifiants();
@@ -44,7 +53,10 @@ public class UtilisateurManager {
 		return allIdentifiants;
 	}
 	
-	//ajoute l'utilisateur dans la base de donnees
+	/**
+	 * retourne un dictionnaire des pseudos/motdepasse
+	 * @return Map<String, String>
+	 */
 	public void addUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.insert(utilisateur);
@@ -54,7 +66,10 @@ public class UtilisateurManager {
 		}
 	}
 
-	//met à jour l'utilisateur dans la base de donnees
+	/**
+	 * ajoute l'utilisateur dans la base de donnees
+	 * @param utilisateur
+	 */
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.update(utilisateur);
@@ -64,8 +79,11 @@ public class UtilisateurManager {
 		}
 	}
 
-	//supprime l'utilisateur de la base de donnees.
-	public void delete(Utilisateur utilisateur) {
+	/**
+	 * met ï¿½ jour l'utilisateur dans la base de donnees
+	 * @param utilisateur
+	 */
+	 public void delete(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.delete(utilisateur);
 		} catch (DALException e) {
@@ -78,7 +96,7 @@ public class UtilisateurManager {
 	 * encode le mot de passe avant manipulation.
 	 * Copy past from https://www.mkyong.com/java/java-sha-hashing-example/
 	 * @param motDePasse
-	 * @return
+	 * @return String
 	 */
 	static String hash(String motDePasse) {
 		String encoded = null;

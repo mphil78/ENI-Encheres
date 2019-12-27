@@ -33,7 +33,8 @@ public class TraitementArticle extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+    /**
+	 * Forward vers /NouvelleVente en passant en attribut l'objet Vendeur et la liste des libelles
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -29,7 +29,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"insert "
 			+ "into ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_vendeur, no_acheteur, no_categorie, etat_vente  )"
 			+ " values(?,?,?,?,?,?,?,?,?,?)";
-	//ATERMINER notamment categorie, vendeur et acheteur non complètement renseigné
+
 	@Override
 	public ArticleVendu selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -57,7 +57,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
-				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));		
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -113,7 +113,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			}
 		}catch(SQLException e){
 			System.out.println(e);
-			throw new DALException("La création de l'utilisateur a échoué - " + article.getNomArticle(), e);
+			throw new DALException("La creation de l'utilisateur a echoue - " + article.getNomArticle(), e);
 		}
 		finally {
 			try {
@@ -124,7 +124,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a échoué - ", e);
+				throw new DALException("La fermeture de la connexion a echoue - ", e);
 			}
 
 		}
@@ -149,7 +149,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return null;
 	}
 	
-	//TODO Aterminer integrer liste d'encheres et fixer les selectbyIDArticle
 	@Override
 	public List<ArticleVendu> selectByCategorie(int noCategorie) throws DALException {
 		Connection cnx = null;
@@ -174,11 +173,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						);
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-//				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
-				articleVendu.setVendeur(utilistateurDAO.selectByIdArticle(rs.getInt("no_vendeur")));
-				articleVendu.setAcheteur(utilistateurDAO.selectByIdArticle(rs.getInt("no_acheteur")));
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
 				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
-//				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
