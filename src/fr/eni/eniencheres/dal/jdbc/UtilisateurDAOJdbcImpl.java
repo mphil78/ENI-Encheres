@@ -23,7 +23,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+" from UTILISATEURS"
 			+ " where no_utilisateur = ?";
 	private static final String sqlSelectByPseudo =
-			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit" 
+			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur" 
 			+" from UTILISATEURS"
 			+ " where pseudo = ?";
 	private static final String sqlSelectAll =
@@ -348,7 +348,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
-		Utilisateur utilisateur=null;
+		Utilisateur utilisateur=new Utilisateur();
 		try {
 			cnx = ConnectionProvider.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectByPseudo);
@@ -367,7 +367,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						rs.getString("ville"),
 						rs.getString("mot_de_passe"),
 						rs.getInt("credit"),
-						rs.getByte("administrateur")==0?false:true						);
+						rs.getByte("administrateur")==(byte)0?false:true
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
