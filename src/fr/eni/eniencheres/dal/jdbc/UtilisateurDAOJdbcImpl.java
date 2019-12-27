@@ -249,55 +249,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 		}		
 	}
-	
-//	@Override
-//	public Utilisateur selectByIdArticle(int id) throws DALException {
-//		Connection cnx = null;
-//		PreparedStatement rqt = null;
-//		ResultSet rs = null;
-//		Utilisateur utilisateur=null;
-//		try {
-//			cnx = ConnectionProvider.getConnection();
-//			rqt = cnx.prepareStatement(sqlSelectById);
-//			rqt.setInt(1, id);
-//			rs = rqt.executeQuery();
-//			if (rs.next()){
-//				utilisateur = new Utilisateur(
-//						rs.getInt("no_utilisateur"),
-//						rs.getString("pseudo"),
-//						rs.getString("nom"),
-//						rs.getString("prenom"),
-//						rs.getString("email"),
-//						rs.getString("telephone"),
-//						rs.getString("rue"),
-//						rs.getString("code_postal"),
-//						rs.getString("ville"),
-//						rs.getString("mot_de_passe"),
-//						rs.getInt("credit"),
-//						rs.getByte("administrateur")==0?false:true
-//						);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (rs != null){
-//					rs.close();
-//				}
-//				if (rqt != null){
-//					rqt.close();
-//				}
-//				if(cnx!=null){
-//					cnx.close();
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return utilisateur;
-//
-//
-//	}
 
 	@Override
 	public List<String> selectAllPseudos() throws DALException {
