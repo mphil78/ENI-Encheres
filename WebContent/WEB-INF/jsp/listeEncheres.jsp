@@ -47,7 +47,7 @@
     	</nav>
 	    
 	    <h6>Liste des enchères</h6>  
-		<h7>Filtres :</h7>
+		Filtres :
 		
 		<div class="input-group input-focus col-sm-8" >
 	  		<div class="input-group-prepend">
