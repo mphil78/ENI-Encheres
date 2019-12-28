@@ -22,7 +22,7 @@ public class Utilisateur {
 	private List<ArticleVendu> listeArticlesAchete = new ArrayList<>();
 	private List<Enchere> listeEncheres = new ArrayList<>();
 
-	
+	//TODO Faire les getters de vente, listeArticlesAchete, listeEncheres
 	//getters et setters
 
 	public List<ArticleVendu> getVente() {

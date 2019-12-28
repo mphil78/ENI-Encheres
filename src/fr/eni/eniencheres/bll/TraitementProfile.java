@@ -26,7 +26,6 @@ public class TraitementProfile extends HttpServlet {
      */
     public TraitementProfile() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

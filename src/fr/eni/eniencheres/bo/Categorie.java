@@ -40,7 +40,6 @@ public class Categorie {
 	}
 	public Categorie() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Categorie(int noCategorie, String libelle) {

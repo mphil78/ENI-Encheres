@@ -31,6 +31,7 @@ public class ArticleVendu {
 	private Retrait lieuRetrait;
 	private String urlImage="";
 	
+	//TODO faire le getter de listeEncheres
 	//getters et setters
 	public String getUrlImage() {
 		return urlImage;
@@ -130,10 +131,11 @@ public class ArticleVendu {
 	}
 	
 	//constructeurs
+	//TODO Enlever les constructeurs inutiles
 	public ArticleVendu() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int etatVente, Categorie categorie,
 			List<Enchere> listeEncheres, Utilisateur acheteur, Utilisateur vendeur, Retrait lieuRetrait,

@@ -13,7 +13,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	@Override
 	public void insert(Enchere enchere) throws DALException {
-		// TODO Auto-generated method stub
 		
 	}
 

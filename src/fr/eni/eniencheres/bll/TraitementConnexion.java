@@ -24,7 +24,6 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	public TraitementConnexion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,10 +33,10 @@ public class TraitementConnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//récupération de la session
+		//rï¿½cupï¿½ration de la session
 		HttpSession session = request.getSession();
 		
-		//déconnexion de la session
+		//dï¿½connexion de la session
 		session.invalidate();
 		
 		//forward vers accueil
@@ -57,7 +56,7 @@ public class TraitementConnexion extends HttpServlet {
 		
 		log("INFO", "method doPost Servlet : Connexion");
 
-		//récuperation du pseudo choisi
+		//rï¿½cuperation du pseudo choisi
 		String pseudoConnexion = request.getParameter("identifiant");
 		
 		//Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
@@ -75,7 +74,7 @@ public class TraitementConnexion extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
 		} else {
-			request.setAttribute("erreurConnexion", "La connexion a échoué. Veuillez réessayer.");
+			request.setAttribute("erreurConnexion", "La connexion a ï¿½chouï¿½. Veuillez rï¿½essayer.");
 			RequestDispatcher rd = request.getRequestDispatcher("/Connexion");
 			rd.forward(request, response);
 		}
@@ -83,7 +82,7 @@ public class TraitementConnexion extends HttpServlet {
 	}
 
 	/**
-	 * teste si pseudo et mdp correrspondent a  une entree dans la bdd
+	 * teste si pseudo et mdp correrspondent aï¿½ une entree dans la bdd
 	 * TODO reflechir a centraliser les regeles de gestion dans le manager La servlet regroupe tout ce qui est Http
 	 * @param pseudoConnexion
 	 * @param mdpConnexion
@@ -95,7 +94,7 @@ public class TraitementConnexion extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
 		
-		//teste si le pseudo existe déjà
+		//teste si le pseudo existe dï¿½jï¿½
 		boolean connexionOk = false;
 		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
 			String pseudo = user.getKey();
