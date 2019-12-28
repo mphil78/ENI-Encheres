@@ -5,6 +5,7 @@ import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 
+//TODO vérifier les catch block
 public class ArticleManager {
 
 	private ArticleVenduDAO articleDAO;
@@ -24,7 +25,6 @@ public class ArticleManager {
 		try {
 			articleDAO.insert(article);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

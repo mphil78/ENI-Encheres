@@ -5,6 +5,8 @@ import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 import fr.eni.eniencheres.dal.RetraitDAO;
 
+//TODO vérifier les catch block
+//TODO fusionner avec ArticleManager
 public class RetraitManager {
 
 	private RetraitDAO retraitDAO;
@@ -25,7 +27,6 @@ public class RetraitManager {
 		try {
 			retraitDAO.insert(retrait);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -39,7 +40,6 @@ public class RetraitManager {
 		try {
 			retraitDAO.insert(retrait, noArticle);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
