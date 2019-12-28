@@ -32,7 +32,6 @@ public class ServletTestDAL extends HttpServlet {
      */
     public ServletTestDAL() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -82,7 +81,7 @@ public class ServletTestDAL extends HttpServlet {
 
 //			Categorie c1 = new Categorie("Informatique");
 //			Categorie c2 = new Categorie("Ameublement");
-//			Categorie c3= new Categorie("Vêtement");
+//			Categorie c3= new Categorie("Vï¿½tement");
 //			Categorie c4 = new Categorie("Sport&Loisir");
 			Retrait retrait = new Retrait("7 chemin des ragots", "49320", "St Jean des Mauvrets");
 
@@ -106,8 +105,7 @@ public class ServletTestDAL extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

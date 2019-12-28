@@ -30,7 +30,6 @@ public class TraitementArticle extends HttpServlet {
      */
     public TraitementArticle() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**

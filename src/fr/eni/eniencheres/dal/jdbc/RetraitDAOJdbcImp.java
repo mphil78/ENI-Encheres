@@ -62,7 +62,6 @@ public class RetraitDAOJdbcImp implements RetraitDAO {
 
 	@Override
 	public void insert(Retrait retrait) throws DALException {
-		// TODO Auto-generated method stub
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
