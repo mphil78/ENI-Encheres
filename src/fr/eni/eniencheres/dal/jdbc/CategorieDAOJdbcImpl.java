@@ -12,6 +12,9 @@ import fr.eni.eniencheres.bo.Categorie;
 import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
 
+
+//TODO vÃ©rifier les catch block
+
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
 	private static final String sqlSelectById =
@@ -132,7 +135,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			}
 		}catch(SQLException e){
 			System.out.println(e);
-			throw new DALException("La Création de la catégorie a échoué - " + categorie.getLibelle(), e);
+			throw new DALException("La Crï¿½ation de la catï¿½gorie a ï¿½chouï¿½ - " + categorie.getLibelle(), e);
 		}
 		finally {
 			try {
@@ -143,7 +146,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("La fermeture de la connexion a échoué - ", e);
+				throw new DALException("La fermeture de la connexion a ï¿½chouï¿½ - ", e);
 			}
 
 		}		
@@ -182,7 +185,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

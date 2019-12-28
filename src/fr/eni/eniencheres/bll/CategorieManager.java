@@ -8,6 +8,8 @@ import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 
+//TODO vérifier les catch block
+
 public class CategorieManager {
 
 	private CategorieDAO categorieDAO;
@@ -29,7 +31,6 @@ public class CategorieManager {
 		try {
 			categorie = categorieDAO.selectByNom(libelle);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return categorie;
@@ -49,7 +50,6 @@ public class CategorieManager {
 				listeLibelles.add(cat.getLibelle());
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -96,7 +96,6 @@ public class ServletTestDAL extends HttpServlet {
 //				utilisateurDAO.insert(u2);
 //				utilisateurDAO.insert(u3);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}

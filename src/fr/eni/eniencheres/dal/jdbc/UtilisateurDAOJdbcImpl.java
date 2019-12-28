@@ -16,6 +16,7 @@ import fr.eni.eniencheres.dal.UtilisateurDAO;
 
 
 
+//TODO vÃ©rifier les catch block
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String sqlSelectById =
@@ -134,7 +135,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -196,7 +196,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("La suppression de l'utilisateur a échoué - " + utilisateur.getNom(), e);
+			throw new DALException("La suppression de l'utilisateur a ï¿½chouï¿½ - " + utilisateur.getNom(), e);
 		} finally {
 			try {
 				if (rqt != null){
@@ -234,7 +234,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("L'update de l'utilisateur a échoué - " + utilisateur.getNom(), e);
+			throw new DALException("L'update de l'utilisateur a ï¿½chouï¿½ - " + utilisateur.getNom(), e);
 		} finally {
 			try {
 				if (rqt != null){
@@ -277,7 +277,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -15,6 +15,7 @@ import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
 
+//TODO vérifier les catch block
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	private static final String sqlSelectById =

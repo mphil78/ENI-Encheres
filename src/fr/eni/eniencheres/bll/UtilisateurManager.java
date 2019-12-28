@@ -11,6 +11,7 @@ import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
 
+//TODO vérifier les catch block
 public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
@@ -32,7 +33,6 @@ public class UtilisateurManager {
 		try {
 			utilisateur=utilisateurDAO.selectByPseudo(pseudo);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return utilisateur;
@@ -47,7 +47,6 @@ public class UtilisateurManager {
 		try {
 			allIdentifiants = utilisateurDAO.selectAllIdentifiants();
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return allIdentifiants;
@@ -61,7 +60,6 @@ public class UtilisateurManager {
 		try {
 			utilisateurDAO.insert(utilisateur);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -74,7 +72,6 @@ public class UtilisateurManager {
 		try {
 			utilisateurDAO.update(utilisateur);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -87,7 +84,6 @@ public class UtilisateurManager {
 		try {
 			utilisateurDAO.delete(utilisateur);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -111,7 +107,6 @@ public class UtilisateurManager {
 	        }
 	        encoded = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return encoded;
