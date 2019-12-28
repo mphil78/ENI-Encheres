@@ -21,10 +21,18 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"select *" 
 			+" from ARTICLES_VENDUS"
 			+ " where no_article = ?";
+	private static final String sqlSelectAll =
+			"select *" 
+			+" from ARTICLES_VENDUS";
 	private static final String sqlSelectByCategorie =
 			"select *" 
 			+" from ARTICLES_VENDUS"
 			+ " where no_categorie = ?";
+	//TODO finir la requete et la corriger
+	private static final String sqlSelectByFiltres =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_categorie = ? and (description like \'%?%\' or nom_article like \'%?%\')";
 	private static final String sqlInsert =
 			"insert "
 			+ "into ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_vendeur, no_acheteur, no_categorie, etat_vente  )"
@@ -80,8 +88,50 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<ArticleVendu> selectAll() throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection cnx = null;
+		Statement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery(sqlSelectAll);
+			while (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
 	}
 
 	@Override
@@ -133,19 +183,16 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	@Override
 	public void delete(ArticleVendu articleVendu) throws DALException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void update(ArticleVendu articleVendu) throws DALException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public List<ArticleVendu> selectByMotCle(String motCle) throws DALException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -198,10 +245,56 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return articles;
 	}
 
+	//TODO A tester
 	@Override
 	public List<ArticleVendu> selectByFiltres(String motCle, int noCategorie) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByFiltres);
+			rqt.setInt(1, noCategorie);
+			rqt.setString(2, motCle);
+			rqt.setString(3, motCle);
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}	
 
 }
