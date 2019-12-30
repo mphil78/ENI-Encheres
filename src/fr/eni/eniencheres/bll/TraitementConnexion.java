@@ -69,6 +69,7 @@ public class TraitementConnexion extends HttpServlet {
 		
 		//redirection adaptee
 		if (connexionOk) {
+			//TODO Fixer le problème de rediection
 			HttpSession session = request.getSession(true);
 			session.setAttribute("pseudo", pseudoConnexion);
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
