@@ -73,5 +73,12 @@ public interface UtilisateurDAO {
 	 * @throws DALException
 	 */
 	public Utilisateur selectByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne une HashMap de tous les <[pseudo,email], mdp>
+	 * @return
+	 * @throws DALException
+	 */
+	Map<String[], String> selectAllPseudoEmail() throws DALException;
 	
 }

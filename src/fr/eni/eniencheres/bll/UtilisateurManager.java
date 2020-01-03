@@ -51,6 +51,21 @@ public class UtilisateurManager {
 		}
 		return allIdentifiants;
 	}
+	 
+	/**
+	 * retourne un dictionnaire des pseudos/motdepasse
+	 * @return Map<String, String>
+	 */
+	 public Map<String[], String> getAllPseudoEmail(){
+		Map<String[], String> allIdentifiants = new HashMap<>();
+		try {
+			allIdentifiants = utilisateurDAO.selectAllPseudoEmail();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return allIdentifiants;
+	}
+	 
 	
 	/**
 	 * retourne un dictionnaire des pseudos/motdepasse

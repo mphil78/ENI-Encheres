@@ -294,6 +294,20 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 	
 	@Override
+	public Map<String[], String> selectAllPseudoEmail() throws DALException {
+		Map<String[], String> identifiants =new HashMap<>();
+		List<Utilisateur> utilisateurs = this.selectAll();
+		for (Utilisateur user : utilisateurs) {
+			String[] pseudoEmail = new String[2];
+			pseudoEmail[0]=user.getPseudo();
+			pseudoEmail[1]=user.getEmail();
+			identifiants.put(pseudoEmail, user.getMotDePasse());
+		}
+		return identifiants;
+	}
+	
+	
+	@Override
 	public Utilisateur selectByPseudo(String pseudo) throws DALException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
