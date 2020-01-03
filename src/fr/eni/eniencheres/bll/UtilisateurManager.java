@@ -53,8 +53,8 @@ public class UtilisateurManager {
 	}
 	 
 	/**
-	 * retourne un dictionnaire des pseudos/motdepasse
-	 * @return Map<String, String>
+	 * retourne un dictionnaire des pseudos-emails/motdepasse
+	 * @return Map<String[], String>
 	 */
 	 public Map<String[], String> getAllPseudoEmail(){
 		Map<String[], String> allIdentifiants = new HashMap<>();
@@ -67,10 +67,11 @@ public class UtilisateurManager {
 	}
 	 
 	
-	/**
-	 * retourne un dictionnaire des pseudos/motdepasse
-	 * @return Map<String, String>
-	 */
+
+		/**
+		 * ajoute l'utilisateur dans la base de donnees
+		 * @param utilisateur
+		 */
 	public void addUtilisateur(Utilisateur utilisateur) {
 		try {
 			utilisateurDAO.insert(utilisateur);
@@ -79,8 +80,9 @@ public class UtilisateurManager {
 		}
 	}
 
+
 	/**
-	 * ajoute l'utilisateur dans la base de donnees
+	 * met a jour l'utilisateur dans la base de donnees
 	 * @param utilisateur
 	 */
 	public void updateUtilisateur(Utilisateur utilisateur) {
@@ -92,7 +94,7 @@ public class UtilisateurManager {
 	}
 
 	/**
-	 * met a jour l'utilisateur dans la base de donnees
+	 * supprime l'utilisateur dans la base de donnees
 	 * @param utilisateur
 	 */
 	 public void delete(Utilisateur utilisateur) {
@@ -142,5 +144,23 @@ public class UtilisateurManager {
 		}
 		return allIdentifiantsUniques;
 	}
+	
+	
+	/**
+	 * retourne l'objet utilisateur par son pseudo
+	 * @param pseudo
+	 * @return Utilisateur
+	 */
+	 public String getPseudoByEmail(String email) {
+		Utilisateur utilisateur=null;
+		try {
+			utilisateur=utilisateurDAO.selectByEmail(email);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return utilisateur.getPseudo();
+	}	
+	
+	
 }
 

@@ -55,23 +55,29 @@ public class TraitementConnexion extends HttpServlet {
 			throws ServletException, IOException {
 		
 		log("INFO : ", "method doPost Servlet : Connexion");
-
-		//recuperation du pseudo choisi
-		String pseudoConnexion = request.getParameter("identifiant");
+		
+		
+		//recuperation du pseudo choisi et identifie pseudo le cas échéant
+		String identifiantConnexion = request.getParameter("identifiant");
+		String pseudoConnexion=(identifiantConnexion.contains("@")?false:true)?identifiantConnexion:null;
 		
 		//Creer un Hash du mot de passe des la reception pour et ne transporter que le hash dans les methodes.
 		String mdpConnexion = UtilisateurManager.hash(request.getParameter("motDePasse"));
 
 		//TODO Lire le Cookie remember me dans le cooKie
 		
-		//teste si les identifiants sont disponibles
-		boolean connexionOk = isIdentOK(pseudoConnexion, mdpConnexion);
+		//teste si les identifiants sont disponibles et récupère le pseudo
+		boolean connexionOk = isIdentOK(identifiantConnexion, mdpConnexion);
 		
 		//redirection adaptee
 		if (connexionOk) {
-			//TODO Fixer le problème de rediection
+			if (pseudoConnexion==null) {
+				//si l'utilisateur a utilisé son email on recherche son pseudo
+				UtilisateurManager utilisateurManager = new UtilisateurManager();
+				pseudoConnexion=utilisateurManager.getPseudoByEmail(identifiantConnexion);
+			}
+			//TODO Fixer le problème de redirection
 			HttpSession session = request.getSession(true);
-			//TODO récuperer le pseudo même si c'est l'email qui a été entré
 			session.setAttribute("pseudo", pseudoConnexion);
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);

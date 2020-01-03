@@ -80,5 +80,13 @@ public interface UtilisateurDAO {
 	 * @throws DALException
 	 */
 	Map<String[], String> selectAllPseudoEmail() throws DALException;
+
+	
+	/**
+	 * Retourne un objet utilisateur en fonction de son email
+	 * @param email
+	 * @return
+	 */
+	public Utilisateur selectByEmail(String email) throws DALException;
 	
 }

@@ -23,6 +23,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			"select *" 
 			+" from UTILISATEURS"
 			+ " where no_utilisateur = ?";
+	private static final String sqlSelectByEmail =
+			"select *" 
+			+" from UTILISATEURS"
+			+ " where email = ?";
 	private static final String sqlSelectByPseudo =
 			"select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur" 
 			+" from UTILISATEURS"
@@ -366,6 +370,55 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			identifiants.put(user.getPseudo(), mdpEmail);
 		}
 		return identifiants;
+	}
+
+	@Override
+	public Utilisateur selectByEmail(String email) {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Utilisateur utilisateur=null;
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByEmail);
+			rqt.setString(1, email);
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				utilisateur = new Utilisateur(
+						rs.getInt("no_utilisateur"),
+						rs.getString("pseudo"),
+						rs.getString("nom"),
+						rs.getString("prenom"),
+						rs.getString("email"),
+						rs.getString("telephone"),
+						rs.getString("rue"),
+						rs.getString("code_postal"),
+						rs.getString("ville"),
+						rs.getString("mot_de_passe"),
+						rs.getInt("credit"),
+						rs.getByte("administrateur")==0?false:true
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return utilisateur;
+
 	}
 	
 	
