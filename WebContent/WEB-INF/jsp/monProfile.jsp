@@ -15,7 +15,7 @@
 		
 			
 		<form <%if(session.getAttribute("pseudo") == null){ %>
-					action="./TraitementProfile"
+					action="./TraitementProfile?creation=true"
 					<%}else{%>
 					 action="./TraitementProfile?update=true"
 					 <%}%>
@@ -179,7 +179,7 @@
 				<p>
 					<button type="submit" name="creer" id="creer">Créer</button>
 				</form>
-					<a href="./Accueil" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>
+					<a href="./TraitementAccueil" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>
 				</p>
 			<%
 			} 
