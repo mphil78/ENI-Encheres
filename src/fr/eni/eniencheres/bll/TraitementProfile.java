@@ -97,7 +97,7 @@ public class TraitementProfile extends HttpServlet {
 		
 		//CAS DE LA CREATION DE COMPTE
 		//----------------------------
-		if (request.getParameter("creation")=="true") {
+		if (request.getParameter("creation")!=null) {
 			boolean erreur = false;
 			
 			//crée une instance pojo utilisateur avec les données non uniques
@@ -153,7 +153,7 @@ public class TraitementProfile extends HttpServlet {
 		
 		//CAS DE L'UPDATE
 		//---------------
-		if (request.getParameter("update")=="true") {
+		if (request.getParameter("update")!=null) {
 			Utilisateur utilisateurModifie = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
 			boolean erreur = false;
 			//détermine si il y a une erreur
@@ -201,96 +201,5 @@ public class TraitementProfile extends HttpServlet {
 					rd.forward(request, response);
 				}
 		}
-		
-				
-//		String email = request.getParameter("email");
-//		Map<String, String[]> listeIdentifiantsUniques = utilisateurManager.getAllIdentifiantsUniques();
-//		boolean pseudoOk = true;
-//		boolean emailOk = true;
-//		Utilisateur utilisateurModifie=null;
-//		
-//		//teste si pseudo ou l'email correspond à  une entrée dans la bdd
-//		for(Entry<String, String[]> user : listeIdentifiantsUniques.entrySet()) {
-//			String pseudoBdd = user.getKey();
-//			String emailBdd = user.getValue()[1];
-//		    if (pseudoBdd.equals(pseudo)) {
-//				pseudoOk = false;
-//				if (emailBdd.equals(email)) {
-//					emailOk=false;
-//				}
-//				utilisateurModifie = utilisateurManager.getByPseudo(pseudo);
-//		    }
-//		}
-//		
-//		//crée une instance pojo utilisateur avec les données
-//		Utilisateur utilisateur = new Utilisateur();
-//		utilisateur.setNom(request.getParameter("nom"));
-//		utilisateur.setPrenom(request.getParameter("prenom"));
-//		utilisateur.setEmail(request.getParameter("email"));
-//		utilisateur.setTelephone(request.getParameter("telephone"));
-//		utilisateur.setRue(request.getParameter("rue"));
-//		utilisateur.setCodePostal(request.getParameter("codePostal"));
-//		utilisateur.setVille(request.getParameter("ville"));
-//		utilisateur.setMotDePasse(UtilisateurManager.hash(request.getParameter("password")));
-//		utilisateur.setCredit(0);
-//		utilisateur.setAdministrateur(false);
-//		
-//		//si le pseudo existe déjà
-//		if (!pseudoOk) {
-//			//cas de l'update on contrôle l'unicité de l'email
-//			if (request.getParameter("update")!=null) {
-//				//l'email n'existe pas déjà  : on modifie l'utilisateur et on update la bdd
-//				if (emailOk) {
-//					utilisateurModifie.setEmail(utilisateur.getEmail());
-//					utilisateurModifie.setNom(utilisateur.getNom());
-//					utilisateurModifie.setPrenom(utilisateur.getPrenom());
-//					utilisateurModifie.setTelephone(utilisateur.getTelephone());
-//					utilisateurModifie.setRue(utilisateur.getRue());
-//					utilisateurModifie.setCodePostal(utilisateur.getCodePostal());
-//					utilisateurModifie.setVille(utilisateur.getVille());
-//					utilisateurManager.updateUtilisateur(utilisateurModifie);
-//					RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
-//					rd.forward(request, response);
-//				//l'email existe déjà : on envoie l'erreur sur l'email et l'objet utilisateur
-//				} else {
-//					request.setAttribute("erreurEmail", "Veuillez choisir un autre email.");
-//					request.setAttribute("utilisateur", utilisateur);
-//					RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
-//					rd.forward(request, response);
-//				}
-//			//cas de la création : on envoie l'erreur sur le pseudo et l'objet utilisateur
-//			} else {
-//				request.setAttribute("erreurPseudo", "Veuillez choisir un autre pseudo.");
-//				request.setAttribute("utilisateur", utilisateur);
-//				RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
-//				rd.forward(request, response);
-//			}
-//		//le pseudo n'existe pas
-//		}else {
-//			//on contrôle l'unicité de l'email
-//			if (!emailOk) {
-//				//on envoie l'erreur sur l'email et l'objet utilisateur
-//				request.setAttribute("erreurEmail", "Veuillez choisir un autre email.");
-//				request.setAttribute("utilisateur", utilisateur);
-//				RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
-//				rd.forward(request, response);
-//			}
-//			//on controle la concordance des mots de passes
-//			if(utilisateur.getMotDePasse().equals(UtilisateurManager.hash(request.getParameter("password2")))) {
-//				//on envoie l'erreur sur les mots de passe et l'objet utilisateur
-//				utilisateur.setMotDePasse("");
-//				request.setAttribute("erreurMotDePasse", "Les mots de passes ne correspondent pas.");
-//				request.setAttribute("utilisateur", utilisateur);
-//				RequestDispatcher rd = request.getRequestDispatcher("/MonProfile");
-//				rd.forward(request, response);
-//			}
-//			//sinon on inclut l'utilisateur
-//			utilisateur.setPseudo(request.getParameter("pseudo"));
-//			utilisateurManager.addUtilisateur(utilisateur);
-//			session.setAttribute("pseudo", utilisateur.getPseudo());
-//			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
-//			rd.forward(request, response);
-//		}		
 	}
-
 }
