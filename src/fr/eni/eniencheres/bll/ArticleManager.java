@@ -1,5 +1,7 @@
 package fr.eni.eniencheres.bll;
 
+import java.util.List;
+
 import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.DALException;
@@ -27,6 +29,17 @@ public class ArticleManager {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<ArticleVendu> getAllArticles() {
+		
+		try {
+			return articleDAO.selectAll();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

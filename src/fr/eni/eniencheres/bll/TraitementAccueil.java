@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.eniencheres.bo.ArticleVendu;
+
 
 /**
  * Servlet implementation class TraitementAccueil
@@ -31,10 +33,17 @@ public class TraitementAccueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Instanciation des manager
 		CategorieManager categorieManager = new CategorieManager();
+		ArticleManager articleManager = new ArticleManager();
+		//récupération des catégories et de la liste des articles
 		List<String> listeLibellesCategories = new ArrayList<>();
+		List<ArticleVendu> listeArticles = new ArrayList<>(); 
 		listeLibellesCategories = categorieManager.getAllLibelles();
+		listeArticles = articleManager.getAllArticles();
+		request.setAttribute("articles", listeArticles);
 		request.setAttribute("libelles", listeLibellesCategories);
+		//redirection
 		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 		rd.forward(request, response);
 	}
