@@ -71,6 +71,7 @@ public class TraitementConnexion extends HttpServlet {
 		if (connexionOk) {
 			//TODO Fixer le problème de rediection
 			HttpSession session = request.getSession(true);
+			//TODO récuperer le pseudo même si c'est l'email qui a été entré
 			session.setAttribute("pseudo", pseudoConnexion);
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
 			rd.forward(request, response);
@@ -89,17 +90,18 @@ public class TraitementConnexion extends HttpServlet {
 	 * @return boolean connexion
 	 * 
 	 */
-	private boolean isIdentOK(final String pseudoConnexion, final String mdpConnexion) {
+	private boolean isIdentOK(final String identifiant, final String mdpConnexion) {
 		//Access aux donnees en base
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		Map<String, String> listeIdentifiants = utilisateurManager.getAllIdentifiants();
+		Map<String[], String> listeIdentifiants = utilisateurManager.getAllPseudoEmail();
 		
 		//teste si le pseudo existe deja
 		boolean connexionOk = false;
-		for(Entry<String, String> user : listeIdentifiants.entrySet()) {
-			String pseudo = user.getKey();
+		for(Entry<String[], String> user : listeIdentifiants.entrySet()) {
+			String pseudo = user.getKey()[0];
+			String email = user.getKey()[1];
 			String mdp = user.getValue();
-		    if (pseudo.equals(pseudoConnexion)) {
+		    if (pseudo.equals(identifiant)||email.equals(identifiant)) {
 				if (mdp.equals(mdpConnexion)) {
 					connexionOk = true;
 				}
