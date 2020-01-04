@@ -13,6 +13,8 @@ public class ArticleVendu {
 	public static final int RETIREE=3;
 	public static final int ANNULEE=4;
 	public static final int PRIX_VENTE_INIT=0;
+	public static final int TOUTETAT=-1;
+
 
 	
 	//Atrributs d'instance

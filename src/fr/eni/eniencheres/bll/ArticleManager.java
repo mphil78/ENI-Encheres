@@ -48,7 +48,7 @@ public class ArticleManager {
 	}
 	
 	/**
-	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo.
+	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo quelque soit son état.
 	 * @param pseudo
 	 * @return List<ArticleVendu> toutesLesVentes
 	 */
@@ -64,51 +64,23 @@ public class ArticleManager {
 	}
 	
 	/**
-	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo dont l'état est "CREEE"
+	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo de l'état<br>
+	 * Rappel des états possibles :<br>
+	 * CREEE=0 (non commencée), ENCOURS=1, TERMINEE=2 RETIREE=3, ANNULEE=4<br>
 	 * @param pseudo
-	 * @return List<ArticleVendu> toutesLesVentesCreees
+	 * @param ETAT
+	 * @return
 	 */
-	public List<ArticleVendu> getVenteNonDebuteesByPseudo(String pseudo){
-		List<ArticleVendu> toutesLesVentesCreees = new ArrayList<ArticleVendu>();
+	public List<ArticleVendu> getVenteByPseudoAndEtat(String pseudo, final int ETAT) {
+		List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
 		try {
-			toutesLesVentesCreees = articleDAO.selectVenteCreeeByPseudo(pseudo);
+			ventes = articleDAO.selectVenteByPseudoAndEtat(pseudo, ETAT);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return toutesLesVentesCreees;	
+		return ventes;
+		
 	}
-	
-	/**
-	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo dont l'état est "ENCOURS"
-	 * @param pseudo
-	 * @return List<ArticleVendu> toutesLesVentesEnCours
-	 */
-	public List<ArticleVendu> getVenteEnCoursByPseudo(String pseudo){
-		List<ArticleVendu> toutesLesVentesEnCours = new ArrayList<ArticleVendu>();
-		try {
-			toutesLesVentesEnCours = articleDAO.selectVenteEnCoursByPseudo(pseudo);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return toutesLesVentesEnCours;	
-	}
-	
-	/**
-	 * Retourne la liste de tous les articles vendus par un utilisateur en fonction de son pseudo dont l'état est "TERMINEE"
-	 * @param pseudo
-	 * @return List<ArticleVendu> toutesLesVentesTerminees
-	 */
-	public List<ArticleVendu> getVenteTermineeByPseudo(String pseudo){
-		List<ArticleVendu> toutesLesVentesTerminees = new ArrayList<ArticleVendu>();
-		try {
-			toutesLesVentesTerminees = articleDAO.selectVenteTermineeByPseudo(pseudo);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return toutesLesVentesTerminees;	
-	}	
 	
 }
