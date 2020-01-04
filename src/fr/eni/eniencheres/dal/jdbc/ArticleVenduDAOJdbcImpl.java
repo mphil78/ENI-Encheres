@@ -18,6 +18,22 @@ import fr.eni.eniencheres.dal.UtilisateurDAO;
 //TODO vérifier les catch block
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
+	private static final String sqlSelectVenteTERMINEEByPseudo =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_vendeur = ? and etat_vente=?";
+	private static final String sqlSelectVenteENCOURSByPseudo =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_vendeur = ? and etat_vente=?";
+	private static final String sqlSelectVenteCREEEByPseudo =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_vendeur = ? and etat_vente=?";
+	private static final String sqlSelectVenteByPseudo =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_vendeur = ?";
 	private static final String sqlSelectById =
 			"select *" 
 			+" from ARTICLES_VENDUS"
@@ -276,6 +292,205 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
 				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectVenteByPseudo(String pseudo) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();		
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectVenteByPseudo);
+			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectVenteCreeeByPseudo(String pseudo) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();		
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectVenteCREEEByPseudo);
+			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
+			rqt.setInt(2, ArticleVendu.CREEE);
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectVenteEnCoursByPseudo(String pseudo) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();		
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectVenteENCOURSByPseudo);
+			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
+			rqt.setInt(2, ArticleVendu.ENCOURS);
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectVenteTermineeByPseudo(String pseudo) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();		
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectVenteTERMINEEByPseudo);
+			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
+			rqt.setInt(2, ArticleVendu.TERMINEE);
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {

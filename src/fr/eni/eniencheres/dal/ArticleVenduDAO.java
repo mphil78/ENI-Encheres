@@ -68,5 +68,37 @@ public interface ArticleVenduDAO {
 	 * @throws DALException
 	 */
 	public List<ArticleVendu> selectByFiltres(String motCle, int noCategorie) throws DALException;
+
+	/**
+	 * Retourne la liste des articles vendus par un utilisateur en fonction de son pseudo
+	 * @param pseudo
+	 * @return
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectVenteByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne la liste des articles vendus dans l'état CREEE par un utilisateur en fonction de son pseudo
+	 * @param pseudo
+	 * @return
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectVenteCreeeByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne la liste des articles vendus dans l'état ENCOURS par un utilisateur en fonction de son pseudo
+	 * @param pseudo
+	 * @return
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectVenteEnCoursByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne la liste des articles vendus dans l'état TERMINEE par un utilisateur en fonction de son pseudo
+	 * @param pseudo
+	 * @return
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectVenteTermineeByPseudo(String pseudo) throws DALException;
 }
 
