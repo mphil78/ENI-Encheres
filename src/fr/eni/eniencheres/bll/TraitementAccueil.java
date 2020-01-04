@@ -29,7 +29,7 @@ public class TraitementAccueil extends HttpServlet {
     }
 
     /**
-	 * Forward vers /Accueil en envoyant la liste des libelles
+	 * Forward vers /Accueil en envoyant la liste des libelles et la liste de tous les articles
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,10 +49,11 @@ public class TraitementAccueil extends HttpServlet {
 	}
 
 	/**
+	 * Forward vers l'accueil en envoyant la liste des libelles et des articles demandés
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	
 	}
 
 }
