@@ -115,11 +115,11 @@ public class TraitementProfile extends HttpServlet {
 					String pseudoBdd = user.getKey()[0];
 					String emailBdd = user.getKey()[1];
 				    if (pseudoBdd.equals(request.getParameter("pseudo"))) {
-						request.setAttribute("erreurPseudo", "Veuillez choisir un autre pseudo.");
+						request.setAttribute("erreurPseudo", "Pseudo déjà utilisé. Veuillez choisir un autre pseudo.");
 						erreur=true;
 					}
 					if (emailBdd.equals(request.getParameter("email"))) {
-						request.setAttribute("erreurEmail", "Veuillez choisir un autre email.");
+						request.setAttribute("erreurEmail", "Email déjà utilisé. Veuillez choisir un autre email.");
 						erreur=true;
 				    }
 				}
