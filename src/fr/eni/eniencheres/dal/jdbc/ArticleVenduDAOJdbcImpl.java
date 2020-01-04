@@ -13,6 +13,7 @@ import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
+import fr.eni.eniencheres.dal.RetraitDAO;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
 
 //TODO vérifier les catch block
@@ -42,6 +43,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"select *" 
 			+" from ARTICLES_VENDUS"
 			+ " where no_categorie = ? and (description like \'%?%\' or nom_article like \'%?%\')";
+	//TODO finir la requete et la corriger
+	private static final String sqlSelectByMotCleAndEtat =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where etat_vente = ? and nom_article like ?";
 	private static final String sqlInsert =
 			"insert "
 			+ "into ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_vendeur, no_acheteur, no_categorie, etat_vente  )"
@@ -70,11 +76,19 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("etat_vente")
 						);
 			}
-				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
-				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
-				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
-				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));		
+			//set des vendeur et acheteur
+			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+			articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+			articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+			
+			//set de la categorie
+			CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+			articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+			
+			//set du retrait
+			RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+			articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -92,7 +106,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				e.printStackTrace();
 			}
 		}		
-		return null;
+		return articleVendu;
 	}
 
 	@Override
@@ -116,11 +130,20 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("prix_vente"),
 						rs.getInt("etat_vente")
 						);
+				//set des vendeur et acheteur
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
-				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				
+				//set de la categorie
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
@@ -227,11 +250,20 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("prix_vente"),
 						rs.getInt("etat_vente")
 						);
+				//set des vendeur et acheteur
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
-				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
-				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
+				
+				//set de la categorie
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
@@ -279,11 +311,20 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("prix_vente"),
 						rs.getInt("etat_vente")
 						);
+				//set des vendeur et acheteur
 				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
-				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
-				articleVendu.setCategorie(categorieDAO.selectById(noCategorie));
+				
+				//set de la categorie
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
@@ -329,10 +370,19 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("prix_vente"),
 						rs.getInt("etat_vente")
 						);
+				//set des vendeur et acheteur
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				
+				//set de la categorie
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
@@ -370,6 +420,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			rs = rqt.executeQuery();
 			if (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
+						//renseigne les propriétés non POJO 
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
 						rs.getString("description"),
@@ -379,14 +430,85 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						rs.getInt("prix_vente"),
 						rs.getInt("etat_vente")
 						);
+				
+				//set des vendeur et acheteur
 				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
 				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				
+				//set de la categorie
 				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
-				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("noCategorie")));
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
 				articles.add(articleVendu);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectByMotCleAndEtat(String motCle, int ETAT) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByMotCleAndEtat);
+			rqt.setInt(1, ETAT);
+			rqt.setString(2, "%"+motCle+"%");
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+
+				//set des vendeur et acheteur
+				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				
+				//set de la categorie
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e);
 		} finally {
 			try {
 				if (rs != null){

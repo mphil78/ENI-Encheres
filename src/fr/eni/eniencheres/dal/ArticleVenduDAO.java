@@ -51,7 +51,16 @@ public interface ArticleVenduDAO {
 	 * @throws DALException
 	 */
 	public List<ArticleVendu> selectByMotCle(String motCle) throws DALException;
-		
+
+	/**
+	 * Selectionner les articles par mot cle et l'état
+	 * On recherche le mot cle dans le nom et la description
+	 * @param motCle
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectByMotCleAndEtat(String motCle, final int ETAT) throws DALException;
+	
 	/**
 	 * Selectionner les articles par categorie
 	 * @param noCategorie

@@ -121,7 +121,6 @@ public class ArticleVendu {
 	}
 	
 	
-	
 	//override du toString
 	@Override
 	public String toString() {
