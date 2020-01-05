@@ -110,11 +110,12 @@ public class TraitementArticle extends HttpServlet {
 								debutEncheres,
 								finEncheres,
 								miseAPrix,
-								ArticleVendu.PRIX_VENTE_INIT,
+								//le prix de vente "initial" (sans enchérisseur) est égal au prix initial
+								miseAPrix,
 								ArticleVendu.CREEE,
 								cat,
 								vendeur,
-								//l'acheteur est le vendeur tant qu'il n'y a pas d'enchères
+								//l'encherisseur est le vendeur tant qu'il n'y a pas d'enchères
 								vendeur
 								);
 
