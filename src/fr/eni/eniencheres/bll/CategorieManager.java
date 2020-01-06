@@ -55,4 +55,20 @@ public class CategorieManager {
 		
 		return listeLibelles;
 	}
+
+	/**
+	 * renvoie une liste de toutes les catégories
+	 * @return List<Categorie>
+	 */
+	public List<Categorie> getAll() {
+		List<Categorie> listCategories = new ArrayList<>();
+		try {
+			listCategories = categorieDAO.selectAll();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		
+		return listCategories;
+	}
+
 }

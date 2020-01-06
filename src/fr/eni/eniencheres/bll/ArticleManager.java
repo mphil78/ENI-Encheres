@@ -95,5 +95,20 @@ public class ArticleManager {
 		
 	}
 
+	public List<ArticleVendu> getArticlesByMotCleAndCate(String motCle, int noCategorie) {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		try {
+			if (noCategorie==-1) {
+				listeArticles=articleDAO.selectByMotCle(motCle);
+			} else {
+				listeArticles = articleDAO.selectByFiltres(motCle, noCategorie);
+			}
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeArticles;
+	}
+
 	
 }
