@@ -19,6 +19,10 @@ import fr.eni.eniencheres.dal.UtilisateurDAO;
 //TODO vérifier les catch block
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
+	private static final String sqlSelectByMotCle =
+			"select *" 
+			+" from ARTICLES_VENDUS"
+			+ " where nom_article like ?";
 	private static final String sqlSelectVenteByPseudoAndETAT =
 			"select *" 
 			+" from ARTICLES_VENDUS"
@@ -225,8 +229,64 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<ArticleVendu> selectByMotCle(String motCle) throws DALException {
-		return null;
-	}
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<ArticleVendu> articles = new ArrayList<>();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByMotCle);
+			rqt.setString(1, "%"+motCle+"%");
+			rs = rqt.executeQuery();
+			if (rs.next()){		
+				ArticleVendu articleVendu = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getInt("etat_vente")
+						);
+
+				//set des vendeur et acheteur
+				UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
+				articleVendu.setVendeur(utilistateurDAO.selectById(rs.getInt("no_vendeur")));
+				articleVendu.setAcheteur(utilistateurDAO.selectById(rs.getInt("no_acheteur")));
+				
+				//set de la categorie
+				CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+				articleVendu.setCategorie(categorieDAO.selectById(rs.getInt("no_categorie")));
+				
+				//set du retrait
+				RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
+				articleVendu.setLieuRetrait(retraitDAO.selectByIdArticle(rs.getInt("no_article")));
+				
+				//ajout de l'article à la liste
+				articles.add(articleVendu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return articles;
+	}	
+	
 	
 	@Override
 	public List<ArticleVendu> selectByCategorie(int noCategorie) throws DALException {

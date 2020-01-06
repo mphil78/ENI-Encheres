@@ -83,4 +83,17 @@ public class ArticleManager {
 		
 	}
 	
+	public List<ArticleVendu> getArticlesByMotCle(String motCle) {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		try {
+			listeArticles = articleDAO.selectByMotCle(motCle);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeArticles;
+		
+	}
+
+	
 }
