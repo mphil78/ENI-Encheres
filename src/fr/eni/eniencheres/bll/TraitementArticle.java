@@ -144,8 +144,6 @@ public class TraitementArticle extends HttpServlet {
         }
 				
 		//redirection vers /TraitementAcueil doGet
-//		request.setAttribute("utilisateur",vendeur);
-//		request.setAttribute("articleAAfficher", article);
 		response.sendRedirect("./TraitementAccueil"); 
 	}
 
