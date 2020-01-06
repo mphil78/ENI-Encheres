@@ -96,13 +96,54 @@ public class TraitementAccueil extends HttpServlet {
 		List<ArticleVendu> listeArticles = new ArrayList<>(); 
 		if (!connecte) {
 			listeArticles = articleManager.getArticlesByMotCleAndCate(motCle, categorie);
-			request.setAttribute("articles", listeArticles);
-			request.setAttribute("categories", listeCategories);
-			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
-			rd.forward(request, response);
+
 		} else {
-			doGet(request, response);
+			String pseudo = (String)session.getAttribute("pseudo");
+			int achatVente = Integer.parseInt(request.getParameter("achatVente"));
+			switch(achatVente) {
+				case ACHATS : 
+					List<ArticleVendu> achatsOuvertes = new ArrayList<ArticleVendu>();
+					List<ArticleVendu> achatsEnCours = new ArrayList<ArticleVendu>();
+					List<ArticleVendu> achatsRemportees = new ArrayList<ArticleVendu>();
+					if (request.getParameter("chk1")!=null) {
+//						achatsEnCours = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.TOUTETAT);
+					}
+					if (request.getParameter("chk2")!=null) {
+//						achatsEnCours = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.CREEE);
+					}
+					if (request.getParameter("chk3")!=null) {
+//						achatsRemportees = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.TERMINEE);
+					}
+					listeArticles.addAll(achatsOuvertes);
+					listeArticles.addAll(achatsEnCours);
+					listeArticles.addAll(achatsRemportees);
+					
+					break;
+				case VENTES :
+					List<ArticleVendu> ventesEnCours = new ArrayList<ArticleVendu>();
+					List<ArticleVendu> ventesNonDebutees = new ArrayList<ArticleVendu>();
+					List<ArticleVendu> ventesTerminees = new ArrayList<ArticleVendu>();
+					if (request.getParameter("chk1")!=null) {
+						ventesEnCours = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.ENCOURS);
+					}
+					if (request.getParameter("chk2")!=null) {
+						ventesNonDebutees = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.CREEE);
+					}
+					if (request.getParameter("chk3")!=null) {
+						ventesTerminees = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.TERMINEE);
+					}
+					listeArticles.addAll(ventesEnCours);
+					listeArticles.addAll(ventesTerminees);
+					listeArticles.addAll(ventesNonDebutees);
+					break;
+			}
 		}
+		
+		//redirection
+		request.setAttribute("articles", listeArticles);
+		request.setAttribute("categories", listeCategories);
+		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+		rd.forward(request, response);
 		
 	}
 
