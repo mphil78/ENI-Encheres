@@ -81,32 +81,32 @@
 			%>   
 			<div class="form-check">
 			
-	  			<div class="row">
+	  			<div class="row" >
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="achats" checked >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="0" checked >
 			  			<label class="form-check-label" for="achats">Achats</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="encheresOuvertes" id="encheresOuvertes">
+			  			<input class="form-check-input" type="checkbox" name="chk1" value="encheresOuvertes" id="encheresOuvertes">
 			  			<label class="form-check-label" for="defaultCheck1">enchères ouvertes</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="encheresCours" id="encheresCours">
+			  			<input class="form-check-input" type="checkbox" name="chk2" value="encheresCours" id="encheresCours">
 			  			<label class="form-check-label" for="encheresCours">mes enchères en cours</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ecnheresRemportees" id="ecnheresRemportees">
+			  			<input class="form-check-input" type="checkbox" name="chk3" value="ecnheresRemportees" id="ecnheresRemportees">
 			  			<label class="form-check-label" for="ecnheresRemportees">mes enchères remportées</label>
 			  		</div>
 			  		
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="mesVentes" >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="1" >
 			  			<label class="form-check-label" for="exampleRadios1">Mes ventes</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesEncours" id="ventesEncours" >
+			  			<input class="form-check-input" type="checkbox" name="chk1" value="ventesEncours" id="ventesEncours" >
 			  			<label class="form-check-label" for="ventesEncours">mes ventes en cours</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesNondebutees" id="ventesNondebutees">
+			  			<input class="form-check-input" type="checkbox" name="chk2" value="ventesNondebutees" id="ventesNondebutees">
 			  			<label class="form-check-label" for="ventesNondebutees">ventes non débutées</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesTerminees" id="ventesTerminees">
+			  			<input class="form-check-input" type="checkbox" name="chk3" value="ventesTerminees" id="ventesTerminees">
 			  			<label class="form-check-label" for="ventesTerminees">ventes terminées</label>
 	  				</div>
 			  		
@@ -125,21 +125,23 @@
 	
 	
 	<!-- AFFICHAGE DES ARTICLES -->
+
 	<div class="row mt-5">	
 		<c:if test="${!empty requestScope.articles }">	
 			<c:forEach items="${requestScope.articles}" var="article">
-				<div class="row ">
-					<div class="col-3 border border-dark">
+				<div class="row mt-3">
+					<div class="col-3  border border-dark">
 						<img class="" src="" alt="image du produit">
 					</div>
-					<div class="col-7 border border-dark">
-						<div><u>${article.nomArticle }</u></div>
-						<div>Prix: ${article.prixVente}</div>
+					<div class="col-7  border border-dark">
+						<div class="nomproduit">${article.nomArticle }</div>
+						<div>Prix: ${article.prixVente} points</div>
 						<div>Fin de l'enchère: ${article.dateFinEncheres }</div>
 						<div>Vendeur: <a href = "./TraitementProfile?pseudoAAfficher=${article.vendeur.pseudo}">${article.vendeur.pseudo}</a></div>
 					</div>	
 					<div class="col-2" ></div>
-				</div>
+					<div class="row"></div>
+				</div>				
 			</c:forEach>	
 		</c:if>
 		
