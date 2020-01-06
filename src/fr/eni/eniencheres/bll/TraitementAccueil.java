@@ -56,21 +56,21 @@ public class TraitementAccueil extends HttpServlet {
 
 		System.out.println("Passage par doPost TraitementAccueil");
 
-
-
-		
-		
 		//Instanciation des manager
 		CategorieManager categorieManager = new CategorieManager();
 		ArticleManager articleManager = new ArticleManager();
+
 		//récupération des catégories et de la liste des articles
 		List<String> listeLibellesCategories = new ArrayList<>();
 		List<ArticleVendu> listeArticles = new ArrayList<>(); 
 		listeLibellesCategories = categorieManager.getAllLibelles();
 		String motCle = request.getParameter("motCle");
 		listeArticles = articleManager.getArticlesByMotCle(motCle);
+
+		//envoie les attributs à la request
 		request.setAttribute("articles", listeArticles);
 		request.setAttribute("libelles", listeLibellesCategories);
+
 		//redirection
 		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 		rd.forward(request, response);
