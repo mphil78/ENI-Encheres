@@ -79,8 +79,7 @@ public class TraitementConnexion extends HttpServlet {
 			//TODO Fixer le problème de redirection
 			HttpSession session = request.getSession(true);
 			session.setAttribute("pseudo", pseudoConnexion);
-			RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
-			rd.forward(request, response);
+			response.sendRedirect("./TraitementAccueil"); 
 		} else {
 			request.setAttribute("erreurConnexion", "La connexion a echoue. Veuillez reessayer.");
 			RequestDispatcher rd = request.getRequestDispatcher("/Connexion");
