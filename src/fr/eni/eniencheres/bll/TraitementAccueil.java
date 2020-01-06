@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.eniencheres.bo.ArticleVendu;
 
@@ -55,8 +56,13 @@ public class TraitementAccueil extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("Passage par doPost TraitementAccueil");
+		//Récupération de la session
+		HttpSession session = request.getSession();
+		
+		boolean connecte = session.getAttribute("pseudo")==null?false:true;
+		boolean motCle = (request.getParameter("motCle")==null||request.getParameter("motCle").equals(""))?false:true;
 
-		//Instanciation des manager
+		//Instanciation des managers
 		CategorieManager categorieManager = new CategorieManager();
 		ArticleManager articleManager = new ArticleManager();
 
@@ -64,16 +70,19 @@ public class TraitementAccueil extends HttpServlet {
 		List<String> listeLibellesCategories = new ArrayList<>();
 		List<ArticleVendu> listeArticles = new ArrayList<>(); 
 		listeLibellesCategories = categorieManager.getAllLibelles();
-		String motCle = request.getParameter("motCle");
-		listeArticles = articleManager.getArticlesByMotCle(motCle);
-
-		//envoie les attributs à la request
-		request.setAttribute("articles", listeArticles);
-		request.setAttribute("libelles", listeLibellesCategories);
-
-		//redirection
-		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
-		rd.forward(request, response);
+		
+		
+		if(motCle) {
+			listeArticles = articleManager.getArticlesByMotCle(request.getParameter("motCle"));
+			//envoie les attributs à la request
+			request.setAttribute("articles", listeArticles);
+			request.setAttribute("libelles", listeLibellesCategories);
+			//redirection
+			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+			rd.forward(request, response);
+		}
+		
+		doGet(request, response);
 	}
 
 }
