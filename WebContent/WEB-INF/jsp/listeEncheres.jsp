@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
 
 <!doctype html>
 <html lang="fr">
@@ -18,42 +19,38 @@
   </head>
   <body>
   	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
+  	<% List<ArticleVendu> articles = (List<ArticleVendu>)request.getAttribute("articles");	%>
     
     <div class="container">
-	    
+	    <h5>Eni-Enchères</h5>
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
-	            <h5>Eni-Enchères</h5>
-	            <%
-				if (session.getAttribute("pseudo") != null) {
-				%>               
-	            		            	            
-	                 <a class="nav-link" href="./NouvelleVente">Enchères </a>
+	            	            
+	    <c:choose>
+   			<c:when test="${!empty sessionScope.pseudo}">
+   			<a class="nav-link" href="./NouvelleVente">Enchères </a>
 	            
 	                 <a class="nav-link" href="./TraitementArticle">Vendre un article</a>
 	             	                
 	                 <a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>
 	           	               
 	                 <a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
-	              <%
-					}else{
-	              %> 
-	              <a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
-	              <%
-					}
-	              %>
-	                  
+	        </c:when>
+   			<c:when test="${empty sessionScope.pseudo}"><a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   			</c:when>
+		</c:choose>
 	        </div>
     	</nav>
 	    
 	    <h6>Liste des enchères</h6>  
 		Filtres :
-		
+	<form action="./TraitementAccueil" method="post">
+
 		<div class="input-group input-focus col-sm-8" >
 	  		<div class="input-group-prepend">
 	   		 	<span class="input-group-text bg-white"><i class="fa fa-search"></i></span>
 	  		</div>
-	  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0">
+	  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0" name="motCle">
 		</div>
 		
 		<div class="col-auto my-1">
@@ -61,7 +58,7 @@
 			<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
 		        <option selected>Toutes</option>
 		        <% for (String lib : libelles) { %>
-		        <option value="<%=lib%>"><%=lib%></option>
+		        	<option value="<%=lib%>"><%=lib%></option>
 		        <%}%>
 		     </select>
 		</div>
@@ -110,24 +107,22 @@
 		<%
 		}
 		%>
-		<button type="button" class="btn btn-primary btn-lg">Rechercher</button>
-		</div>
+		<button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
+	</form>	
+	</div>
+
+
+		<c:if test="${!empty requestScope.articles }">	
+		<c:forEach items="${requestScope.articles}" var="article">
+			<img src="" alt="image du produit">
+			<div>${article.nomArticle }</div>
+			<div>${article.prixVente}</div>
+			<div>${article.dateFinEncheres }</div>
+			<div>Vendeur: ${article.vendeur.pseudo }</div>
+		</c:forEach>	
+		</c:if>
 		
-		<div>
-			<fieldset>
-				<div class="row">
-					<div class="col">
-						<%=request.getAttribute("urlImage")%>
-					</div>
-					<div>
-						<%=request.getAttribute("nomArticle") %><br>
-						Prix : <%=request.getAttribute("prixVente") %><br>
-						Fin de l'enchère : <%=request.getAttribute("dateFinEncheres")%><br>
-						Vendeur : <a href="./TraitementProfile?pseudoAAfficher=tutu"><%=request.getAttribute("vendeur")%></a><br>
-					</div>
-				</div>
-			</fieldset>
-		</div>	
+			
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

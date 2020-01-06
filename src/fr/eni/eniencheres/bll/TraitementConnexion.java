@@ -76,7 +76,6 @@ public class TraitementConnexion extends HttpServlet {
 				UtilisateurManager utilisateurManager = new UtilisateurManager();
 				pseudoConnexion=utilisateurManager.getPseudoByEmail(identifiantConnexion);
 			}
-			//TODO Fixer le problème de redirection
 			HttpSession session = request.getSession(true);
 			session.setAttribute("pseudo", pseudoConnexion);
 			response.sendRedirect("./TraitementAccueil"); 

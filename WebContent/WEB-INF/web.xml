@@ -78,5 +78,16 @@
         </jsp-property-group>
     </jsp-config>
   
+  <servlet>
+    <description>JSP test afficher articles</description>
+    <servlet-name>afficherArticles</servlet-name>
+    <jsp-file>/WEB-INF/jsp/afficherArticles.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	    <servlet-name>afficherArticles</servlet-name>
+  		<url-pattern>/afficherArticles</url-pattern>
+  </servlet-mapping>
+  
   
 </web-app>
