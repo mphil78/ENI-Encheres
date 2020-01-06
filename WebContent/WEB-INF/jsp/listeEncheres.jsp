@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
+<%@page import="fr.eni.eniencheres.bo.Categorie"%>
 
 <!doctype html>
 <html lang="fr">
@@ -20,6 +21,8 @@
   <body>
   	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
   	<% List<ArticleVendu> articles = (List<ArticleVendu>)request.getAttribute("articles");	%>
+  	<% List<Categorie> categories = (List<Categorie>)request.getAttribute("categories"); %>
+    
     
     <!-- BARRE DE NAVIGATION -->
     <div class="container" > <!-- bg-primary"> -->
@@ -39,11 +42,15 @@
 			</div>	
     	</nav>
 	    
-	    <!-- TITRE DE LA PAGE -->
-	    <h2 class="text-center mb-3 mt-5">Liste des enchères</h2>  
+	    
+	<!-- TITRE DE LA PAGE -->
+	<h2 class="text-center mb-3 mt-5">Liste des enchères</h2>  
 		
 	
+	<!-- DEBUT DU FORMULAIRE -->
 	<form action="./TraitementAccueil" method="post">
+		
+		
 		<!-- BARRE DE RECHERCHE -->
 		<div class="mb-3">Filtres :</div>
 		<div class="input-group input-focus col-sm-8 mb-3" >
@@ -53,18 +60,21 @@
 	  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0" name="motCle">
 		</div>
 		
+		
 		<!-- CATEGORIES -->
 		<div class="col-auto my-1">
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
-			<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
-		        <option selected>Toutes</option>
-		        <% for (String lib : libelles) { %>
-		        	<option value="<%=lib%>"><%=lib%></option>
+			<select name="categorie" class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
+		        <option value="-1" selected>Toutes</option>
+		        <% for (Categorie cate : categories) { %>
+		        	<option value="<%=cate.getNoCategorie()%>"><%=cate.getLibelle()%></option>
 		        <%}%>
 		     </select>
 		</div>
 		
 		
+		<!-- EN CAS DE SESSION CONNECTEE ON AFFICHE LE FORMULAIRE POUR SELECTIONNER LES ARTICLES -->
+		<!-- RESTE DU CODE JAVA A CHANGER -->
 		<div>
 			<%
 			if (session.getAttribute("pseudo") != null) {
@@ -108,10 +118,13 @@
 		<%
 		}
 		%>
+		
+		<!-- BOUTON RECHERCHER QUI FAIT LE SUBMIT -->
 		<button type="submit" class="btn btn-primary btn-lg mt-3">Rechercher</button>
 	</form>	
 	
 	
+	<!-- AFFICHAGE DES ARTICLES -->
 	<div class="row mt-5">	
 		<c:if test="${!empty requestScope.articles }">	
 			<c:forEach items="${requestScope.articles}" var="article">
@@ -123,7 +136,7 @@
 						<div><u>${article.nomArticle }</u></div>
 						<div>Prix: ${article.prixVente}</div>
 						<div>Fin de l'enchère: ${article.dateFinEncheres }</div>
-						<div>Vendeur: <a href = "./TraitementProfile">${article.vendeur.pseudo }</a></div>
+						<div>Vendeur: <a href = "./TraitementProfile?pseudoAAfficher=${article.vendeur.pseudo}">${article.vendeur.pseudo}</a></div>
 					</div>	
 					<div class="col-2" ></div>
 				</div>
