@@ -21,38 +21,39 @@
   	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
   	<% List<ArticleVendu> articles = (List<ArticleVendu>)request.getAttribute("articles");	%>
     
-    <div class="container">
-	    <h5>Eni-Enchères</h5>
+    <!-- BARRE DE NAVIGATION -->
+    <div class="container" > <!-- bg-primary"> -->
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
-	            	            
-	    <c:choose>
-   			<c:when test="${!empty sessionScope.pseudo}">
-   			<a class="nav-link" href="./NouvelleVente">Enchères </a>
-	            
-	                 <a class="nav-link" href="./TraitementArticle">Vendre un article</a>
-	             	                
-	                 <a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>
-	           	               
-	                 <a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
-	        </c:when>
-   			<c:when test="${empty sessionScope.pseudo}"><a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
-   			</c:when>
-		</c:choose>
-	        </div>
+	            <h5>Eni-Enchères</h5>
+				<c:choose>
+   					<c:when test="${!empty sessionScope.pseudo}">
+   						<a class="nav-link" href="./NouvelleVente">Enchères </a>
+	                 	<a class="nav-link" href="./TraitementArticle">Vendre un article</a>             	                
+	                 	<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>           	               
+	                 	<a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	       			</c:when>
+   					<c:when test="${empty sessionScope.pseudo}"><a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   					</c:when>
+				</c:choose>
+			</div>	
     	</nav>
 	    
-	    <h6>Liste des enchères</h6>  
-		Filtres :
+	    <!-- TITRE DE LA PAGE -->
+	    <h2 class="text-center mb-3 mt-5">Liste des enchères</h2>  
+		
+	
 	<form action="./TraitementAccueil" method="post">
-
-		<div class="input-group input-focus col-sm-8" >
+		<!-- BARRE DE RECHERCHE -->
+		<div class="mb-3">Filtres :</div>
+		<div class="input-group input-focus col-sm-8 mb-3" >
 	  		<div class="input-group-prepend">
 	   		 	<span class="input-group-text bg-white"><i class="fa fa-search"></i></span>
 	  		</div>
 	  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0" name="motCle">
 		</div>
 		
+		<!-- CATEGORIES -->
 		<div class="col-auto my-1">
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
 			<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
@@ -107,20 +108,33 @@
 		<%
 		}
 		%>
-		<button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
+		<button type="submit" class="btn btn-primary btn-lg mt-3">Rechercher</button>
 	</form>	
-	</div>
-
-
+	
+	
+	<div class="row mt-5">	
 		<c:if test="${!empty requestScope.articles }">	
-		<c:forEach items="${requestScope.articles}" var="article">
-			<img src="" alt="image du produit">
-			<div>${article.nomArticle }</div>
-			<div>${article.prixVente}</div>
-			<div>${article.dateFinEncheres }</div>
-			<div>Vendeur: ${article.vendeur.pseudo }</div>
-		</c:forEach>	
+			<c:forEach items="${requestScope.articles}" var="article">
+				<div class="row ">
+					<div class="col-3 border border-dark">
+						<img class="" src="" alt="image du produit">
+					</div>
+					<div class="col-7 border border-dark">
+						<div><u>${article.nomArticle }</u></div>
+						<div>Prix: ${article.prixVente}</div>
+						<div>Fin de l'enchère: ${article.dateFinEncheres }</div>
+						<div>Vendeur: <a href = "./TraitementProfile">${article.vendeur.pseudo }</a></div>
+					</div>	
+					<div class="col-2" ></div>
+				</div>
+			</c:forEach>	
 		</c:if>
+		
+	</div>
+	</div>
+	
+
+	
 		
 			
     <!-- Optional JavaScript -->
