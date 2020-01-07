@@ -1,10 +1,11 @@
 <%@page import="java.time.LocalDate"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
-
+<html lang="fr">
     
 <!DOCTYPE html>
 <html>
@@ -14,8 +15,8 @@
 </head>
 <body>
 
-	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
-	<% Utilisateur vendeur = (Utilisateur)request.getAttribute("vendeur");	%>
+<%-- 	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%> --%>
+<%-- 	<% Utilisateur vendeur = (Utilisateur)request.getAttribute("vendeur");	%> --%>
 	<c:set var="libelles" value="${requestScope.libelles}" scope="page"></c:set>
 	<c:set var="vendeur" value="${requestScope.vendeur}" scope="page"></c:set>
 	
@@ -38,9 +39,12 @@
 		<p>
 			<label for="categorie">Catégorie</label>
 			<select name="categorie" id="categorie">
-			        <% for (String lib : libelles) { %>
-				        <option  value="<%=lib%>"><%=lib%></option>
-			        <%}%>
+					<c:forEach var="lib" items="${libelles}">
+						<option value='<c:out value="${lib.libelles}"/>'><c:out value="${lib.libelles}"/></option>
+					</c:forEach>
+<%-- 			        <% for (String lib : libelles) { %> --%>
+<%-- 				        <option  value="<%=lib%>"><%=lib%></option> --%>
+<%-- 			        <%}%> --%>
 			</select>
 		</p>
 		
@@ -51,12 +55,14 @@
 	
 		<p>
 			<label for="debutEnchere">Début de l'enchère</label>
-			<input type="date" id="debutEnchere" name="debutEnchere" min="<%LocalDate.now();%>">
+			<input type="datetime-local" id="debutEnchere" name="debutEnchere" >
+			
+
 		</p>
 	
 		<p>
 			<label for="finEnchere">Fin de l'enchère</label>
-			<input type="date" id="finEnchere" name="finEnchere" >
+			<input type="datetime-local" id="finEnchere" name="finEnchere" >
 		</p>
 		
 		<p>
@@ -68,11 +74,11 @@
 		<fieldset>
 			<legend>Retrait</legend>
 			<label for="rue">Rue : </label>
-			<input type="text" name="rue" id="rue" value="<%=vendeur.getRue()%>" required><br>
+			<input type="text" name="rue" id="rue" value="${vendeur.rue}" required><br>
 			<label for="codePostal">Code Postal : </label>
-			<input type="text" name="codePostal" id="codePostal" value="<%=vendeur.getCodePostal()%>" required><br>
+			<input type="text" name="codePostal" id="codePostal" value="${vendeur.codePostal}" required><br>
 			<label for="ville">Ville : </label>
-			<input type="text" name="ville" id="ville" value="<%=vendeur.getVille()%>" required><br>
+			<input type="text" name="ville" id="ville" value="${vendeur.ville}" required><br>
 		</fieldset>
 	
 		<button type="submit" name="enregistrer" id="enregistrer">Enregistrer</button>
@@ -82,7 +88,7 @@
 		<%
 			if (request.getAttribute("noArticle") != null) {
 		%>     
-			<button type="submit" name="annuler" id="annuler">Annuler la vente</button>
+			<button type="reset" name="annuler" id="annuler">Annuler la vente</button>
 		<%
 			} 	
 		%>
