@@ -62,8 +62,7 @@ public class TraitementEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String urlRedirection = "";
-		
+	
 		//recuperation de la session
 		HttpSession session = request.getSession();
 		
@@ -77,7 +76,6 @@ public class TraitementEnchere extends HttpServlet {
 		Utilisateur utilisateur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
 		ArticleManager articleManager = new ArticleManager();
 		ArticleVendu article = articleManager.getById(Integer.parseInt(request.getParameter("idArticle")));
-		
 		int maProposition = Integer.parseInt(request.getParameter("maProposition"));
 		EncheresManager enchereManager = new EncheresManager();
 		
@@ -87,7 +85,8 @@ public class TraitementEnchere extends HttpServlet {
 			request.setAttribute("erreurProposition","Veuillez faire une proposition plus élevée.");
 			request.setAttribute("utilisateur", utilisateur);
 			request.setAttribute("ArticleAAfficher", article);
-			urlRedirection = "./DetailVente";
+			RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
+			rd.forward(request, response);
 		} else {
 			//Test si l'enchere est terminée
 			if (article.getDateFinEncheres().isBefore(LocalDate.now())) {
@@ -96,18 +95,10 @@ public class TraitementEnchere extends HttpServlet {
 				//Création de l'objet enchere
 				Enchere enchere = new Enchere(LocalDate.now(),maProposition,utilisateur,article);
 				enchereManager.addEnchere(enchere);
-				
+				response.sendRedirect("/TraitementAccueil");
 			}
 			
 		}
-
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }
