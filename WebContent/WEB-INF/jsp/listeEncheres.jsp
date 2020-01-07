@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
+<%@page import="fr.eni.eniencheres.bo.Categorie"%>
 
 <!doctype html>
 <html lang="fr">
@@ -20,82 +21,92 @@
   <body>
   	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
   	<% List<ArticleVendu> articles = (List<ArticleVendu>)request.getAttribute("articles");	%>
+  	<% List<Categorie> categories = (List<Categorie>)request.getAttribute("categories"); %>
     
-    <div class="container">
-	    <h5>Eni-Enchères</h5>
+    
+    <!-- BARRE DE NAVIGATION -->
+    <div class="container" > <!-- bg-primary"> -->
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
-	            	            
-	    <c:choose>
-   			<c:when test="${!empty sessionScope.pseudo}">
-   			<a class="nav-link" href="./NouvelleVente">Enchères </a>
-	            
-	                 <a class="nav-link" href="./TraitementArticle">Vendre un article</a>
-	             	                
-	                 <a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>
-	           	               
-	                 <a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
-	        </c:when>
-   			<c:when test="${empty sessionScope.pseudo}"><a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
-   			</c:when>
-		</c:choose>
-	        </div>
+	            <h5>Eni-Enchères</h5>
+				<c:choose>
+   					<c:when test="${!empty sessionScope.pseudo}">
+   						<a class="nav-link" href="./NouvelleVente">Enchères </a>
+	                 	<a class="nav-link" href="./TraitementArticle">Vendre un article</a>             	                
+	                 	<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo") %>">Bonjour <%=session.getAttribute("pseudo") %></a>           	               
+	                 	<a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	       			</c:when>
+   					<c:when test="${empty sessionScope.pseudo}"><a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   					</c:when>
+				</c:choose>
+			</div>	
     	</nav>
 	    
-	    <h6>Liste des enchères</h6>  
-		Filtres :
+	    
+	<!-- TITRE DE LA PAGE -->
+	<h2 class="text-center mb-3 mt-5">Liste des enchères</h2>  
+		
+	
+	<!-- DEBUT DU FORMULAIRE -->
 	<form action="./TraitementAccueil" method="post">
-
-		<div class="input-group input-focus col-sm-8" >
+		
+		
+		<!-- BARRE DE RECHERCHE -->
+		<div class="mb-3">Filtres :</div>
+		<div class="input-group input-focus col-sm-8 mb-3" >
 	  		<div class="input-group-prepend">
 	   		 	<span class="input-group-text bg-white"><i class="fa fa-search"></i></span>
 	  		</div>
 	  		<input type="search" placeholder="Le nom de l'article contient" class="form-control border-left-0" name="motCle">
 		</div>
 		
+		
+		<!-- CATEGORIES -->
 		<div class="col-auto my-1">
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
-			<select class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
-		        <option selected>Toutes</option>
-		        <% for (String lib : libelles) { %>
-		        	<option value="<%=lib%>"><%=lib%></option>
+			<select name="categorie" class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
+		        <option value="-1" selected>Toutes</option>
+		        <% for (Categorie cate : categories) { %>
+		        	<option value="<%=cate.getNoCategorie()%>"><%=cate.getLibelle()%></option>
 		        <%}%>
 		     </select>
 		</div>
 		
 		
+		<!-- EN CAS DE SESSION CONNECTEE ON AFFICHE LE FORMULAIRE POUR SELECTIONNER LES ARTICLES -->
+		<!-- RESTE DU CODE JAVA A CHANGER -->
 		<div>
 			<%
 			if (session.getAttribute("pseudo") != null) {
 			%>   
 			<div class="form-check">
 			
-	  			<div class="row">
+	  			<div class="row" >
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="achats" checked >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="achats" value="0" checked >
 			  			<label class="form-check-label" for="achats">Achats</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="encheresOuvertes" id="encheresOuvertes">
+			  			<input class="form-check-input" type="checkbox" name="chk1" value="encheresOuvertes" id="encheresOuvertes">
 			  			<label class="form-check-label" for="defaultCheck1">enchères ouvertes</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="encheresCours" id="encheresCours">
+			  			<input class="form-check-input" type="checkbox" name="chk2" value="encheresCours" id="encheresCours">
 			  			<label class="form-check-label" for="encheresCours">mes enchères en cours</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ecnheresRemportees" id="ecnheresRemportees">
+			  			<input class="form-check-input" type="checkbox" name="chk3" value="ecnheresRemportees" id="ecnheresRemportees">
 			  			<label class="form-check-label" for="ecnheresRemportees">mes enchères remportées</label>
 			  		</div>
 			  		
 	  				<div class="col">
-			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="mesVentes" >
+			  			<input class="form-check-input" type="radio" name="achatVente" id="mesVentes" value="1" >
 			  			<label class="form-check-label" for="exampleRadios1">Mes ventes</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesEncours" id="ventesEncours" >
+			  			<input class="form-check-input" type="checkbox" name="chk1" value="ventesEncours" id="ventesEncours" >
 			  			<label class="form-check-label" for="ventesEncours">mes ventes en cours</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesNondebutees" id="ventesNondebutees">
+			  			<input class="form-check-input" type="checkbox" name="chk2" value="ventesNondebutees" id="ventesNondebutees">
 			  			<label class="form-check-label" for="ventesNondebutees">ventes non débutées</label>
 			  			<br>
-			  			<input class="form-check-input" type="checkbox" value="ventesTerminees" id="ventesTerminees">
+			  			<input class="form-check-input" type="checkbox" name="chk3" value="ventesTerminees" id="ventesTerminees">
 			  			<label class="form-check-label" for="ventesTerminees">ventes terminées</label>
 	  				</div>
 			  		
@@ -107,20 +118,38 @@
 		<%
 		}
 		%>
-		<button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
+		
+		<!-- BOUTON RECHERCHER QUI FAIT LE SUBMIT -->
+		<button type="submit" class="btn btn-primary btn-lg mt-3">Rechercher</button>
 	</form>	
-	</div>
+	
+	
+	<!-- AFFICHAGE DES ARTICLES -->
 
-
+	<div class="row mt-5">	
 		<c:if test="${!empty requestScope.articles }">	
-		<c:forEach items="${requestScope.articles}" var="article">
-			<img src="" alt="image du produit">
-			<div>${article.nomArticle }</div>
-			<div>${article.prixVente}</div>
-			<div>${article.dateFinEncheres }</div>
-			<div>Vendeur: ${article.vendeur.pseudo }</div>
-		</c:forEach>	
+			<c:forEach items="${requestScope.articles}" var="article">
+				<div class="row mt-3">
+					<div class="col-3  border border-dark">
+						<img class="" src="" alt="image du produit">
+					</div>
+					<div class="col-7  border border-dark">
+						<div class="nomproduit">${article.nomArticle }</div>
+						<div>Prix: ${article.prixVente} points</div>
+						<div>Fin de l'enchère: ${article.dateFinEncheres }</div>
+						<div>Vendeur: <a href = "./TraitementProfile?pseudoAAfficher=${article.vendeur.pseudo}">${article.vendeur.pseudo}</a></div>
+					</div>	
+					<div class="col-2" ></div>
+					<div class="row"></div>
+				</div>				
+			</c:forEach>	
 		</c:if>
+		
+	</div>
+	</div>
+	
+
+	
 		
 			
     <!-- Optional JavaScript -->

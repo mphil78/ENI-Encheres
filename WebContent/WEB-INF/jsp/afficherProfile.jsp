@@ -8,32 +8,29 @@
 <title>Profile</title>
 </head>
 <body>
-<!--  MODE CONNECTE UNIQUEMENT -->
 <% Utilisateur utilisateurAAfficher = (Utilisateur)request.getAttribute("utilisateurAAfficher"); %>
 
 	<p>
-			<label for="pseudo">Pseudo : <%= utilisateurAAfficher.getPseudo()%> </label> <br>
-		
-			<label for="nom">Nom : <%= utilisateurAAfficher.getNom()%></label> <br>
-						 					
-			<label for="prenom">Prénom : <%= utilisateurAAfficher.getPrenom()%></label> <br>
-											
-			<label for="email">Email : <%= utilisateurAAfficher.getEmail()%></label> <br>
-											
+			<label for="pseudo">Pseudo : <%= utilisateurAAfficher.getPseudo()%> </label> <br>		
+			<label for="nom">Nom : <%= utilisateurAAfficher.getNom()%></label> <br>						 					
+			<label for="prenom">Prénom : <%= utilisateurAAfficher.getPrenom()%></label> <br>											
+			<label for="email">Email : <%= utilisateurAAfficher.getEmail()%></label> <br>											
 			<label for="telephone">Téléphone : <%= utilisateurAAfficher.getTelephone()%></label> <br>
-													
 			<label for="rue">Rue : <%= utilisateurAAfficher.getRue()%></label> <br>
-			
-			<label for="codePostal">Code Postal : <%= utilisateurAAfficher.getCodePostal()%></label> <br>
-									
+			<label for="codePostal">Code Postal : <%= utilisateurAAfficher.getCodePostal()%></label> <br>								
 			<label for="ville">Ville : <%=utilisateurAAfficher.getVille()%></label> <br>
 	</p>
-			<%
-			if (((String)session.getAttribute("pseudo")).equals(utilisateurAAfficher.getPseudo())) {
-			%>
-			<a href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo")%>&modifier=true"><button type="button" name="modifier" id="modifier">Modifier</button></a>
+			<!-- VIRER LE CODE JAVA !!!!!! -->
+ 			<%
+ 			if (session.getAttribute("pseudo")==null||!(((String)session.getAttribute("pseudo")).equals(utilisateurAAfficher.getPseudo()))){
+ 			%>
+ 				<a href="./TraitementAccueil"><button type="button" id="modifier">Retour</button></a>
+ 			<%
+ 			} else {
+ 			%>
+				<a href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo")%>&modifier=true"><button type="button" name="modifier" id="modifier">Modifier</button></a>
 			<%
 			}
-			%>
+			%> 
 </body>
 </html>

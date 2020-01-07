@@ -143,11 +143,8 @@ public class TraitementArticle extends HttpServlet {
             ecrireFichier(part, nomImage, CHEMIN_FICHIERS);
         }
 				
-		//redirection vers /DetailVente avec les parametres utilisateur et article
-		request.setAttribute("utilisateur",vendeur);
-		request.setAttribute("articleAAfficher", article);
-		RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
-		rd.forward(request, response);
+		//redirection vers /TraitementAcueil doGet
+		response.sendRedirect("./TraitementAccueil"); 
 	}
 
 	/** 

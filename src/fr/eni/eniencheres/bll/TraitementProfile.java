@@ -195,8 +195,8 @@ public class TraitementProfile extends HttpServlet {
 						utilisateurModifie.setMotDePasse(UtilisateurManager.hash(request.getParameter("password4")));
 					}
 					utilisateurManager.updateUtilisateur(utilisateurModifie);
-					RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
-					rd.forward(request, response);
+					//redirection
+					response.sendRedirect("./TraitementAccueil"); 
 				}
 		}
 	}

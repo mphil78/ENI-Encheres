@@ -46,7 +46,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String sqlSelectByFiltres =
 			"select *" 
 			+" from ARTICLES_VENDUS"
-			+ " where no_categorie = ? and (description like \'%?%\' or nom_article like \'%?%\')";
+			+ " where no_categorie = ? and nom_article like ?";
 	//TODO finir la requete et la corriger
 	private static final String sqlSelectByMotCleAndEtat =
 			"select *" 
@@ -238,7 +238,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			rqt = cnx.prepareStatement(sqlSelectByMotCle);
 			rqt.setString(1, "%"+motCle+"%");
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
@@ -299,7 +299,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			rqt = cnx.prepareStatement(sqlSelectByCategorie);
 			rqt.setInt(1, noCategorie);
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
@@ -357,10 +357,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			cnx = ConnectionProvider.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectByFiltres);
 			rqt.setInt(1, noCategorie);
-			rqt.setString(2, motCle);
-			rqt.setString(3, motCle);
+			rqt.setString(2, "%"+motCle+"%");
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
@@ -419,7 +418,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			UtilisateurDAO utilistateurDAO = DAOFactory.getUtilisateurDAO();
 			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
@@ -478,7 +477,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			rqt.setInt(1, utilistateurDAO.selectByPseudo(pseudo).getNoUtilisateur());
 			rqt.setInt(2, ETAT);
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						//renseigne les propriétés non POJO 
 						rs.getInt("no_article"),
@@ -538,7 +537,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			rqt.setInt(1, ETAT);
 			rqt.setString(2, "%"+motCle+"%");
 			rs = rqt.executeQuery();
-			if (rs.next()){		
+			while (rs.next()){		
 				ArticleVendu articleVendu = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
