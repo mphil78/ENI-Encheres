@@ -12,8 +12,8 @@
 <h1>ENI-Enchères</h1><br>
 	<div>
 		<h2>Mon Profil</h2>
-<%--  		<% Utilisateur utilisateur = (Utilisateur)request.getAttribute("utilisateurAAfficher"); %>
- --%>		<c:set var="utilisateur" value="${requestScope.utilisateurAAfficher}" scope="page"></c:set>
+
+		<c:set var="utilisateur" value="${requestScope.utilisateurAAfficher}" scope="page"></c:set>
 			
 		
 			<c:choose>
