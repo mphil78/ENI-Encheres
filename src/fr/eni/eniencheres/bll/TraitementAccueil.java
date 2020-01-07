@@ -19,7 +19,11 @@ import fr.eni.eniencheres.bo.Categorie;
 /**
  * Servlet implementation class TraitementAccueil
  */
-@WebServlet("/TraitementAccueil")
+@WebServlet
+(
+	urlPatterns = {"/TraitementAccueil", "/"}
+)
+
 public class TraitementAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int ACHATS=0;
@@ -106,7 +110,7 @@ public class TraitementAccueil extends HttpServlet {
 					List<ArticleVendu> achatsEnCours = new ArrayList<ArticleVendu>();
 					List<ArticleVendu> achatsRemportees = new ArrayList<ArticleVendu>();
 					if (request.getParameter("chk1")!=null) {
-//						achatsEnCours = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.TOUTETAT);
+						achatsEnCours = articleManager.getAllArticlesEnCours();
 					}
 					if (request.getParameter("chk2")!=null) {
 //						achatsEnCours = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.CREEE);
