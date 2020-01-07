@@ -132,11 +132,11 @@
 		<div class="row mt-5">	
 			<c:if test="${!empty requestScope.articles }">	
 				<c:forEach items="${requestScope.articles}" var="article">
-					<div class="row mt-3 ml-3">
-						<div class="col-3  border border-dark">
-							<img class="" src="" alt="image du produit">
+					<div class="row mt-3 ml-3">		
+						<div class="col-4  border border-dark">
+							<img height=auto width=100px src="./AfficherImage?idArticle=${article.noArticle}" alt="image du produit">
 						</div>
-						<div class="col-7  border border-dark">
+						<div class="col-6  border border-dark">
 							<c:choose>
 	   							<c:when test="${!empty sessionScope.pseudo}">	
 									<a href="./TraitementEnchere?idArticle=${article.noArticle}">${article.nomArticle }</a>								

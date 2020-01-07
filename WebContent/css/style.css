@@ -9,7 +9,18 @@ body {
 	 
 }
 
-nomproduit {
+.nomproduit {
 	text-decoration: underline;
 	border-bottom: medium;
+}
+
+.photo {
+	width: 200px;
+    height: 120px;
+}
+
+/* resize images */
+.photo img {
+    height: 100%;
+    width: auto;
 }

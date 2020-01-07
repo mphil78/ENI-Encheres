@@ -36,7 +36,7 @@ public class TraitementArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public static final int TAILLE_TAMPON = 10240;
     //TODO où enregistrer les fichiers ?
-    public static final String CHEMIN_FICHIERS = "c:/images/";
+    public static final String CHEMIN_IMAGES_ARTICLE = "c:/images/";
 
        
     /**
@@ -137,14 +137,19 @@ public class TraitementArticle extends HttpServlet {
 	    String nomFichier = getNomFichier( part );
         if (nomFichier != null && !nomFichier.isEmpty()) {
             // On écrit définitivement le fichier sur le disque
-        	String[] extension = nomFichier.split("[.]");
+
         	//le nom du fichier devient l'id de l'article suivi de l'extension
-        	String nomImage = article.getNoArticle() + "." + extension[extension.length-1];
-            ecrireFichier(part, nomImage, CHEMIN_FICHIERS);
+        	String nomImage = article.getNoArticle() + "." + extracted(nomFichier);
+            ecrireFichier(part, nomImage, CHEMIN_IMAGES_ARTICLE);
         }
 				
 		//redirection vers /TraitementAcueil doGet
 		response.sendRedirect("./TraitementAccueil"); 
+	}
+
+	static String extracted(String nomFichier) {
+		String[] extension = nomFichier.split("[.]");
+		return extension[extension.length-1];
 	}
 
 	/** 
