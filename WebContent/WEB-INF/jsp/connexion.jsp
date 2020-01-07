@@ -14,7 +14,9 @@
    <body>
 		<div class="container">  
 		   <nav class="navbar mb-5">
+		   		<a href="./TraitementAccueil">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
+				</a>	
 			</nav>
 		</div>
 			
