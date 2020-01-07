@@ -53,7 +53,7 @@
 		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
 	</p>
 	
-	<form action="./TraitementEnchere?idArticle="<%=articleAAfficher.getNoArticle()%>" method="post">
+	<form action="./TraitementEnchere?idArticle=<%=articleAAfficher.getNoArticle()%>" method="post">
 		<p>
 			<label for="maProposition">Ma Proposition : </label>
 			<%
