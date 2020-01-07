@@ -5,10 +5,11 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
-<html lang="fr">
+
     
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <title>Nouvelle Vente</title>
@@ -42,9 +43,7 @@
 					<c:forEach var="lib" items="${libelles}">
 						<option value='<c:out value="${lib.libelles}"/>'><c:out value="${lib.libelles}"/></option>
 					</c:forEach>
-<%-- 			        <% for (String lib : libelles) { %> --%>
-<%-- 				        <option  value="<%=lib%>"><%=lib%></option> --%>
-<%-- 			        <%}%> --%>
+
 			</select>
 		</p>
 		
@@ -55,14 +54,12 @@
 	
 		<p>
 			<label for="debutEnchere">Début de l'enchère</label>
-			<input type="datetime-local" id="debutEnchere" name="debutEnchere" >
-			
-
+			<input type="date" id="debutEnchere" name="debutEnchere" >
 		</p>
 	
 		<p>
 			<label for="finEnchere">Fin de l'enchère</label>
-			<input type="datetime-local" id="finEnchere" name="finEnchere" >
+			<input type="date" id="finEnchere" name="finEnchere" >
 		</p>
 		
 		<p>
@@ -85,13 +82,10 @@
 		
 		<a href="WebContent/WEB-INF/jsp/listeEncheres.jsp" ><button type="reset" name="annuler" id="annuler">Annuler</button></a>
 	
-		<%
-			if (request.getAttribute("noArticle") != null) {
-		%>     
-			<button type="reset" name="annuler" id="annuler">Annuler la vente</button>
-		<%
-			} 	
-		%>
+		
+			<c:if test="${!empty requestScope.noArticle}">   
+				<button type="reset" name="annuler" id="annuler">Annuler la vente</button>
+			</c:if>
 	</form>
 
 </body>
