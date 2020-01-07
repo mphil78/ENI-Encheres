@@ -21,7 +21,14 @@ public interface ArticleVenduDAO {
 	 * @throws DALException
 	 */		
 	public List<ArticleVendu> selectAll() throws DALException;
-		
+	
+	/**
+	 * Selectionner tous les articles en cours
+	 * @return List<ArticleVendu>
+	 * @throws DALException
+	 */		
+	public List<ArticleVendu> selectAllEnCours() throws DALException;
+	
 	/**
 	 * Inserer un nouvel article
 	 * @param article
@@ -93,5 +100,30 @@ public interface ArticleVenduDAO {
 	 * @return
 	 */
 	public List<ArticleVendu> selectVenteByPseudoAndEtat(String pseudo, final int ETAT) throws DALException;
+
+	
+	/**
+	 * Retourne la liste des ventes EN COURS en fonction du pseudo de l'utilisateur
+	 * @param ETAT 
+	 * @param pseudo 
+	 * @return
+	 */
+	public List<ArticleVendu> selectVenteEnCoursByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne la liste des ventes NON DEBUTEES en fonction du pseudo de l'utilisateur
+	 * @param ETAT 
+	 * @param pseudo 
+	 * @return
+	 */
+	public List<ArticleVendu> selectVenteNonDebuteesByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Retourne la liste des ventes TERMINEES en fonction du pseudo de l'utilisateur
+	 * @param ETAT 
+	 * @param pseudo 
+	 * @return
+	 */
+	public List<ArticleVendu> selectVenteTermineesByPseudo(String pseudo) throws DALException;
 }
 

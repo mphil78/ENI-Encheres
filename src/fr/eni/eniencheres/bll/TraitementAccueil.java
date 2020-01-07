@@ -55,7 +55,7 @@ public class TraitementAccueil extends HttpServlet {
 		List<Categorie> listeCategories = new ArrayList<>();
 		List<ArticleVendu> listeArticles = new ArrayList<>();
 		listeCategories = categorieManager.getAll();
-		listeArticles = articleManager.getAllArticles();
+		listeArticles = articleManager.getAllArticlesEnCours();
 		
 		//affectation des attributs du request
 		request.setAttribute("articles", listeArticles);
@@ -124,13 +124,13 @@ public class TraitementAccueil extends HttpServlet {
 					List<ArticleVendu> ventesNonDebutees = new ArrayList<ArticleVendu>();
 					List<ArticleVendu> ventesTerminees = new ArrayList<ArticleVendu>();
 					if (request.getParameter("chk1")!=null) {
-						ventesEnCours = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.ENCOURS);
+						ventesEnCours = articleManager.getVentesEnCoursByPseudo(pseudo);
 					}
 					if (request.getParameter("chk2")!=null) {
-						ventesNonDebutees = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.CREEE);
+						ventesNonDebutees = articleManager.getVentesNonDebuteesByPseudo(pseudo);
 					}
 					if (request.getParameter("chk3")!=null) {
-						ventesTerminees = articleManager.getVenteByPseudoAndEtat(pseudo, ArticleVendu.TERMINEE);
+						ventesTerminees = articleManager.getVentesTermineesByPseudo(pseudo);
 					}
 					listeArticles.addAll(ventesEnCours);
 					listeArticles.addAll(ventesTerminees);

@@ -1,5 +1,6 @@
 package fr.eni.eniencheres.bll;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.dal.ArticleVenduDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
+
+//TODO Faire les méthodes de séléction d'articles en fonction de l'état et faire le ménage
 
 //TODO vérifier les catch block
 public class ArticleManager {
@@ -46,6 +49,20 @@ public class ArticleManager {
 		return article;
 	}
 	
+	/**
+	 * Retourne la list de tous les objets articles en cours
+	 * @return List<ArticleVendu> tousLesArticles
+	 */
+	public List<ArticleVendu> getAllArticlesEnCours() {
+		List<ArticleVendu> tousLesArticles = new ArrayList<ArticleVendu>();
+		try {
+			tousLesArticles =  articleDAO.selectAllEnCours();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tousLesArticles;
+	}
 	
 	/**
 	 * Retourne la list de tous les objets articles
@@ -125,5 +142,69 @@ public class ArticleManager {
 		return listeArticles;
 	}
 
+	
+	public void majArticlesBDD() {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		listeArticles = getAllArticles();
+		for (ArticleVendu article : listeArticles) {
+			if (article.getEtatVente()!=ArticleVendu.ANNULEE && article.getEtatVente()!=ArticleVendu.RETIREE) 
+			{			
+				if (LocalDate.now().isAfter(article.getDateFinEncheres()) || LocalDate.now().isEqual(article.getDateFinEncheres())) 
+				{
+					article.setEtatVente(ArticleVendu.TERMINEE);
+				} 
+				else 
+				{
+					if (LocalDate.now().isAfter(article.getDateDebutEncheres()) || LocalDate.now().isEqual(article.getDateDebutEncheres())) 
+					{
+						article.setEtatVente(ArticleVendu.ENCOURS);
+					} 
+					else 
+					{
+						article.setEtatVente(ArticleVendu.CREEE);
+					}
+				}
+			}
+			try {
+				articleDAO.update(article);
+			} catch (DALException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public List<ArticleVendu> getVentesEnCoursByPseudo(String pseudo) {
+		List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
+		try {
+			ventes = articleDAO.selectVenteEnCoursByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ventes;
+	}
+
+	public List<ArticleVendu> getVentesNonDebuteesByPseudo(String pseudo) {
+		List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
+		try {
+			ventes = articleDAO.selectVenteNonDebuteesByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ventes;
+	}
+
+	public List<ArticleVendu> getVentesTermineesByPseudo(String pseudo) {
+		List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
+		try {
+			ventes = articleDAO.selectVenteTermineesByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ventes;
+	}
+	
 	
 }
