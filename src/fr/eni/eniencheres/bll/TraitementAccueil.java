@@ -21,7 +21,7 @@ import fr.eni.eniencheres.bo.Categorie;
  */
 @WebServlet
 (
-	urlPatterns = {"/TraitementAccueil", "/"}
+	urlPatterns = {"/TraitementAccueil"}
 )
 
 public class TraitementAccueil extends HttpServlet {
