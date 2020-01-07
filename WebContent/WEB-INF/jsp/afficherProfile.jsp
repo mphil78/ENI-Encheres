@@ -4,58 +4,58 @@
  <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
 <%@page import="fr.eni.eniencheres.bo.Categorie"%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Profile</title>
 </head>
 <body>
-<% Utilisateur utilisateurAAfficher = (Utilisateur)request.getAttribute("utilisateurAAfficher"); %>
-<div class="container">  
+	<c:set var="utilisateur" value="${requestScope.utilisateurAAfficher}" scope="page"></c:set>
+		<div class="container">  
 		   <nav class="navbar mb-5">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
 			</nav>
 		</div>
-	<p>
+	
 		<div class="container">
 	   		<div class="row h5">
 	   			<div class="col-lg-8 offset-lg-3">
 	  			
- 			<label for="pseudo">Pseudo : <%--<%= utilisateurAAfficher.getPseudo()%>--%> </label> <br> 
-			<label for="nom">Nom : <%-- <%= utilisateurAAfficher.getNom()%> --%></label> <br>						 					
-			<label for="prenom">Prénom : <%-- <%= utilisateurAAfficher.getPrenom()%> --%></label> <br>											
-			<label for="email">Email : <%-- <%= utilisateurAAfficher.getEmail()%> --%></label> <br>											
-			<label for="telephone">Téléphone :<%--  <%= utilisateurAAfficher.getTelephone()%> --%></label> <br>
-			<label for="rue">Rue : <%-- <%= utilisateurAAfficher.getRue()%> --%></label> <br>
-			<label for="codePostal">Code Postal : <%-- <%= utilisateurAAfficher.getCodePostal()%> --%></label> <br>								
-			<label for="ville">Ville : <%-- <%=utilisateurAAfficher.getVille()%> --%></label> <br>
+		 			<label for="pseudo">Pseudo : ${utilisateur.pseudo}</label> <br> 
+					<label for="nom">Nom : ${utilisateur.nom}</label> <br>						 					
+					<label for="prenom">Prénom : ${utilisateur.prenom}</label> <br>											
+					<label for="email">Email : ${utilisateur.email}</label> <br>											
+					<label for="telephone">Téléphone : ${utilisateur.telephone}</label> <br>
+					<label for="rue">Rue : ${utilisateur.rue}</label> <br>
+					<label for="codePostal">Code Postal : ${utilisateur.codePostal}</label> <br>								
+					<label for="ville">Ville : ${utilisateur.ville}</label> <br>
+				</div>
 			</div>
-			</div>
-			</div>
-	</p>
-			<!-- VIRER LE CODE JAVA !!!!!! -->
- 			<%-- <%
- 			if (session.getAttribute("pseudo")==null||!(((String)session.getAttribute("pseudo")).equals(utilisateurAAfficher.getPseudo()))){
- 			%> --%>
- 			<div class="row">
-	   			<div class="col-lg-8 offset-lg-6">
-	   			<a href="./TraitementAccueil"><button type="button" class="btn btn-primary">Retour</button></a>
-<!--  				<a href="./TraitementAccueil"><button type="button" id="modifier">Retour</button></a> -->
- 			</div>
- 			</div>
- 			<%-- <%
- 			} else {
- 			%> --%>
- 			<div class="row mt-5">
-	   			<div class="col-lg-8 offset-lg-6">
-	   			<a href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo")%>&modifier=true"><button type="button" class="btn btn-primary">Modifier</button></a>
-<%-- 				<a href="./TraitementProfile?pseudoAAfficher=<%=session.getAttribute("pseudo")%>&modifier=true"><button type="button" name="modifier" id="modifier">Modifier</button></a> --%>
-			</div>
- 			</div>
-			<%-- <%
-			}
-			%> --%> 
+		</div>
+	
+ 		<c:choose>
+ 			<c:when test="${sessionScope.pseudo ne utilisateur.pseudo}">
+	 			<div class="row">
+		   			<div class="col-lg-8 offset-lg-6">
+		   				<a href="./TraitementAccueil"><button type="button" class="btn btn-primary">Retour</button></a>
+	 				</div>
+	 			</div>
+	 		</c:when>
+ 			
+ 			<c:when test="${sessionScope.pseudo eq utilisateur.pseudo}">
+	 			<div class="row mt-5">
+		   			<div class="col-lg-8 offset-lg-6">
+		   				<a href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}&modifier=true">
+		   					<button type="button" class="btn btn-primary">
+		   						Modifier
+		   					</button>
+		   				</a>
+					</div>
+	 			</div>
+ 			</c:when>
+ 		</c:choose>
+			
 			 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
