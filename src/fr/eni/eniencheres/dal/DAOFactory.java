@@ -18,4 +18,9 @@ public class DAOFactory {
 		return new fr.eni.eniencheres.dal.jdbc.ArticleVenduDAOJdbcImpl();
 	}
 
+	public static EnchereDAO getEnchereDAO() {
+		return new fr.eni.eniencheres.dal.jdbc.EnchereDAOJdbcImpl();
+	}
+
+	
 }
