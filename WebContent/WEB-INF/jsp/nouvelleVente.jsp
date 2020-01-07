@@ -1,4 +1,5 @@
 <%@page import="java.time.LocalDate"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -15,6 +16,8 @@
 
 	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%>
 	<% Utilisateur vendeur = (Utilisateur)request.getAttribute("vendeur");	%>
+	<c:set var="libelles" value="${requestScope.libelles}" scope="page"></c:set>
+	<c:set var="vendeur" value="${requestScope.vendeur}" scope="page"></c:set>
 	
 	<form action="./TraitementArticle" method="post" enctype="multipart/form-data">
 	
