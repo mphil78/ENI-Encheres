@@ -18,49 +18,51 @@
 
 
 
-<p>
-			<label for="description">Description : </label>
-			<input type="text" name="description" id="description" value="<%= articleAAfficher.getDescription()%>"><br>
-	</p>
 	<p>
-			<label for="categorie">Categorie : </label>
-			<input type="text" name="categorie" id="categorie" value="<%= articleAAfficher.getCategorie()%>"><br>
+		<label for="description">Description : </label>
+		<input type="text" name="description" id="description" value="<%= articleAAfficher.getDescription()%>"><br>
 	</p>
+	
 	<p>
-			<label for="meilleureOffre">Meilleure Offre : </label>
-			<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%=articleAAfficher.getPrixVente()%>"><br>
+		<label for="categorie">Categorie : </label>
+		<input type="text" name="categorie" id="categorie" value="<%= articleAAfficher.getCategorie()%>"><br>
+	</p>
+	
+	<p>
+		<label for="meilleureOffre">Meilleure Offre : </label>
+		<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%=articleAAfficher.getPrixVente()%>"><br>
+	</p>
+	
+	<p>
+		<label for="miseAPrix">Mise à prix : </label>
+		<input type="text" name="miseAPrix" id="miseAPrix" value="<%= articleAAfficher.getMiseAPrix()%>"><br>
+	</p>
+	
+	<p>
+		<label for="dateFinEncheres">Fin de l'enchères</label>
+		<input type="date" id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>">
+	</p>
+	
+	<p>
+		<label for="lieuRetrait">Retrait : </label>
+		<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br>
+	</p>
 
+	<p>
+		<label for="vendeur">Vendeur : </label>
+		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
 	</p>
-	<p>
-			<label for="miseAPrix">Mise à prix : </label>
-			<input type="text" name="miseAPrix" id="miseAPrix" value="<%= articleAAfficher.getMiseAPrix()%>"><br>
-	</p>
-	<p>
-	<label for="dateFinEncheres">Fin de l'enchères</label>
-	<input type="date" id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>">
-	<p>
-			<label for="lieuRetrait">Retrait : </label>
-
-			<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br>
-
-			</p>
-			<p>
-			<label for="vendeur">Vendeur : </label>
-			<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
-	</p>
-	<p>
+	
+	<form action="./TraitementEnchere?articleAAfficher="<%=articleAAfficher.getNoArticle()%>" method="post">
+		<p>
 			<label for="maProposition">Ma Proposition : </label>
 			<%
-			int meilleureOffre = articleAAfficher.getPrixVente();
-			int minOffre = meilleureOffre + EncheresManager.PADDING;
-			%>
-						
-			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %>" value = "<%=utilisateur.getCredit() %>" step = "EncheresManager.PADDING"><br>
-	</p>
-		
-			
-	<p>
-		<button type="submit" name="encherir" id="encherir">Enchérir</button>
-	</p>
+				int meilleureOffre = articleAAfficher.getPrixVente();
+				int minOffre = meilleureOffre + EncheresManager.PADDING;
+			%>					
+			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %>" value = "<%= minOffre %>" step = "EncheresManager.PADDING"><br>
+			<button type="submit" name="encherir" id="encherir">Enchérir</button>
+		</p>
+	</form>
 </body>
 </html>

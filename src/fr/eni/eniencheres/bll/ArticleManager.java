@@ -33,6 +33,21 @@ public class ArticleManager {
 	}
 
 	/**
+	 * Retourne l'article en fonction de son id
+	 * @return ArticleVendu
+	 */
+	public ArticleVendu getById(int id) {
+		ArticleVendu article = new ArticleVendu();
+		try {
+			article =  articleDAO.selectById(id);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return article;
+	}
+	
+	
+	/**
 	 * Retourne la list de tous les objets articles
 	 * @return List<ArticleVendu> tousLesArticles
 	 */
