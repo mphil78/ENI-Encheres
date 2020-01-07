@@ -40,7 +40,7 @@
 	
 	<p>
 		<label for="dateFinEncheres">Fin de l'enchères</label>
-		<input type="date" id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>">
+		<input type="datetime-local"> <%-- id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>"> --%>
 	</p>
 	
 	<p>
@@ -53,7 +53,7 @@
 		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
 	</p>
 	
-	<form action="./TraitementEnchere?articleAAfficher="<%=articleAAfficher.getNoArticle()%>" method="post">
+	<form action="./TraitementEnchere?idArticle="<%=articleAAfficher.getNoArticle()%>" method="post">
 		<p>
 			<label for="maProposition">Ma Proposition : </label>
 			<%
@@ -61,6 +61,8 @@
 				int minOffre = meilleureOffre + EncheresManager.PADDING;
 			%>					
 			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %>" value = "<%= minOffre %>" step = "EncheresManager.PADDING"><br>
+			<!-- AFFICHER L'ERREUR erreurProposition SI ELLE EXISTE -->
+			<!-- BOGDAAAAAAANNNNNNNN STP TU NOUS FAIS UN ONCLICK EN JAVASCRIPT SI L'ENCHERE EST TERMINEE AU MOMENT DU CLICK  -->
 			<button type="submit" name="encherir" id="encherir">Enchérir</button>
 		</p>
 	</form>
