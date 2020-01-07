@@ -6,7 +6,7 @@ public class Enchere {
 	
 	//Attributs d'instance
 	private LocalDate dateEnchere;
-	private int montant_enchere;
+	private int montantEnchere;
 	private Utilisateur encherisseur;
 	private ArticleVendu acticleVendu;
 	
@@ -18,11 +18,11 @@ public class Enchere {
 	public void setDateEnchere(LocalDate dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
-	public int getMontant_enchere() {
-		return montant_enchere;
+	public int getMontantEnchere() {
+		return montantEnchere;
 	}
-	public void setMontant_enchere(int montant_enchere) {
-		this.montant_enchere = montant_enchere;
+	public void setMontantEnchere(int montant_enchere) {
+		this.montantEnchere = montant_enchere;
 	}
 	public Utilisateur getEncherisseur() {
 		return encherisseur;
@@ -41,7 +41,7 @@ public class Enchere {
 	public Enchere(LocalDate dateEnchere, int montant_enchere, Utilisateur encherisseur, ArticleVendu acticleVendu) {
 		super();
 		this.dateEnchere = dateEnchere;
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		this.encherisseur = encherisseur;
 		this.acticleVendu = acticleVendu;
 	}
@@ -53,7 +53,7 @@ public class Enchere {
 	//override toString
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montant_enchere + ", encherisseur="
+		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montantEnchere + ", encherisseur="
 				+ encherisseur.getPseudo() + ", acticleVendu=" + acticleVendu.getNomArticle() + "]";
 	}
 	
