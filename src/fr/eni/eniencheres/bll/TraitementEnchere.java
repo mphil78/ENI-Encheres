@@ -2,7 +2,6 @@ package fr.eni.eniencheres.bll;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.eniencheres.bo.Enchere;
 import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Utilisateur;
-import fr.eni.eniencheres.dal.DAOFactory;
-import fr.eni.eniencheres.dal.UtilisateurDAO;
-import fr.eni.eniencheres.dal.jdbc.UtilisateurDAOJdbcImpl;
+
 
 /**
  * Servlet implementation class TraitementEnchere
@@ -42,12 +39,7 @@ public class TraitementEnchere extends HttpServlet {
 		// recuperation de la session
 		HttpSession session = request.getSession();
 
-//		//Si la session est déconnectée on redirige vers l'accueil
-//		if(session.getAttribute("pseudo")!=null) {
-//			response.sendRedirect("/TraitementAccueil");
-//		}
-
-		// si la session est connectée on récupère les infos utilisateur et article et
+		// on récupère les infos utilisateur et article et
 		// on redirige vers /detailVente
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Utilisateur utilisateur = utilisateurManager.getByPseudo((String) session.getAttribute("pseudo"));
@@ -90,6 +82,15 @@ public class TraitementEnchere extends HttpServlet {
 		if (article.getDateFinEncheres().isBefore(LocalDate.now())) {
 			response.sendRedirect("./TraitementAccueil");
 		} else {
+			if (maProposition > utilisateur.getCredit()) {
+				request.setAttribute("erreurProposition", "Désolé vous n'avez pas assez de crédits.");
+				request.setAttribute("utilisateur", utilisateur);
+				request.setAttribute("ArticleAAfficher", article);
+				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
+				rd.forward(request, response);
+			}
+			else
+			{
 			// Test si la proposition est valable
 			if (maProposition <= article.getPrixVente()) {
 				// si non valable on revient en arrière avec une erreur
@@ -99,8 +100,23 @@ public class TraitementEnchere extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 				rd.forward(request, response);
 			} else {
-				// Création de l'objet enchere
+				// Tout est bon ! Création de l'objet enchere
 				Enchere enchere = new Enchere(LocalDate.now(), maProposition, utilisateur, article);
+				
+				//maj de l'enchérisseur
+				utilisateur.setCredit(utilisateur.getCredit()-maProposition);
+				utilisateurManager.updateUtilisateur(utilisateur);
+				
+				//maj de l'enchérisseur précédent s'il existe
+				Utilisateur encherisseurPrecedent = utilisateurManager.getEncherisseur(article);
+				if(encherisseurPrecedent!=null) {
+					encherisseurPrecedent.setCredit(encherisseurPrecedent.getCredit()+article.getPrixVente());
+					utilisateurManager.updateUtilisateur(encherisseurPrecedent);
+				}
+				
+				//maj du vendeur
+				article.getVendeur().setCredit(article.getVendeur().getCredit()+maProposition);
+				utilisateurManager.updateUtilisateur(article.getVendeur());
 				
 				//maj de l'article
 				article.setAcheteur(utilisateur);
@@ -111,6 +127,7 @@ public class TraitementEnchere extends HttpServlet {
 				enchereManager.addEnchere(enchere);
 				
 				response.sendRedirect("./TraitementAccueil");
+			}
 			}
 		}
 	}

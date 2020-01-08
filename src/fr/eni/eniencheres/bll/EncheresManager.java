@@ -4,7 +4,6 @@ import fr.eni.eniencheres.bo.Enchere;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 import fr.eni.eniencheres.dal.EnchereDAO;
-import fr.eni.eniencheres.dal.RetraitDAO;
 
 public class EncheresManager {
 

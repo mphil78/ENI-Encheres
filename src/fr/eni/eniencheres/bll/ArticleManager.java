@@ -234,6 +234,17 @@ public class ArticleManager {
 		}
 		return achatsEnCours;
 	}
+
+	public List<ArticleVendu> getAchatsRemporteesByPseudo(String pseudo) {
+		List<ArticleVendu> achatsRemportees = new ArrayList<ArticleVendu>();
+		try {
+			achatsRemportees = articleDAO.selectAchatsRemporteesByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return achatsRemportees;
+	}
 	
 	
 }

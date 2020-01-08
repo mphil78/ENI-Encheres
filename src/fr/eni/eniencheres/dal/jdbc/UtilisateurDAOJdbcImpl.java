@@ -10,13 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Utilisateur;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.UtilisateurDAO;
 
-
-
-//TODO vérifier les catch block
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String sqlSelectById =
@@ -47,8 +45,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String sqlUpdate =
 			"update UTILISATEURS "
 			+ "set nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=? where no_utilisateur=?";
-	
-	
+	private static final String sqlSelectMeilleurEncherisseurByArticle =
+			"select no_utilisateur "
+			+ "from ENCHERES "
+			+ "where no_article=? "
+			+ "order by montant_enchere desc";
 	@Override
 	public Utilisateur selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -419,6 +420,55 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		return utilisateur;
 
+	}
+
+	@Override
+	public Utilisateur selectMeilleurEncherisseurByArticle(ArticleVendu article) throws DALException {
+		Utilisateur meilleurEncherisseur = null;
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectMeilleurEncherisseurByArticle);
+			rqt.setInt(1, article.getNoArticle());
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				meilleurEncherisseur = new Utilisateur(
+						rs.getInt("no_utilisateur"),
+						rs.getString("pseudo"),
+						rs.getString("nom"),
+						rs.getString("prenom"),
+						rs.getString("email"),
+						rs.getString("telephone"),
+						rs.getString("rue"),
+						rs.getString("code_postal"),
+						rs.getString("ville"),
+						rs.getString("mot_de_passe"),
+						rs.getInt("credit"),
+						rs.getByte("administrateur")==0?false:true
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return meilleurEncherisseur;
 	}
 	
 	

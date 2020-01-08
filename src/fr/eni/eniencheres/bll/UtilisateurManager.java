@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Utilisateur;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
@@ -159,6 +160,22 @@ public class UtilisateurManager {
 			e.printStackTrace();
 		}
 		return utilisateur.getPseudo();
+	}
+
+	/**
+	 * retourne le meilleur enchérisseur s'il existe, null sinon
+	 * @param pseudo
+	 * @return Utilisateur
+	 */
+	public Utilisateur getEncherisseur(ArticleVendu article) {
+		Utilisateur encherisseur = null;
+		try {
+			encherisseur = utilisateurDAO.selectMeilleurEncherisseurByArticle(article);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return encherisseur;
 	}	
 	
 	

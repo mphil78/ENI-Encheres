@@ -24,12 +24,6 @@ public class TraitementAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int ACHATS = 0;
 	private static final int VENTES = 1;
-	private static final int A_OUVERTES = 1;
-	private static final int A_ENCOURS = 1;
-	private static final int A_REMPORTES = 2;
-	private static final int V_ENCOURS = 1;
-	private static final int V_NONDEBUTEES = 1;
-	private static final int V_TERMINEES = 2;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -94,11 +88,10 @@ public class TraitementAccueil extends HttpServlet {
 		CategorieManager categorieManager = new CategorieManager();
 		ArticleManager articleManager = new ArticleManager();
 
-		// récupération des catégories et de la liste des articles
+		// récupération des catégories
 		List<Categorie> listeCategories = new ArrayList<>();
 		listeCategories = categorieManager.getAll();
 
-		// TODO A finir : gerer le formulaire en mode connecté et faire la DAO
 		// récupération de la liste des articles
 		List<ArticleVendu> listeArticles = new ArrayList<>();
 		if (!connecte) {
@@ -122,7 +115,7 @@ public class TraitementAccueil extends HttpServlet {
 						achatsEnCours = articleManager.getAchatsEnCoursByPseudo(pseudo);
 					}
 					if (request.getParameter("chk3") != null) {
-//						achatsRemportees = articleManager.getAchatByPseudoAndEtat(pseudo, ArticleVendu.TERMINEE);
+						achatsRemportees = articleManager.getAchatsRemporteesByPseudo(pseudo);
 					}
 					listeArticles.addAll(achatsOuvertes);
 					listeArticles.addAll(achatsEnCours);

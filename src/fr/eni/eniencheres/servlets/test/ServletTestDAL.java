@@ -1,8 +1,8 @@
 package fr.eni.eniencheres.servlets.test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.eniencheres.bo.Categorie;
+//import fr.eni.eniencheres.bo.Categorie;
 import fr.eni.eniencheres.bo.Retrait;
-import fr.eni.eniencheres.bo.Utilisateur;
-import fr.eni.eniencheres.dal.CategorieDAO;
+//import fr.eni.eniencheres.bo.Utilisateur;
+//import fr.eni.eniencheres.dal.CategorieDAO;
 import fr.eni.eniencheres.dal.DALException;
 import fr.eni.eniencheres.dal.DAOFactory;
 import fr.eni.eniencheres.dal.RetraitDAO;
-import fr.eni.eniencheres.dal.UtilisateurDAO;
-import fr.eni.eniencheres.dal.jdbc.CategorieDAOJdbcImpl;
+//import fr.eni.eniencheres.dal.UtilisateurDAO;
+//import fr.eni.eniencheres.dal.jdbc.CategorieDAOJdbcImpl;
 
 /**
  * Servlet implementation class ServletTestDAL
@@ -39,7 +39,7 @@ public class ServletTestDAL extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
-		CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+//		CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 		RetraitDAO retraitDAO = DAOFactory.getRetraitDAO();
 		//Instanciation du jeu d'essai 
 //			Utilisateur u1 = new Utilisateur(

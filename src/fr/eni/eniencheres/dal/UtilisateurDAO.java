@@ -3,6 +3,7 @@ package fr.eni.eniencheres.dal;
 import java.util.List;
 import java.util.Map;
 
+import fr.eni.eniencheres.bo.ArticleVendu;
 import fr.eni.eniencheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
@@ -88,5 +89,12 @@ public interface UtilisateurDAO {
 	 * @return
 	 */
 	public Utilisateur selectByEmail(String email) throws DALException;
+
+	/**
+	 * Retourne le meilleur encherisseur d'un article
+	 * @param email
+	 * @return
+	 */
+	public Utilisateur selectMeilleurEncherisseurByArticle(ArticleVendu article) throws DALException;
 	
 }

@@ -24,3 +24,9 @@ body {
     height: 100%;
     width: auto;
 }
+
+.imagecentree {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
