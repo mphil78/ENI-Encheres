@@ -144,8 +144,7 @@ public class TraitementProfile extends HttpServlet {
 				utilisateur.setMotDePasse(UtilisateurManager.hash(request.getParameter("password")));
 				utilisateurManager.addUtilisateur(utilisateur);
 				session.setAttribute("pseudo", utilisateur.getPseudo());
-				RequestDispatcher rd = request.getRequestDispatcher("/TraitementAccueil");
-				rd.forward(request, response);
+				response.sendRedirect("./TraitementAccueil"); 
 			}
 		}
 		
