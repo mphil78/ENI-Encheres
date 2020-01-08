@@ -36,7 +36,7 @@
 		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label><br>
 
 	<c:choose>
- 			<c:when test="${sessionScope.pseudo ne utilisateur.pseudo}">
+ 			<c:when test="${sessionScope.pseudo ne artAffich.vendeur.pseudo}">
  				<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
 					<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
 					<c:set var="minOffre" value="${meilleurOffre+padding}"></c:set>
@@ -47,7 +47,7 @@
 				</form>
 			</c:when>
 	
-			<c:when test="${sessionScope.pseudo eq utilisateur.pseudo}">
+			<c:when test="${sessionScope.pseudo eq artAffich.vendeur.pseudo}">
 				<a href="./TraitementAccueil"><button>Retour à l'accueil</button></a>
 			</c:when>
 	</c:choose>
