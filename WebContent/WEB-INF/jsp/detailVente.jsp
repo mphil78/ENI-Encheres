@@ -22,6 +22,7 @@
 <c:set var="padding" value="1" scope="page"></c:set>
 
 
+
 		<label for="nom"> ${artAffich.nomArticle} </label><br>
 	
 		<label for="description">Description : ${artAffich.description}</label><br>
@@ -47,7 +48,8 @@
 
 			<label for="maProposition">Ma Proposition : </label>
 			<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
-			<c:set var="minOffre" value="meilleurOffre+padding"></c:set>
+			<c:set var="minOffre" value="${meilleurOffre+padding}"></c:set>
+			
 			<c:set var ="now" value ="<%= new java.util.Date()%>" />
 			<p>Date du jour : <fmt:formatDate type = "date" value ="${now}" /></p><br>
 		<c:choose>
