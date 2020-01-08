@@ -16,8 +16,6 @@
 </head>
 <body>
 
-<%-- 	<% List<String> libelles = (List<String>)request.getAttribute("libelles");	%> --%>
-<%-- 	<% Utilisateur vendeur = (Utilisateur)request.getAttribute("vendeur");	%> --%>
 	<c:set var="libelles" value="${requestScope.libelles}" scope="page"></c:set>
 	<c:set var="vendeur" value="${requestScope.vendeur}" scope="page"></c:set>
 	
