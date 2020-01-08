@@ -34,12 +34,12 @@
 		<label for="lieuRetrait">Retrait : ${artAffich.lieuRetrait}</label><br>
 
 		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label><br>
+		
 
 	<c:choose>
  			<c:when test="${sessionScope.pseudo ne artAffich.vendeur.pseudo}">
  				<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
-					<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
-					<c:set var="minOffre" value="${meilleurOffre+padding}"></c:set>
+					<c:set var="minOffre" value="${artAffich.prixVente+padding}"></c:set>
 		
 					<label for="maProposition">Ma Proposition : </label>
 						<input type="number" name="maProposition" id="maProposition" min ="minOffre" value ="minOffre" step ="padding"><br>
