@@ -14,14 +14,10 @@
 <title>Détail Vente</title>
 </head>
 <body>
-<% ArticleVendu articleAAfficher = (ArticleVendu)request.getAttribute("articleAAfficher");
-   Utilisateur utilisateur = (Utilisateur)request.getAttribute("utilisateur");
-%>
+
 <c:set var="artAffich" value="${requestScope.articleAAfficher}" scope="page"></c:set>
 <c:set var="utilisateur" value="${requestScope.utilisateur}" scope="page"></c:set>
 <c:set var="padding" value="1" scope="page"></c:set>
-
-
 
 		<label for="nom"> ${artAffich.nomArticle} </label><br>
 	
@@ -36,36 +32,28 @@
 		<label for="dateFinEncheres">Fin de l'enchères : ${artAffich.dateFinEncheres}</label><br>
 	
 		<label for="lieuRetrait">Retrait : ${artAffich.lieuRetrait}</label><br>
-<!-- 		En attente de verification -->
-<%-- 		<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br> --%>
 
-		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label>
-<%-- 		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br> --%>
+		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label><br>
+
+	<c:choose>
+ 			<c:when test="${sessionScope.pseudo ne utilisateur.pseudo}">
+ 				<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
+					<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
+					<c:set var="minOffre" value="${meilleurOffre+padding}"></c:set>
+		
+					<label for="maProposition">Ma Proposition : </label>
+						<input type="number" name="maProposition" id="maProposition" min ="minOffre" value ="minOffre" step ="padding"><br>
+					<button type="submit" name="encherir" id="encherir">Enchérir</button>
+				</form>
+			</c:when>
 	
-	<!-- FAIRE EN SORTE QUE LA PROPOSITION NE S'AFFICHE PAS POUR LE VENDEUR -->
-	<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
-
-
-			<label for="maProposition">Ma Proposition : </label>
-			<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
-			<c:set var="minOffre" value="${meilleurOffre+padding}"></c:set>
+			<c:when test="${sessionScope.pseudo eq utilisateur.pseudo}">
+				<a href="./TraitementAccueil"><button>Retour à l'accueil</button></a>
+			</c:when>
+	</c:choose>
 			
 			<c:set var ="now" value ="<%= new java.util.Date()%>" />
 			<p>Date du jour : <fmt:formatDate type = "date" value ="${now}" /></p><br>
-		<c:choose>
-				<c:when test="${artAffich.dateFinEncheres} gt now">
-					<a href="./TraitementAccueil"><button> Trop tard</button></a>
-				</c:when>
-				<c:when test="${artAffich.dateFinEncheres} lt now">
-					<input type="number" name="maProposition" id="maProposition" min ="minOffre" value ="minOffre" step ="padding"><br>
-					<!-- AFFICHER L'ERREUR erreurProposition SI ELLE EXISTE -->
-					<!-- BOGDAAAAAAANNNNNNNN STP TU NOUS FAIS UN ONCLICK EN JAVASCRIPT SI L'ENCHERE EST TERMINEE AU MOMENT DU CLICK  -->
-					<button type="submit" name="encherir" id="encherir">Enchérir</button>
-				</c:when>
-		</c:choose>
-	</form>
-	
-	<!-- FAIRE UN BOUTON RETOUR POUR LE VENDEUR -->
 	
 </body>
 </html>
