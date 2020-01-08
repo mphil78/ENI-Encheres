@@ -1,5 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
  <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
 <%@page import="fr.eni.eniencheres.bo.Categorie"%>
@@ -12,11 +11,37 @@
 </head>
 <body>
 	<c:set var="utilisateur" value="${requestScope.utilisateurAAfficher}" scope="page"></c:set>
-		<div class="container">  
-		   <nav class="navbar mb-5">
+		<div class="container" > <!-- bg-primary"> -->
+	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+	        <div class="container">
+	            <a href="./TraitementAccueil">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
-			</nav>
-		</div>
+				</a>
+				<c:choose>
+   					<c:when test="${!empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementArticle">Vendre un article</a>   
+	                 		</li>          	                
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}">Bonjour ${sessionScope.pseudo}</a>           	               
+	                 		</li>
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	                 		</li>
+	                 	</ul>
+	       			</c:when>
+   					<c:when test="${empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">	
+   								<a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   							</li>	
+   						</ul>
+   					</c:when>
+				</c:choose>
+			</div>	
+    	</nav>
+    	</div>
 	
 		<div class="container">
 	   		<div class="row h5">

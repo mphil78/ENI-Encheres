@@ -18,7 +18,37 @@
 
 	<c:set var="libelles" value="${requestScope.libelles}" scope="page"></c:set>
 	<c:set var="vendeur" value="${requestScope.vendeur}" scope="page"></c:set>
-	
+<div class="container" > <!-- bg-primary"> -->
+	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+	        <div class="container">
+	            <a href="./TraitementAccueil">
+				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
+				</a>
+				<c:choose>
+   					<c:when test="${!empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementArticle">Vendre un article</a>   
+	                 		</li>          	                
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}">Bonjour ${sessionScope.pseudo}</a>           	               
+	                 		</li>
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	                 		</li>
+	                 	</ul>
+	       			</c:when>
+   					<c:when test="${empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">	
+   								<a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   							</li>	
+   						</ul>
+   					</c:when>
+				</c:choose>
+			</div>	
+    	</nav>
+    </div>
 	<form action="./TraitementArticle" method="post" enctype="multipart/form-data">
 	
 		<h2>ENI-Enchères</h2>

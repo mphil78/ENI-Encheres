@@ -23,15 +23,37 @@
 <c:set var="utilisateur" value="${requestScope.utilisateur}" scope="page"></c:set>
 <c:set var="padding" value="1" scope="page"></c:set>
 
-<div class="container ">
-	<nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
-	    <div class="container">
-	    	<a href="./TraitementAccueil">
+<div class="container" > <!-- bg-primary"> -->
+	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+	        <div class="container">
+	            <a href="./TraitementAccueil">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
-			</a>
-		</div>
-	</nav>
-	
+				</a>
+				<c:choose>
+   					<c:when test="${!empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementArticle">Vendre un article</a>   
+	                 		</li>          	                
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}">Bonjour ${sessionScope.pseudo}</a>           	               
+	                 		</li>
+	                 		<li class="nav-item">
+	                 			<a class="nav-link" href="./TraitementConnexion">Déconnexion</a>
+	                 		</li>
+	                 	</ul>
+	       			</c:when>
+   					<c:when test="${empty sessionScope.pseudo}">
+   						<ul class="nav justify-content-center">
+   							<li class="nav-item">	
+   								<a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+   							</li>	
+   						</ul>
+   					</c:when>
+				</c:choose>
+			</div>	
+    	</nav>
+	</div>
 	<div class="jumbotron">
 	
 		<div class="row">
@@ -51,7 +73,7 @@
 					
 				<label for="categorie">Categorie : ${artAffich.categorie}</label><br>
 				
-				<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente}</label><br>
+				<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente} par ${artAffich.acheteur}</label><br>
 				
 				<label for="miseAPrix">Mise à prix : ${artAffich.miseAPrix}</label><br>
 			
@@ -79,8 +101,6 @@
 			</c:choose>
 			</div>
 			</div>
-		</div>		
-	</div>		
-</div>	
+		</div>			
 </body>
 </html>
