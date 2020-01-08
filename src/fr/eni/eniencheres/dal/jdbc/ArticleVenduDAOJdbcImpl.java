@@ -72,7 +72,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"insert "
 			+ "into ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_vendeur, no_acheteur, no_categorie, etat_vente  )"
 			+ " values(?,?,?,?,?,?,?,?,?,?)";
-
+	private static final String sqlUpdatePrixVente =
+			"update ARTICLES_VENDUS "
+			+ "set prix_vente=? where no_article=?";
+	private static final String sqlUpdateEnchere =
+			"update ARTICLES_VENDUS "
+			+ "set prix_vente=?, no_acheteur=? where no_article=?";	
+	
 	@Override
 	public ArticleVendu selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -839,6 +845,65 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			}
 		}		
 		return articles;
+	}
+
+	@Override
+	public void updatePrixVente(ArticleVendu article) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlUpdatePrixVente);
+			rqt.setInt(1, article.getPrixVente());
+			rqt.setInt(2, article.getNoArticle());
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DALException("L'update de l'enchere a échoué - " + article.toString(), e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx !=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}			
+	}
+
+	@Override
+	public void updateEnchere(ArticleVendu article) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlUpdateEnchere);
+			rqt.setInt(1, article.getPrixVente());
+			rqt.setInt(2, article.getAcheteur().getNoUtilisateur());
+			rqt.setInt(3, article.getNoArticle());
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DALException("L'update de l'enchere a échoué - " + article.toString(), e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx !=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}	
 	}	
 
 }

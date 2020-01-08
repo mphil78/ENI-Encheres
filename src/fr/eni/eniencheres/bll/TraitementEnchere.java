@@ -2,6 +2,7 @@ package fr.eni.eniencheres.bll;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,84 +25,92 @@ import fr.eni.eniencheres.dal.jdbc.UtilisateurDAOJdbcImpl;
 @WebServlet("/TraitementEnchere")
 public class TraitementEnchere extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TraitementEnchere() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//recuperation de la session
+	public TraitementEnchere() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// recuperation de la session
 		HttpSession session = request.getSession();
-		
+
 //		//Si la session est déconnectée on redirige vers l'accueil
 //		if(session.getAttribute("pseudo")!=null) {
 //			response.sendRedirect("/TraitementAccueil");
 //		}
-		
-		//si la session est connectée on récupère les infos utilisateur et article et on redirige vers /detailVente
+
+		// si la session est connectée on récupère les infos utilisateur et article et
+		// on redirige vers /detailVente
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		Utilisateur utilisateur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		Utilisateur utilisateur = utilisateurManager.getByPseudo((String) session.getAttribute("pseudo"));
 		ArticleManager articleManager = new ArticleManager();
 		ArticleVendu articleAAfficher = articleManager.getById(Integer.parseInt(request.getParameter("idArticle")));
-		
-		//redirection vers detailVente
-		request.setAttribute("utilisateur",utilisateur);
+
+		// redirection vers detailVente
+		request.setAttribute("utilisateur", utilisateur);
 		request.setAttribute("articleAAfficher", articleAAfficher);
 		RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 		rd.forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		//recuperation de la session
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// recuperation de la session
 		HttpSession session = request.getSession();
-		
-		//Si la session est déconnectée on redirige vers l'accueil
-		if(session.getAttribute("pseudo")!=null) {
-			response.sendRedirect("/TraitementAccueil");
+
+		// Si la session est déconnectée on redirige vers l'accueil
+		if (session.getAttribute("pseudo") == null) {
+			response.sendRedirect("./TraitementAccueil");
 		}
-		
-		//si la session est connectée on récupère les infos utilisateur et article et on redirige vers /detailVente
+
+		// si la session est connectée on récupère les infos utilisateur et article et
+		// on redirige vers /detailVente
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		Utilisateur utilisateur = utilisateurManager.getByPseudo((String)session.getAttribute("pseudo"));
+		Utilisateur utilisateur = utilisateurManager.getByPseudo((String) session.getAttribute("pseudo"));
 		ArticleManager articleManager = new ArticleManager();
 		ArticleVendu article = articleManager.getById(Integer.parseInt(request.getParameter("idArticle")));
 		int maProposition = Integer.parseInt(request.getParameter("maProposition"));
 		EncheresManager enchereManager = new EncheresManager();
-		
-		//Test si l'enchere est terminée
-		if (article.getDateFinEncheres().isBefore(LocalDate.now()))
-		{
-			response.sendRedirect("/TraitementAccueil");
-		}
-		else
-		{
-			//Test si la proposition est valable
-			if (maProposition<=article.getPrixVente())
-			{
-				//si non valable on revient en arrière avec une erreur
-				request.setAttribute("erreurProposition","Veuillez faire une proposition plus élevée.");
+
+		// Test si l'enchere est terminée
+		if (article.getDateFinEncheres().isBefore(LocalDate.now())) {
+			response.sendRedirect("./TraitementAccueil");
+		} else {
+			// Test si la proposition est valable
+			if (maProposition <= article.getPrixVente()) {
+				// si non valable on revient en arrière avec une erreur
+				request.setAttribute("erreurProposition", "Veuillez faire une proposition plus élevée.");
 				request.setAttribute("utilisateur", utilisateur);
 				request.setAttribute("ArticleAAfficher", article);
 				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 				rd.forward(request, response);
-			}
-			else
-			{
-				//Création de l'objet enchere
-				Enchere enchere = new Enchere(LocalDate.now(),maProposition,utilisateur,article);
+			} else {
+				// Création de l'objet enchere
+				Enchere enchere = new Enchere(LocalDate.now(), maProposition, utilisateur, article);
+				
+				//maj de l'article
+				article.setAcheteur(utilisateur);
+				article.setPrixVente(maProposition);
+				articleManager.majEnchere(article);
+				
+				//enregistrement de l'enchere dans la bdd
 				enchereManager.addEnchere(enchere);
-				response.sendRedirect("/TraitementAccueil");
+				
+				response.sendRedirect("./TraitementAccueil");
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package fr.eni.eniencheres.bo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Enchere {
 	

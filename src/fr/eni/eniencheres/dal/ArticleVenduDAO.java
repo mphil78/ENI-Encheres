@@ -125,5 +125,19 @@ public interface ArticleVenduDAO {
 	 * @return
 	 */
 	public List<ArticleVendu> selectVenteTermineesByPseudo(String pseudo) throws DALException;
+
+	/**
+	 * Modifier le prix de vente d'un article
+	 * @param articleVendu
+	 * @throws DALException
+	 */
+	public void updatePrixVente(ArticleVendu article) throws DALException;
+
+	/**
+	 * Maj enchere d'un article
+	 * @param articleVendu
+	 * @throws DALException
+	 */
+	public void updateEnchere(ArticleVendu article) throws DALException;
 }
 

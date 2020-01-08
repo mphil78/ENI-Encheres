@@ -205,6 +205,24 @@ public class ArticleManager {
 		}
 		return ventes;
 	}
+
+	public void majPrixVente(ArticleVendu article) {
+		try {
+			articleDAO.updatePrixVente(article);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void majEnchere(ArticleVendu article) {
+		try {
+			articleDAO.updateEnchere(article);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
