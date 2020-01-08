@@ -223,6 +223,17 @@ public class ArticleManager {
 			e.printStackTrace();
 		}
 	}
+
+	public List<ArticleVendu> getAchatsEnCoursByPseudo(String pseudo) {
+		List<ArticleVendu> achatsEnCours = new ArrayList<ArticleVendu>();
+		try {
+			achatsEnCours = articleDAO.selectAchatsEnCoursByPseudo(pseudo);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return achatsEnCours;
+	}
 	
 	
 }

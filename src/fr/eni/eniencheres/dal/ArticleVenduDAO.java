@@ -139,5 +139,13 @@ public interface ArticleVenduDAO {
 	 * @throws DALException
 	 */
 	public void updateEnchere(ArticleVendu article) throws DALException;
+
+	
+	/**
+	 * Selectionne les achats
+	 * @param pseudo
+	 * @throws DALException
+	 */
+	public List<ArticleVendu> selectAchatsEnCoursByPseudo(String pseudo) throws DALException;
 }
 
