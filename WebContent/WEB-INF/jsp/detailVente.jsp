@@ -1,4 +1,6 @@
 <%@page import="fr.eni.eniencheres.bll.EncheresManager"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
@@ -15,56 +17,52 @@
 <% ArticleVendu articleAAfficher = (ArticleVendu)request.getAttribute("articleAAfficher");
    Utilisateur utilisateur = (Utilisateur)request.getAttribute("utilisateur");
 %>
+<c:set var="artAffich" value="${requestScope.articleAAfficher}" scope="page"></c:set>
+<c:set var="utilisateur" value="${requestScope.utilisateur}" scope="page"></c:set>
+<c:set var="enchManag" value="10" scope="page"></c:set>
 
 
+		<label for="nom"> ${artAffich.nomArticle} </label><br>
+	
+		<label for="description">Description : ${artAffich.description}</label><br>
+			
+		<label for="categorie">Categorie : ${artAffich.categorie}</label><br>
+		
+		<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente}</label><br>
+		
+		<label for="miseAPrix">Mise à prix : ${artAffich.miseAPrix}</label><br>
+	
+		<label for="dateFinEncheres">Fin de l'enchères : ${artAffich.dateFinEncheres}</label><br>
+	
+		<label for="lieuRetrait">Retrait : ${artAffich.lieuRetrait.toString}</label><br>
+<!-- 		En attente de verification -->
+<%-- 		<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br> --%>
 
-	<p>
-		<label for="description">Description : </label>
-		<input type="text" name="description" id="description" value="<%= articleAAfficher.getDescription()%>"><br>
-	</p>
+		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label>
+<%-- 		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br> --%>
 	
-	<p>
-		<label for="categorie">Categorie : </label>
-		<input type="text" name="categorie" id="categorie" value="<%= articleAAfficher.getCategorie()%>"><br>
-	</p>
-	
-	<p>
-		<label for="meilleureOffre">Meilleure Offre : </label>
-		<input type="text" name="meilleureOffre" id="meilleureOffre" value="<%=articleAAfficher.getPrixVente()%>"><br>
-	</p>
-	
-	<p>
-		<label for="miseAPrix">Mise à prix : </label>
-		<input type="text" name="miseAPrix" id="miseAPrix" value="<%= articleAAfficher.getMiseAPrix()%>"><br>
-	</p>
-	
-	<p>
-		<label for="dateFinEncheres">Fin de l'enchères</label>
-		<input type="datetime-local"> <%-- id="dateFinEncheres" name="dateFinEncheres" value="<%= articleAAfficher.getDateFinEncheres()%>"> --%>
-	</p>
-	
-	<p>
-		<label for="lieuRetrait">Retrait : </label>
-		<input type="text" name="lieuRetrait" id="lieuRetrait" value="<%= articleAAfficher.getLieuRetrait().toString()%>" ><br>
-	</p>
+	<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
 
-	<p>
-		<label for="vendeur">Vendeur : </label>
-		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br>
-	</p>
-	
-	<form action="./TraitementEnchere?idArticle="<%=articleAAfficher.getNoArticle()%>" method="post">
-		<p>
 			<label for="maProposition">Ma Proposition : </label>
-			<%
-				int meilleureOffre = articleAAfficher.getPrixVente();
-				int minOffre = meilleureOffre + EncheresManager.PADDING;
-			%>					
-			<input type="number" name="maProposition" id="maProposition" min = "<%= minOffre %>" value = "<%= minOffre %>" step = "EncheresManager.PADDING"><br>
-			<!-- AFFICHER L'ERREUR erreurProposition SI ELLE EXISTE -->
-			<!-- BOGDAAAAAAANNNNNNNN STP TU NOUS FAIS UN ONCLICK EN JAVASCRIPT SI L'ENCHERE EST TERMINEE AU MOMENT DU CLICK  -->
-			<button type="submit" name="encherir" id="encherir">Enchérir</button>
-		</p>
+			<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>
+			<c:set var="minOffre" value="meilleurOffre+${enchManag.padding}"></c:set>
+<%-- 			<% --%>
+<!-- // 				int meilleureOffre = articleAAfficher.getPrixVente(); -->
+<!-- // 				int minOffre = meilleureOffre + EncheresManager.PADDING; -->
+<%-- 			%>					 --%>
+			<c:set var ="now" value ="<%= new java.util.Date()%>" />
+			<p>Date du jour : <fmt:formatDate type = "date" value ="${now}" /></p><br>
+		<c:choose>
+				<c:when test="${artAffich.dateFinEncheres} gt now">
+					<a href="./TraitementAccueil"><button> Trop tard</button></a>
+				</c:when>
+				<c:when test="${artAffich.dateFinEncheres} lt now">
+					<input type="number" name="maProposition" id="maProposition" min ="minOffre" value ="minOffre" step ="enchManag"><br>
+					<!-- AFFICHER L'ERREUR erreurProposition SI ELLE EXISTE -->
+					<!-- BOGDAAAAAAANNNNNNNN STP TU NOUS FAIS UN ONCLICK EN JAVASCRIPT SI L'ENCHERE EST TERMINEE AU MOMENT DU CLICK  -->
+					<button type="submit" name="encherir" id="encherir">Enchérir</button>
+				</c:when>
+		</c:choose>
 	</form>
 </body>
 </html>
