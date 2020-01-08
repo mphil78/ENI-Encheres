@@ -41,7 +41,9 @@
 		<label for="vendeur">Vendeur : ${artAffich.vendeur.pseudo}</label>
 <%-- 		<input type="text" name="vendeur" id="vendeur" value="<%= articleAAfficher.getVendeur().getPseudo()%>"><br> --%>
 	
+
 	<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
+
 
 			<label for="maProposition">Ma Proposition : </label>
 			<c:set var="meilleurOffre" value="${artAffich.prixVente}"></c:set>

@@ -41,7 +41,7 @@
 			<label for="categorie">Catégorie</label>
 			<select name="categorie" id="categorie">
 					<c:forEach var="lib" items="${libelles}">
-						<option value='<c:out value="${lib.libelles}"/>'><c:out value="${lib.libelles}"/></option>
+						<option value="${lib}"><c:out value="${lib}"/></option>
 					</c:forEach>
 
 			</select>

@@ -79,8 +79,8 @@
 				<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
 				<select name="categorie" class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
 			        <option value="-1" selected>Toutes</option>
-			        <c:forEach items="${requestScope.categories}" var="categories">
-			        	<option value="${requestScope.noCategorie } ${requestScope.libelle}"> 
+			        <c:forEach items="${categories}" var="categorie">
+			        	<option value="${categorie.noCategorie}"><c:out value="${categorie.libelle}"></c:out></option>
 			        </c:forEach>
 			      </select>
 			</div>
@@ -132,11 +132,11 @@
 		<div class="row mt-5">	
 			<c:if test="${!empty requestScope.articles }">	
 				<c:forEach items="${requestScope.articles}" var="article">
-					<div class="row mt-3 ml-3">
-						<div class="col-3  border border-dark">
-							<img class="" src="" alt="image du produit">
+					<div class="row mt-3 ml-3">		
+						<div class="col-4  border border-dark">
+							<img height=auto width=100px src="./AfficherImage?idArticle=${article.noArticle}" alt="image du produit">
 						</div>
-						<div class="col-7  border border-dark">
+						<div class="col-6  border border-dark">
 							<c:choose>
 	   							<c:when test="${!empty sessionScope.pseudo}">	
 									<a href="./TraitementEnchere?idArticle=${article.noArticle}">${article.nomArticle }</a>								
