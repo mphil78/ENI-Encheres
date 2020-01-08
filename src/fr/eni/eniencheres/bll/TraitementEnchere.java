@@ -79,25 +79,30 @@ public class TraitementEnchere extends HttpServlet {
 		int maProposition = Integer.parseInt(request.getParameter("maProposition"));
 		EncheresManager enchereManager = new EncheresManager();
 		
-		//Test si la proposition est valable
-		if (maProposition<=article.getPrixVente()) {
-			//on revient en arrière avec une erreur
-			request.setAttribute("erreurProposition","Veuillez faire une proposition plus élevée.");
-			request.setAttribute("utilisateur", utilisateur);
-			request.setAttribute("ArticleAAfficher", article);
-			RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
-			rd.forward(request, response);
-		} else {
-			//Test si l'enchere est terminée
-			if (article.getDateFinEncheres().isBefore(LocalDate.now())) {
-				response.sendRedirect("/TraitementAccueil");
-			} else {
+		//Test si l'enchere est terminée
+		if (article.getDateFinEncheres().isBefore(LocalDate.now()))
+		{
+			response.sendRedirect("/TraitementAccueil");
+		}
+		else
+		{
+			//Test si la proposition est valable
+			if (maProposition<=article.getPrixVente())
+			{
+				//si non valable on revient en arrière avec une erreur
+				request.setAttribute("erreurProposition","Veuillez faire une proposition plus élevée.");
+				request.setAttribute("utilisateur", utilisateur);
+				request.setAttribute("ArticleAAfficher", article);
+				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
+				rd.forward(request, response);
+			}
+			else
+			{
 				//Création de l'objet enchere
 				Enchere enchere = new Enchere(LocalDate.now(),maProposition,utilisateur,article);
 				enchereManager.addEnchere(enchere);
 				response.sendRedirect("/TraitementAccueil");
 			}
-			
 		}
 	}
 
