@@ -79,8 +79,8 @@
 				<label class="mr-sm-2" for="inlineFormCustomSelect">Catégorie :</label>
 				<select name="categorie" class="custom-select mr-sm-2 col-sm-2" id="inlineFormCustomSelect">
 			        <option value="-1" selected>Toutes</option>
-			        <c:forEach items="${requestScope.categories}" var="categories">
-			        	<option value="${requestScope.noCategorie } ${requestScope.libelle}"> 
+			        <c:forEach items="${categories}" var="categorie">
+			        	<option value="${categorie.noCategorie}"><c:out value="${categorie.libelle}"></c:out></option>
 			        </c:forEach>
 			      </select>
 			</div>
