@@ -27,6 +27,7 @@
 		
 		   
 	   <div class="container">
+	   <div class="col-md-8 offset-md-4"><h2>Bienvenue à ENI Enchères !</h2></div>
 	   		<div class="row">
 	   			<div class="col-md-8 offset-md-2"> 
 	   				<div class="jumbotron"> 
