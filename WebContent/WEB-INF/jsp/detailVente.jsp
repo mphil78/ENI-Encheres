@@ -39,10 +39,10 @@
 	<c:choose>
  			<c:when test="${sessionScope.pseudo ne artAffich.vendeur.pseudo}">
  				<form action="./TraitementEnchere?idArticle=${artAffich.noArticle}" method="post">
-					<c:set var="minOffre" value="${artAffich.prixVente+padding}"></c:set>
+				<%request.setAttribute("padding",1); %>
 		
 					<label for="maProposition">Ma Proposition : </label>
-						<input type="number" name="maProposition" id="maProposition" min ="minOffre" value ="minOffre" step ="padding"><br>
+						<input type="number" name="maProposition" id="maProposition" min ="${artAffich.prixVente+padding}" value ="${artAffich.prixVente+padding}" step ="padding"><br>
 					<button type="submit" name="encherir" id="encherir">Enchérir</button>
 				</form>
 			</c:when>
