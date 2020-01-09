@@ -140,6 +140,7 @@
 						
 							<label for="maProposition">Ma Proposition : </label>
 								<input type="number" name="maProposition" id="maProposition" min ="${artAffich.prixVente+padding}" value ="${artAffich.prixVente+padding}" step ="padding"><br>
+								<a class="text-danger">${requestScope.erreurProposition }</a>							
 							<div class="row">
 								<div class="col-sm-6">
 									<button class="btn btn-primary btn-block btn-lg mt-5" type="submit" name="encherir" id="encherir">Enchérir</button>
