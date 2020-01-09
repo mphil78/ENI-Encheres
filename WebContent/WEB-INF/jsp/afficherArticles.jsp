@@ -15,7 +15,7 @@
    <div class="container" > <!-- bg-primary"> -->
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
-	            <a href="./TraitementAccueil">
+	            <a href="./">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
 				</a>
 				<c:choose>
