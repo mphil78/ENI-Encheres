@@ -46,7 +46,7 @@
 
 		<!-- TITRE DE LA PAGE -->
 		<div class="jumbotron">
-			<h2 class="text-center ">Liste des enchères</h2>
+			<h1 class="text-center ">Liste des enchères</h1>
 
 			<!-- DEBUT DU FORMULAIRE -->
 			

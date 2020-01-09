@@ -21,18 +21,20 @@ h2 {
   
    <body>
 		<div class="container">  
-		   <nav class="navbar mb-5">
-		   		<a href="./TraitementAccueil">
-				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
-				</a>	
-			</nav>
+		   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+			<div class="container">
+				<a href="./TraitementAccueil"> <img	src="${pageContext.request.contextPath}/images/imageLogo.png"
+					width="100px" alt="image">
+				</a>
+			</div>
+		</nav>
 		</div>
 			
 		
 		   
 	   <div class="container">
 
-<div class="col-md-8 offset-md-3"><h1>Bienvenue à ENI Enchères !</h1></div>
+<div class="col-md-8 offset-md-2"><h1 class="text-center">Bienvenue à ENI Enchères !</h1></div>
 	   
 	   		<div class="row">
 	   			<div class="col-md-8 offset-md-2"> 

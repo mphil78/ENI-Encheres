@@ -103,7 +103,7 @@
 					<c:when test="${!empty gagnant}">
 						<c:choose>
 							<c:when test="${sessionScope.pseudo eq artAffich.vendeur.pseudo}">
-								<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente} par </label> <a href= "./TraitementProfile?pseudoAAfficher=${article.vendeur.pseudo}">${artAffich.acheteur.pseudo}</a><br>
+								<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente} par </label> <a href= "./TraitementProfile?pseudoAAfficher=${artAffich.vendeur.pseudo}">${artAffich.acheteur.pseudo}</a><br>
 							</c:when>
 							<c:when test="${sessionScope.pseudo ne artAffich.vendeur.pseudo}">
 								<label for="meilleureOffre">Meilleure Offre : ${artAffich.prixVente}</label><br>
