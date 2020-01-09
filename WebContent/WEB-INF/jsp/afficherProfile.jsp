@@ -1,27 +1,32 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- <%@page import="fr.eni.eniencheres.bo.Utilisateur"%>
- <%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.eni.eniencheres.bo.ArticleVendu"%>
 <%@page import="fr.eni.eniencheres.bo.Categorie"%>
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="fr">
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<meta charset="UTF-8">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <title>Profile</title>
 </head>
 <body>
 	<c:set var="utilisateur" value="${requestScope.utilisateurAAfficher}" scope="page"></c:set>
-		<div class="container" > <!-- bg-primary"> -->
+	
+	<div class="container" > 
 	    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
 	        <div class="container">
 	            <a href="./TraitementAccueil">
 				<img src="${pageContext.request.contextPath}/images/imageLogo.png" width="100px" alt="image">
 				</a>
 				<c:choose>
-   					<c:when test="${!empty sessionScope.pseudo}">
-   						<ul class="nav justify-content-center">
-   							<li class="nav-item">
-	                 			<a class="nav-link" href="./TraitementArticle">Vendre un article</a>   
+	  				<c:when test="${!empty sessionScope.pseudo}">
+	  					<ul class="nav justify-content-center">
+  							<li class="nav-item">
+                 				<a class="nav-link" href="./TraitementArticle">Vendre un article</a>   
 	                 		</li>          	                
 	                 		<li class="nav-item">
 	                 			<a class="nav-link" href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}">Bonjour ${sessionScope.pseudo}</a>           	               
@@ -31,21 +36,22 @@
 	                 		</li>
 	                 	</ul>
 	       			</c:when>
-   					<c:when test="${empty sessionScope.pseudo}">
-   						<ul class="nav justify-content-center">
-   							<li class="nav-item">	
-   								<a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
-   							</li>	
-   						</ul>
-   					</c:when>
+	  					<c:when test="${empty sessionScope.pseudo}">
+	  						<ul class="nav justify-content-center">
+	  							<li class="nav-item">	
+	  								<a class="nav-link" href="./Connexion">S'inscrire - Se connecter </a>
+	  							</li>	
+	  						</ul>
+	  					</c:when>
 				</c:choose>
 			</div>	
-    	</nav>
-    	</div>
-	
-		<div class="container">
+	   	</nav>
+   	</div>
+
+	<div class="container">
+		<div class="jumbotron">
 	   		<div class="row h5">
-	   			<div class="col-lg-8 offset-lg-3">
+	   			<div class="col-sm-8 offset-sm-2">
 	  			
 		 			<label for="pseudo">Pseudo : ${utilisateur.pseudo}</label> <br> 
 					<label for="nom">Nom : ${utilisateur.nom}</label> <br>						 					
@@ -55,14 +61,17 @@
 					<label for="rue">Rue : ${utilisateur.rue}</label> <br>
 					<label for="codePostal">Code Postal : ${utilisateur.codePostal}</label> <br>								
 					<label for="ville">Ville : ${utilisateur.ville}</label> <br>
+					<c:if test="${sessionScope.pseudo == utilisateur.pseudo}">
+						<label for="credit">Crédit : ${utilisateur.credit}</label> <br>
+					</c:if>
 				</div>
 			</div>
-		</div>
+		
 	
  		<c:choose>
  			<c:when test="${sessionScope.pseudo ne utilisateur.pseudo}">
-	 			<div class="row">
-		   			<div class="col-lg-8 offset-lg-6">
+	 			<div class="row mt-5">
+		   			<div class="col-8 offset-2">
 		   				<a href="./TraitementAccueil"><button type="button" class="btn btn-primary">Retour</button></a>
 	 				</div>
 	 			</div>
@@ -70,16 +79,16 @@
  			
  			<c:when test="${sessionScope.pseudo eq utilisateur.pseudo}">
 	 			<div class="row mt-5">
-		   			<div class="col-lg-8 offset-lg-6">
+		   			<div class="col-8 offset-2">
 		   				<a href="./TraitementProfile?pseudoAAfficher=${sessionScope.pseudo}&modifier=true">
-		   					<button type="button" class="btn btn-primary">
-		   						Modifier
-		   					</button>
+		   					<button type="button" class="btn btn-primary">Modifier</button>
 		   				</a>
 					</div>
 	 			</div>
  			</c:when>
  		</c:choose>
+ 		</div>
+		</div>
 			
 			 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

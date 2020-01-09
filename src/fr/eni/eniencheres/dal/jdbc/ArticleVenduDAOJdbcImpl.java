@@ -88,6 +88,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String sqlUpdateEnchere =
 			"update ARTICLES_VENDUS "
 			+ "set prix_vente=?, no_acheteur=? where no_article=?";	
+	private static final String sqlUpdateEtatVente =
+			"update ARTICLES_VENDUS "
+			+ "set etat_vente=? where no_article=?";
 	
 	@Override
 	public ArticleVendu selectById(int id) throws DALException {
@@ -1034,6 +1037,35 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			}
 		}		
 		return articles;
+	}
+
+	@Override
+	public void updateEtatVente(ArticleVendu article) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlUpdateEtatVente);
+			rqt.setInt(1, article.getEtatVente());
+			rqt.setInt(2, article.getNoArticle());
+
+			rqt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DALException("L'update de l'enchere a échoué - " + article.toString(), e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx !=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}		
 	}	
 
 }

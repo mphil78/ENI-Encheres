@@ -45,10 +45,27 @@ public class TraitementEnchere extends HttpServlet {
 		Utilisateur utilisateur = utilisateurManager.getByPseudo((String) session.getAttribute("pseudo"));
 		ArticleManager articleManager = new ArticleManager();
 		ArticleVendu articleAAfficher = articleManager.getById(Integer.parseInt(request.getParameter("idArticle")));
-
+		boolean retirer = request.getParameter("retirer")!=null?true:false;
+		
+		// vérification si l'article est remporté
+		Utilisateur gagnant = utilisateurManager.isRemporte(articleAAfficher);
+		
+		//si le bouton confirmer la récéption est actionné
+		if (gagnant!=null && retirer) {
+			//maj article
+			articleAAfficher.setEtatVente(ArticleVendu.RETIREE);
+			articleManager.majEtatVente(articleAAfficher);
+			//maj vendeur
+			articleAAfficher.getVendeur().setCredit(articleAAfficher.getVendeur().getCredit()+articleAAfficher.getPrixVente());
+			utilisateurManager.updateUtilisateur(articleAAfficher.getVendeur());
+		}
+	
 		// redirection vers detailVente
 		request.setAttribute("utilisateur", utilisateur);
 		request.setAttribute("articleAAfficher", articleAAfficher);
+		request.setAttribute("gagnant", gagnant);
+		
+		// redirection
 		RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 		rd.forward(request, response);
 
@@ -85,7 +102,7 @@ public class TraitementEnchere extends HttpServlet {
 			if (maProposition > utilisateur.getCredit()) {
 				request.setAttribute("erreurProposition", "Désolé vous n'avez pas assez de crédits.");
 				request.setAttribute("utilisateur", utilisateur);
-				request.setAttribute("ArticleAAfficher", article);
+				request.setAttribute("articleAAfficher", article);
 				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 				rd.forward(request, response);
 			}
@@ -96,7 +113,7 @@ public class TraitementEnchere extends HttpServlet {
 				// si non valable on revient en arrière avec une erreur
 				request.setAttribute("erreurProposition", "Veuillez faire une proposition plus élevée.");
 				request.setAttribute("utilisateur", utilisateur);
-				request.setAttribute("ArticleAAfficher", article);
+				request.setAttribute("articleAAfficher", article);
 				RequestDispatcher rd = request.getRequestDispatcher("./DetailVente");
 				rd.forward(request, response);
 			} else {
@@ -114,9 +131,7 @@ public class TraitementEnchere extends HttpServlet {
 					utilisateurManager.updateUtilisateur(encherisseurPrecedent);
 				}
 				
-				//maj du vendeur
-				article.getVendeur().setCredit(article.getVendeur().getCredit()+maProposition);
-				utilisateurManager.updateUtilisateur(article.getVendeur());
+				//TODO maj du vendeur à faire après que la vente soit retirée
 				
 				//maj de l'article
 				article.setAcheteur(utilisateur);

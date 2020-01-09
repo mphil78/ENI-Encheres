@@ -50,6 +50,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+ "from ENCHERES "
 			+ "where no_article=? "
 			+ "order by montant_enchere desc";
+	private static final String sqlSelectGagnant =
+			"select no_acheteur" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_article=? and date_fin_encheres < GETDATE()";
+	
+	
 	@Override
 	public Utilisateur selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -201,7 +207,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("La suppression de l'utilisateur a �chou� - " + utilisateur.getNom(), e);
+			throw new DALException("La suppression de l'utilisateur a échoué - " + utilisateur.getNom(), e);
 		} finally {
 			try {
 				if (rqt != null){
@@ -435,20 +441,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.setInt(1, article.getNoArticle());
 			rs = rqt.executeQuery();
 			if (rs.next()){
-				meilleurEncherisseur = new Utilisateur(
-						rs.getInt("no_utilisateur"),
-						rs.getString("pseudo"),
-						rs.getString("nom"),
-						rs.getString("prenom"),
-						rs.getString("email"),
-						rs.getString("telephone"),
-						rs.getString("rue"),
-						rs.getString("code_postal"),
-						rs.getString("ville"),
-						rs.getString("mot_de_passe"),
-						rs.getInt("credit"),
-						rs.getByte("administrateur")==0?false:true
-						);
+				meilleurEncherisseur = this.selectById(rs.getInt("no_utilisateur"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -469,6 +462,44 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 
 		return meilleurEncherisseur;
+	}
+
+	@Override
+	public Utilisateur selectGagnant(ArticleVendu article) throws DALException {
+		Utilisateur gagnant = null;
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectGagnant);
+			rqt.setInt(1, article.getNoArticle());
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				if (rs.getInt("no_utilisateur")!=article.getVendeur().getNoUtilisateur()) {
+					gagnant = this.selectById(rs.getInt("no_utilisateur"));					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return gagnant;
 	}
 	
 	

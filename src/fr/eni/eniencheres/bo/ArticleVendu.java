@@ -8,11 +8,10 @@ public class ArticleVendu {
 
 	//Attributs de classe
 	public static final int CREEE=0;
-	public static final int ENCOURS=1;
-	public static final int TERMINEE=2;
-	public static final int RETIREE=3;
-	public static final int ANNULEE=4;
-	public static final int PRIX_VENTE_INIT=0;
+//	public static final int ENCOURS=1;
+//	public static final int TERMINEE=2;
+	public static final int RETIREE=1;
+//	public static final int ANNULEE=4;
 	public static final int TOUTETAT=-1;
 
 

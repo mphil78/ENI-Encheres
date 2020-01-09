@@ -96,5 +96,13 @@ public interface UtilisateurDAO {
 	 * @return
 	 */
 	public Utilisateur selectMeilleurEncherisseurByArticle(ArticleVendu article) throws DALException;
+
+
+	/**
+	 * Retourne l'acquereur d'un article s'il existe, null sinon
+	 * @param email
+	 * @return
+	 */
+	public Utilisateur selectGagnant(ArticleVendu article) throws DALException;
 	
 }

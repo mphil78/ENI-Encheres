@@ -98,7 +98,7 @@ public class TraitementAccueil extends HttpServlet {
 			listeArticles = articleManager.getArticlesByMotCleAndCate(motCle, categorie);
 
 		} else {
-			if (!motCle.equals("")) {
+			if (!motCle.equals("")||categorie>-1) {
 				listeArticles = articleManager.getArticlesByMotCleAndCate(motCle, categorie);
 			} else {
 				String pseudo = (String) session.getAttribute("pseudo");

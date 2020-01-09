@@ -1,6 +1,5 @@
 package fr.eni.eniencheres.bll;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,36 +141,6 @@ public class ArticleManager {
 		return listeArticles;
 	}
 
-	
-	public void majArticlesBDD() {
-		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-		listeArticles = getAllArticles();
-		for (ArticleVendu article : listeArticles) {
-			if (article.getEtatVente()!=ArticleVendu.ANNULEE && article.getEtatVente()!=ArticleVendu.RETIREE) 
-			{			
-				if (LocalDate.now().isAfter(article.getDateFinEncheres()) || LocalDate.now().isEqual(article.getDateFinEncheres())) 
-				{
-					article.setEtatVente(ArticleVendu.TERMINEE);
-				} 
-				else 
-				{
-					if (LocalDate.now().isAfter(article.getDateDebutEncheres()) || LocalDate.now().isEqual(article.getDateDebutEncheres())) 
-					{
-						article.setEtatVente(ArticleVendu.ENCOURS);
-					} 
-					else 
-					{
-						article.setEtatVente(ArticleVendu.CREEE);
-					}
-				}
-			}
-			try {
-				articleDAO.update(article);
-			} catch (DALException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	public List<ArticleVendu> getVentesEnCoursByPseudo(String pseudo) {
 		List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
@@ -244,6 +213,15 @@ public class ArticleManager {
 			e.printStackTrace();
 		}
 		return achatsRemportees;
+	}
+
+	public void majEtatVente(ArticleVendu articleAAfficher) {
+		try {
+			articleDAO.updateEtatVente(articleAAfficher);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	

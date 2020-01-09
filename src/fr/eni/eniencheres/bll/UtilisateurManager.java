@@ -179,5 +179,26 @@ public class UtilisateurManager {
 	}	
 	
 	
+	public void acheterCredit(Utilisateur utilisateur, int credit) {
+		utilisateur.setCredit(utilisateur.getCredit()+credit);
+		this.updateUtilisateur(utilisateur);
+	}
+
+	public Utilisateur isRemporte(ArticleVendu article) {
+		Utilisateur gagnant = null;
+		try {
+			gagnant = utilisateurDAO.selectGagnant(article);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gagnant;
+	}
+
+	public boolean isActif(Utilisateur utilisateur) {
+		boolean actif = false;
+		return false;
+	}
+	
 }
 

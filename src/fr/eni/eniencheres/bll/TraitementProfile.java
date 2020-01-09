@@ -62,6 +62,13 @@ public class TraitementProfile extends HttpServlet {
 		if (supprimer) {
 			String pseudoASupprimer = (String) request.getParameter("pseudoASupprimer");
 			utilisateur = utilisateurManager.getByPseudo(pseudoASupprimer);
+			if (utilisateurManager.isActif(utilisateur)) {
+				
+				//TODO récupération des donnees de vente et d'achat de l'utilisateur pour tester si suppression possible
+				System.out.println("effacer utilisateur : " + utilisateur.getNom());
+				utilisateurManager.delete(utilisateur);
+			}
+			//TODO récupération des donnees de vente et d'achat de l'utilisateur pour tester si suppression possible
 			System.out.println("effacer utilisateur : " + utilisateur.getNom());
 			utilisateurManager.delete(utilisateur);
 			RequestDispatcher rd = request.getRequestDispatcher("/TraitementConnexion");
@@ -190,6 +197,7 @@ public class TraitementProfile extends HttpServlet {
 					utilisateurModifie.setRue(request.getParameter("rue"));
 					utilisateurModifie.setCodePostal(request.getParameter("codePostal"));
 					utilisateurModifie.setVille(request.getParameter("ville"));
+					utilisateurModifie.setCredit(Integer.parseInt(request.getParameter("credit")));
 					if (!request.getParameter("password4").equals("")) {
 						utilisateurModifie.setMotDePasse(UtilisateurManager.hash(request.getParameter("password4")));
 					}
