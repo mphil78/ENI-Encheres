@@ -174,7 +174,7 @@
 							<c:when test="${artAffich.etatVente==0}">
 								<div class="row">
 									<div class="col-sm-6">
-										<a href="./TraitementEnchere?retirer=true">
+										<a href="./TraitementEnchere?idArticle=${artAffich.noArticle}&retirer=true">
 											<button class="btn btn-primary btn-block btn-lg mt-5">Confirmer la réception</button>
 										</a>
 									</div>
