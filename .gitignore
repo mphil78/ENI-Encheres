@@ -16,3 +16,12 @@ target/cargo/configurations/tomcat9x/conf/catalina.properties
 WebContent/WEB-INF/jsp/connexion.jsp.old
 WebContent/WEB-INF/jsp/Aciennes jsp/connexion.jsp.old1
 WebContent/WEB-INF/jsp/connexion.jsp.old
+WebContent/WEB-INF/jsp/Aciennes jsp/afficherProfile.jsp.old
+WebContent/WEB-INF/jsp/Aciennes jsp/connexion.jsp.old
+WebContent/WEB-INF/jsp/Aciennes jsp/detailVente.jsp.old
+WebContent/WEB-INF/jsp/Aciennes jsp/detailVente.jsp.old1
+WebContent/WEB-INF/jsp/Aciennes jsp/listeEncheres.jsp.old
+WebContent/WEB-INF/jsp/Aciennes jsp/monProfile.jsp.old
+WebContent/WEB-INF/jsp/connexion.jsp.old
+WebContent/WEB-INF/jsp/detailVente.jsp.old
+WebContent/WEB-INF/jsp/monProfile.jsp.old
