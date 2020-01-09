@@ -81,6 +81,7 @@
 									<label class="col-4" for="nom">Nom : </label>
 									<div class="col-8">
 										<input class="form-control" type="text" name="nom" id="nom" 
+
 											required><br>
 									</div>
 								</div>
@@ -94,6 +95,7 @@
 									<div class="col-8">
 										<input class="form-control" type="text" name="prenom"
 											id="prenom"  required>
+
 									</div>
 								</div>
 							</div>
@@ -124,7 +126,9 @@
 								<div class="row">
 									<label class="col-4" for="rue">Rue : </label>
 									<div class="col-8">
+
 										<input class="form-control" type="text" name="rue" id="rue" 
+
 											required><br>
 									</div>
 								</div>
@@ -137,7 +141,9 @@
 									<label class="col-4" for="codePostal">Code Postal : </label>
 									<div class="col-8">
 										<input class="form-control" type="number" name="codePostal"
+
 											id="codePostal" min="01000" max="98890"  required>
+
 									</div>
 								</div>
 							</div>
