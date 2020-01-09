@@ -71,7 +71,7 @@
 									<label class="col-4" for="pseudo">Pseudo : </label>
 									<div class="col-8">
 										<input class="form-control" type="text" name="pseudo"
-											id="pseudo" pattern="[A-Z][0-9]" required>
+											id="pseudo" required>
 									</div>
 								</div>
 							</div>
@@ -80,7 +80,7 @@
 								<div class="row">
 									<label class="col-4" for="nom">Nom : </label>
 									<div class="col-8">
-										<input class="form-control" type="text" name="nom" id="nom" pattern="[A-Z]"
+										<input class="form-control" type="text" name="nom" id="nom" 
 											required><br>
 									</div>
 								</div>
@@ -93,7 +93,7 @@
 									<label class="col-4" for="prenom">Prénom : </label>
 									<div class="col-8">
 										<input class="form-control" type="text" name="prenom"
-											id="prenom" pattern="[A-Z]" required>
+											id="prenom"  required>
 									</div>
 								</div>
 							</div>
@@ -115,7 +115,7 @@
 									<label class="col-4" for="telephone">Téléphone : </label>
 									<div class="col-8">
 										<input class="form-control" type="tel" name="telephone"
-											id="telephone" pattern="[0-9] {10}" required>
+											id="telephone"  required>
 									</div>
 								</div>
 							</div>
@@ -124,7 +124,7 @@
 								<div class="row">
 									<label class="col-4" for="rue">Rue : </label>
 									<div class="col-8">
-										<input class="form-control" type="text" name="rue" id="rue" pattern="[A-Z][0-9]"
+										<input class="form-control" type="text" name="rue" id="rue" 
 											required><br>
 									</div>
 								</div>
@@ -137,7 +137,7 @@
 									<label class="col-4" for="codePostal">Code Postal : </label>
 									<div class="col-8">
 										<input class="form-control" type="number" name="codePostal"
-											id="codePostal" min="01000" max="98890" pattern="[0-9]" required>
+											id="codePostal" min="01000" max="98890"  required>
 									</div>
 								</div>
 							</div>
@@ -342,7 +342,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="row mt-5">
 							<div class="col-4">
 								<button class="btn btn-primary btn-block" type="submit"
@@ -360,9 +360,9 @@
 										class="btn btn-primary btn-block" type="button"
 										name="retourAccueil" id="retourAccueil">Retour à
 										l'accueil</button></a>
-							</div>
+							</div>						
 						</div>
-
+						<div class="text-danger text-center"><br>${requestScope.erreurSuppression}</div>
 					</form>
 				</c:when>
 			</c:choose>

@@ -104,5 +104,26 @@ public interface UtilisateurDAO {
 	 * @return
 	 */
 	public Utilisateur selectGagnant(ArticleVendu article) throws DALException;
+
+	/**
+	 * Retourne true si l'utilisateur est encore impliqué dans une enchere, false sinon
+	 * @param utilisateur
+	 * @return
+	 */
+	public boolean isActive(Utilisateur utilisateur) throws DALException;
 	
+	/**
+	 * Envoie la liste des meilleurs enchérisseurs d'articles non retirés.
+	 * @return
+	 * @throws DALException
+	 */
+	public boolean isMeilleurEncherisseurArticlesNonRetires(Utilisateur utilisateur) throws DALException;
+	
+	/**
+	 * Liste les articles d'un vendeur qui ne son pas retirés
+	 * @param vendeur
+	 * @return
+	 * @throws DALException
+	 */
+	public boolean haveArticlesEnVenteNonRetires(Utilisateur vendeur) throws DALException;
 }

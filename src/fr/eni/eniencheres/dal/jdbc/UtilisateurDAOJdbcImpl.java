@@ -54,7 +54,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			"select no_acheteur" 
 			+" from ARTICLES_VENDUS"
 			+ " where no_article=? and date_fin_encheres < GETDATE()";
-	
+	private static final String sqlIsMeilleurEncherisseurArticlesNonRetires =
+			"select no_article" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_acheteur=? and no_acheteur<>no_vendeur and etat_vente=0";
+	private static final String sqlHaveArticlesEnVenteNonRetires =
+			"select no_article" 
+			+" from ARTICLES_VENDUS"
+			+ " where no_vendeur=? and etat_vente=0";
 	
 	@Override
 	public Utilisateur selectById(int id) throws DALException {
@@ -501,6 +508,83 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 		return gagnant;
 	}
+
+	@Override
+	public boolean isActive(Utilisateur utilisateur) throws DALException {
+		boolean actif=false;
+		if (isMeilleurEncherisseurArticlesNonRetires(utilisateur) || haveArticlesEnVenteNonRetires(utilisateur)) {
+			actif=true;
+		}
+		return actif;
+	}
+
+	@Override
+	public boolean isMeilleurEncherisseurArticlesNonRetires(Utilisateur utilisateur) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		boolean resultat = false;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlIsMeilleurEncherisseurArticlesNonRetires);
+			rqt.setInt(1, utilisateur.getNoUtilisateur());
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				resultat = true;
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectAll failed - " , e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultat;
+	}
+
+	@Override
+	public boolean haveArticlesEnVenteNonRetires(Utilisateur vendeur) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		boolean resultat = false;
+		try {
+			cnx = ConnectionProvider.getConnection();
+			rqt = cnx.prepareStatement(sqlHaveArticlesEnVenteNonRetires);
+			rqt.setInt(1, vendeur.getNoUtilisateur());
+			rs = rqt.executeQuery();
+			if (rs.next()){
+				resultat = true;
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectAll failed - " , e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultat;
+		}
 	
 	
 }

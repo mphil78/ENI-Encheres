@@ -195,9 +195,15 @@ public class UtilisateurManager {
 		return gagnant;
 	}
 
-	public boolean isActif(Utilisateur utilisateur) {
+	public boolean estActif(Utilisateur utilisateur) {
 		boolean actif = false;
-		return false;
+			try {
+				actif = utilisateurDAO.isActive(utilisateur);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return actif;
 	}
 	
 }
