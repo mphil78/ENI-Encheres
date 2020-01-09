@@ -4,11 +4,19 @@
  --%><!doctype html>
 <html lang="fr">
   <head>
+  
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <title>Connexion</title>
+  	   <style>
+  	   
+h2 {
+  text-shadow: 2px 2px #FF0000;
+}
+</style>
+
   </head>
   
    <body>
@@ -21,16 +29,18 @@
 		</div>
 			
 		
-		<c:if test="${ !empty requestScope.erreurConnexion }">
-			<p class="text-danger">${erreurConnexion}</p>
-		</c:if>
-		
 		   
 	   <div class="container">
-	   <div class="col-md-8 offset-md-4"><h2>Bienvenue à ENI Enchères !</h2></div>
+
+<div class="col-md-8 offset-md-3"><h1>Bienvenue à ENI Enchères !</h1></div>
+	   
 	   		<div class="row">
 	   			<div class="col-md-8 offset-md-2"> 
 	   				<div class="jumbotron"> 
+	   				<c:if test="${ !empty requestScope.erreurConnexion }">
+			<p class="text-danger">${erreurConnexion}</p>
+		</c:if>
+		
 	   			   		<form name="formulaire" action="./TraitementConnexion" method="post">    	
 							<div class="form-group row">
 					    		<label for="identifiant" class="col-3 ">Identifiant</label>
