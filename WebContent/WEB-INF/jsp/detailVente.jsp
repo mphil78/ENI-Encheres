@@ -183,7 +183,7 @@
 							<c:when test="${artAffich.etatVente==1}">
 								<div class="row">
 										<div class="col-sm-6">
-											<h3 style="color:red;">Vous avez confirmé la bonne réception de l'article.</h3>
+											<h5 style="color:green;">Vous avez confirmé la bonne réception de l'article.</h5>
 										</div>
 									</div>
 							</c:when>
