@@ -477,8 +477,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			rqt.setInt(1, article.getNoArticle());
 			rs = rqt.executeQuery();
 			if (rs.next()){
-				if (rs.getInt("no_utilisateur")!=article.getVendeur().getNoUtilisateur()) {
-					gagnant = this.selectById(rs.getInt("no_utilisateur"));					
+				if (rs.getInt("no_acheteur")!=article.getVendeur().getNoUtilisateur()) {
+					gagnant = this.selectById(rs.getInt("no_acheteur"));					
 				}
 			}
 		} catch (SQLException e) {

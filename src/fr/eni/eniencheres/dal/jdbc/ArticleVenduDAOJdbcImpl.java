@@ -48,7 +48,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String sqlSelectVenteTermineesByPseudo =
 			"select *" 
 			+" from ARTICLES_VENDUS"
-			+ " where no_vendeur = ? and date_fin_encheres < GETDATE() AND etat_vente=0";
+			+ " where no_vendeur = ? and date_fin_encheres < GETDATE()";
 	private static final String sqlSelectVenteByPseudo =
 			"select *" 
 			+" from ARTICLES_VENDUS"
