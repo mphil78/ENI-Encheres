@@ -314,7 +314,7 @@
 										Passe: </label>
 									<div class="col-8">
 										<input class="form-control" type="password" name="password4"
-											id="password4" required>
+											id="password4"> <!-- required> -->
 
 									</div>
 								</div>
@@ -325,7 +325,7 @@
 									<label class="col-4" for="password5">Confirmation : </label>
 									<div class="col-8">
 										<input class="form-control" type="password" name="password5"
-											id="password5" required><br>
+											id="password5"> <!-- required> --><br>
 									</div>
 								</div>
 							</div>
@@ -336,8 +336,8 @@
 								<div class="row">
 									<label class="col-4" for="credit">Crédit : </label>
 									<div class="col-8">
-										<input class="form-control" type="text" name="credit"
-											value="${utilisateur.credit}" disabled>
+										<input class="form-control" type="number" name="credit"
+											value="${utilisateur.credit}"> <!-- disabled> -->
 									</div>
 								</div>
 							</div>
