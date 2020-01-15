@@ -40,7 +40,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			"select * from ARTICLES_VENDUS "
 			+ "inner join ENCHERES "
 			+ "on ARTICLES_VENDUS.no_article=ENCHERES.no_article "
-			+ "where (ENCHERES.no_utilisateur=? and ARTICLES_VENDUS.date_fin_encheres < GETDATE()  and ARTICLES_VENDUS.etat_vente=0)";
+			+ "where (ENCHERES.no_utilisateur=? and ARTICLES_VENDUS.date_fin_encheres < GETDATE())";
 	private static final String sqlSelectVenteNonDebuteesByPseudo =
 			"select *" 
 			+" from ARTICLES_VENDUS"
